@@ -17,4 +17,4 @@ public:
     bool recibirDisparo(Celda& celda);
 };
 
-#endif // BARCO_H
+#endif 

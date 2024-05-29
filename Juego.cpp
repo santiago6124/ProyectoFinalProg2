@@ -1,6 +1,6 @@
 #include "Juego.h"
 
-Juego::Juego(const Jugador& j1, const Jugador& j2) 
+Juego::Juego( Jugador& j1,  Jugador& j2) 
     : jugador1(j1), jugador2(j2), turnoActual(&jugador1), estado("En curso") {}
 
 void Juego::iniciar() {
@@ -11,7 +11,7 @@ void Juego::turno() {
     // Implementar la lógica para manejar los turnos del juego
 }
 
-Jugador Juego::comprobarVictoria() const {
+Jugador Juego::comprobarVictoria()  {
     // Implementar la lógica para comprobar si hay un ganador
     return *turnoActual;
 }

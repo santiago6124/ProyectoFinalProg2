@@ -14,7 +14,7 @@ public:
     Celda(int x, int y) : x(x), y(y), barco(nullptr), golpeado(false) {}
     
     bool recibirDisparo();
-    bool estaVacia() const;
+    bool estaVacia() ;
 };
 
-#endif // CELDA_H
+#endif 

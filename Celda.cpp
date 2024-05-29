@@ -9,6 +9,6 @@ bool Celda::recibirDisparo() {
     return false;
 }
 
-bool Celda::estaVacia() const {
+bool Celda::estaVacia()  {
     return barco == nullptr;
 }

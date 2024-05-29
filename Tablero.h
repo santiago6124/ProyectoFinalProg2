@@ -21,4 +21,4 @@ public:
     void mostrar();
 };
 
-#endif // TABLERO_H
+#endif

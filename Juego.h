@@ -11,11 +11,11 @@ private:
     std::string estado;
 
 public:
-    Juego(const Jugador& j1, const Jugador& j2);
+    Juego( Jugador& j1,  Jugador& j2);
 
     void iniciar();
     void turno();
-    Jugador comprobarVictoria() const;
+    Jugador comprobarVictoria() ;
 };
 
-#endif // JUEGO_H
+#endif 

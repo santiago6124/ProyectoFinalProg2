@@ -1,10 +1,13 @@
 #include "Juego.h"
+#include <iostream>
+#include <fstream>
+#include <algorithm>
 
-Juego::Juego(Jugador& j1, Jugador& j2) : jugador1(j1), jugador2(j2), turnoActual(&j1), estado("iniciado") {}
+Juego::Juego(Jugador& j1, Jugador& j2) : jugador1(&j1), jugador2(&j2), turnoActual(&j1), estado("iniciado") {}
 
 void Juego::iniciar() {
-    jugador1.colocarBarcos();
-    jugador2.colocarBarcos();
+    jugador1->colocarBarcos();
+    jugador2->colocarBarcos();
 }
 
 void Juego::turno() {
@@ -18,7 +21,7 @@ void Juego::turno() {
             estado = "terminado";
         }
     }
-    turnoActual = (turnoActual == &jugador1) ? &jugador2 : &jugador1;
+    turnoActual = (turnoActual == jugador1) ? jugador2 : jugador1;
 }
 
 Jugador* Juego::comprobarVictoria() {
@@ -26,4 +29,28 @@ Jugador* Juego::comprobarVictoria() {
         return turnoActual;
     }
     return nullptr;
+}
+
+void Juego::guardarRanking(const std::string& filename, const std::vector<std::pair<std::string, int>>& ranking) {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        for (const auto& entry : ranking) {
+            file << entry.first << " " << entry.second << std::endl;
+        }
+        file.close();
+    }
+}
+
+std::vector<std::pair<std::string, int>> Juego::cargarRanking(const std::string& filename) {
+    std::vector<std::pair<std::string, int>> ranking;
+    std::ifstream file(filename);
+    if (file.is_open()) {
+        std::string nombre;
+        int puntaje;
+        while (file >> nombre >> puntaje) {
+            ranking.emplace_back(nombre, puntaje);
+        }
+        file.close();
+    }
+    return ranking;
 }

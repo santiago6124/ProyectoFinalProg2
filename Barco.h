@@ -7,7 +7,7 @@
 class Barco {
 private:
     int tamaño;
-    std::vector<Celda> celdas;
+    std::vector<Celda*> celdas;
     bool hundido;
 
 public:
@@ -16,6 +16,7 @@ public:
     void colocar(Celda& celda, char orientacion);
     bool recibirDisparo(Celda& celda);
     bool isHundido() const;
+    int getTamaño() const;
 };
 
 #endif

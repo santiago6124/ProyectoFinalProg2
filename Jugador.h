@@ -20,6 +20,8 @@ public:
     std::string realizarDisparo(int x, int y);
     bool todosBarcosHundidos() const;
     std::string getNombre() const;
+    void guardarEstado(const std::string& filename);
+    void cargarEstado(const std::string& filename);
 };
 
 #endif

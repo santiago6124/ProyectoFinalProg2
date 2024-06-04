@@ -5,8 +5,8 @@
 
 class Juego {
 private:
-    Jugador jugador1;
-    Jugador jugador2;
+    Jugador* jugador1;
+    Jugador* jugador2;
     Jugador* turnoActual;
     std::string estado;
 
@@ -16,6 +16,8 @@ public:
     void iniciar();
     void turno();
     Jugador* comprobarVictoria();
+    void guardarRanking(const std::string& filename, const std::vector<std::pair<std::string, int>>& ranking);
+    std::vector<std::pair<std::string, int>> cargarRanking(const std::string& filename);
 };
 
 #endif

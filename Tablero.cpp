@@ -11,7 +11,7 @@ Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
 bool Tablero::colocarBarco(Barco& barco, int x, int y, char orientacion) {
     std::vector<Celda*> celdasParaBarco;
 
-    for (int i = 0; i < barco.getTamaño(); ++i) {
+    for (int i = 0; i < barco.getTamanio(); ++i) {
         int newX = (orientacion == 'H') ? x : x + i;
         int newY = (orientacion == 'H') ? y + i : y;
         

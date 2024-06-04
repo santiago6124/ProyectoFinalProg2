@@ -10,15 +10,15 @@ Jugador::Jugador(const std::string& nombre, int filas, int columnas)
 
 void Jugador::colocarBarcos() {
     for (int i = 0; i < 10; ++i) {
-        int tamaño = i < 4 ? 1 : (i < 7 ? 2 : (i < 9 ? 3 : 4));
+        int tamanio = i < 4 ? 1 : (i < 7 ? 2 : (i < 9 ? 3 : 4));
         char orientacion;
         std::string coord;
         int x, y;
-        std::cout << nombre << ", introduce la coordenada inicial y orientación (H/V) para el barco de tamaño " << tamaño << ": ";
+        std::cout << nombre << ", introduce la coordenada inicial y orientación (H/V) para el barco de tamanio " << tamanio << ": ";
         std::cin >> coord >> orientacion;
         x = coord[0] - 'A';
         y = std::stoi(coord.substr(1)) - 1;
-        Barco barco(tamaño);
+        Barco barco(tamanio);
         while (!tableroPropio.colocarBarco(barco, x, y, orientacion)) {
             std::cout << "No se puede colocar el barco aquí. Intenta de nuevo: ";
             std::cin >> coord >> orientacion;
@@ -34,10 +34,10 @@ void Jugador::colocarBarcos() {
 void Jugador::colocarBarcosAleatoriamente() {
     // Método para colocar barcos aleatoriamente
     for (int i = 0; i < 10; ++i) {
-        int tamaño = i < 4 ? 1 : (i < 7 ? 2 : (i < 9 ? 3 : 4));
+        int tamanio = i < 4 ? 1 : (i < 7 ? 2 : (i < 9 ? 3 : 4));
         char orientacion = std::rand() % 2 == 0 ? 'H' : 'V';
         int x, y;
-        Barco barco(tamaño);
+        Barco barco(tamanio);
         do {
             x = std::rand() % tableroPropio.getFilas();
             y = std::rand() % tableroPropio.getColumnas();

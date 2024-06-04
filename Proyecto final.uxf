@@ -11,7 +11,7 @@
     </coordinates>
     <panel_attributes>Barco
 --
-- tamaño: int  
+- tamanio: int  
 - celdas: list 
 - hundido: bool
 --

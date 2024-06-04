@@ -6,17 +6,17 @@
 
 class Barco {
 private:
-    int tamaño;
+    int tamanio;
     std::vector<Celda*> celdas;
     bool hundido;
 
 public:
-    Barco(int tamaño);
+    Barco(int tamanio);
 
   void colocar(const std::vector<Celda*>& celdas);
     bool recibirDisparo(Celda& celda);
     bool isHundido() const;
-    int getTamaño() const;
+    int getTamanio() const;
 };
 
 #endif

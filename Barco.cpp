@@ -1,6 +1,6 @@
 #include "Barco.h"
 
-Barco::Barco(int tamaño) : tamaño(tamaño), hundido(false) {}
+Barco::Barco(int tamanio) : tamanio(tamanio), hundido(false) {}
 
 void Barco::colocar(const std::vector<Celda*>& celdas) {
     this->celdas = celdas;
@@ -28,7 +28,7 @@ bool Barco::isHundido() const {
     return hundido;
 }
 
-int Barco::getTamaño() const {
-    return tamaño;
+int Barco::getTamanio() const {
+    return tamanio;
 }
 

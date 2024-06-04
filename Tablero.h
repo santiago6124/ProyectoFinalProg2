@@ -2,6 +2,7 @@
 #define TABLERO_H
 
 #include <vector>
+#include <string>
 #include "Celda.h"
 #include "Barco.h"
 #include <iostream>
@@ -18,7 +19,10 @@ public:
 
     bool colocarBarco(Barco& barco, int x, int y, char orientacion);
     std::string recibirDisparo(int x, int y);
-    void mostrar();
+    void mostrar() const;
+    std::string coordenadaATexto(int x, int y) const;
+    int getFilas() const { return filas; }
+    int getColumnas() const { return columnas; }
 };
 
 #endif

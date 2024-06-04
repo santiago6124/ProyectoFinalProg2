@@ -27,10 +27,16 @@ std::string Tablero::recibirDisparo(int x, int y) {
     return "¡Agua!";
 }
 
-void Tablero::mostrar() {
+void Tablero::mostrar() const {
+    std::cout << "  ";
+    for (int j = 0; j < columnas; ++j) {
+        std::cout << j + 1 << " ";
+    }
+    std::cout << std::endl;
     for (int i = 0; i < filas; ++i) {
+        std::cout << static_cast<char>('A' + i) << " ";
         for (int j = 0; j < columnas; ++j) {
-            Celda& celda = celdas[i * columnas + j];
+            const Celda& celda = celdas[i * columnas + j];
             if (celda.estaVacia()) {
                 std::cout << "~ ";
             } else if (celda.isGolpeado()) {
@@ -41,4 +47,8 @@ void Tablero::mostrar() {
         }
         std::cout << std::endl;
     }
+}
+
+std::string Tablero::coordenadaATexto(int x, int y) const {
+    return std::string(1, 'A' + x) + std::to_string(y + 1);
 }

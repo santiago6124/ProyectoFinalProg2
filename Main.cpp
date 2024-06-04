@@ -13,9 +13,17 @@ int main() {
     mostrarMenu();
     std::cin >> opcion;
 
+    int filas, columnas;
+    std::cout << "Ingrese el tamaño del tablero (mínimo 10x10): ";
+    std::cin >> filas >> columnas;
+    if (filas < 10 || columnas < 10) {
+        std::cout << "Tamaño mínimo del tablero es 10x10." << std::endl;
+        return 1;
+    }
+
     if (opcion == 1) {
-        Jugador jugador1("Jugador 1", 10, 10);
-        Jugador maquina("Máquina", 10, 10);
+        Jugador jugador1("Jugador 1", filas, columnas);
+        Jugador maquina("Máquina", filas, columnas);
         Juego juego(jugador1, maquina);
         juego.iniciar();
         while (true) {
@@ -27,8 +35,8 @@ int main() {
             }
         }
     } else if (opcion == 2) {
-        Jugador jugador1("Jugador 1", 10, 10);
-        Jugador jugador2("Jugador 2", 10, 10);
+        Jugador jugador1("Jugador 1", filas, columnas);
+        Jugador jugador2("Jugador 2", filas, columnas);
         Juego juego(jugador1, jugador2);
         juego.iniciar();
         while (true) {
@@ -40,8 +48,9 @@ int main() {
             }
         }
     } else if (opcion == 3) {
-        // Cargar y mostrar ranking
-        Juego juego(Jugador("temp1", 10, 10), Jugador("temp2", 10, 10)); // Crear una instancia temporal de Juego
+        Jugador temp1("temp1", filas, columnas);
+        Jugador temp2("temp2", filas, columnas);
+        Juego juego(temp1, temp2);
         auto ranking = juego.cargarRanking("ranking.txt");
         std::cout << "Ranking de jugadores:" << std::endl;
         for (const auto& entry : ranking) {

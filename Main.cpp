@@ -16,7 +16,7 @@ int main() {
     int filas, columnas;
     std::cout << "Ingrese el tamanio del tablero (minimo 10x10): ";
     std::cin >> filas >> columnas;
-    if (filas < 10 || columnas < 10) {
+    if (filas < 5 || columnas < 5) {
         std::cout << "Tamanio minimo del tablero es 10x10." << std::endl;
         return 1;
     }

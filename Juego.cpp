@@ -28,22 +28,38 @@ void Juego::turno() {
         std::cin >> coord;
         x = coord[0] - 'A';
         y = std::stoi(coord.substr(1)) - 1;
-        resultado = turnoActual->realizarDisparo(x, y);
+
+        // Validación de límites
+        if (x < 0 || x >= jugador2->getTableroPropio().getFilas() || y < 0 || y >= jugador2->getTableroPropio().getColumnas()) {
+            std::cout << "Coordenadas fuera de los límites. Intenta de nuevo." << std::endl;
+            return; // Salir del método y esperar la siguiente entrada
+        }
+
+        resultado = jugador2->getTableroPropio().recibirDisparo(x, y);
     } else {
         std::tie(x, y) = jugador2->dispararAleatoriamente();
-        std::cout << "La maquina dispara a " << jugador2->getTableroPropio().coordenadaATexto(x, y) << std::endl;
-        resultado = turnoActual->realizarDisparo(x, y);
+        std::cout << "La maquina dispara a " << jugador1->getTableroPropio().coordenadaATexto(x, y) << std::endl;
+        
+        // Validación de límites
+        if (x < 0 || x >= jugador1->getTableroPropio().getFilas() || y < 0 || y >= jugador1->getTableroPropio().getColumnas()) {
+            std::cout << "Error en las coordenadas disparadas por la máquina. Intentando de nuevo." << std::endl;
+            return; // Salir del método y esperar la siguiente acción
+        }
+
+        resultado = jugador1->getTableroPropio().recibirDisparo(x, y);
     }
 
     std::cout << resultado << std::endl;
 
     std::cout << jugador1->getNombre() << "'s Tablero Propio:" << std::endl;
-    jugador1->getTableroPropio().mostrar(); // Mostrar el tablero con las marcas de agua y barcos golpeados
+    jugador1->getTableroPropio().mostrarPropio();
     std::cout << jugador2->getNombre() << "'s Tablero Propio:" << std::endl;
-    jugador2->getTableroPropio().mostrar(); // Mostrar el tablero con las marcas de agua y barcos golpeados
-
+    jugador2->getTableroPropio().mostrar();
+    
     turnoActual = (turnoActual == jugador1) ? jugador2 : jugador1;
 }
+
+
 
 Jugador* Juego::comprobarVictoria() {
     if (jugador1->todosBarcosHundidos()) {

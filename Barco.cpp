@@ -8,16 +8,9 @@ void Barco::colocar(const std::vector<Celda*>& celdas) {
 
 
 bool Barco::recibirDisparo(Celda& celda) {
-    for (auto& c : celdas) {
+    for (Celda* c : celdas) {
         if (c->getX() == celda.getX() && c->getY() == celda.getY()) {
             c->recibirDisparo();
-            hundido = true;
-            for (auto& cell : celdas) {
-                if (!cell->isGolpeado()) {
-                    hundido = false;
-                    break;
-                }
-            }
             return true;
         }
     }

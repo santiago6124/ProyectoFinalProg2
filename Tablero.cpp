@@ -1,3 +1,4 @@
+// Tablero.cpp
 #include "Tablero.h"
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
@@ -32,8 +33,17 @@ bool Tablero::colocarBarco(Barco& barco, int x, int y, char orientacion) {
 }
 
 std::string Tablero::recibirDisparo(int x, int y) {
+    if (x < 0 || x >= filas || y < 0 || y >= columnas) {
+        return "Coordenadas fuera de los límites.";
+    }
+
     Celda& celda = celdas[x * columnas + y];
-    if (celda.recibirDisparo()) {
+    if (celda.isGolpeado()) {
+        return "¡Ya disparaste a esta posición!";
+    }
+
+    bool golpeado = celda.recibirDisparo();
+    if (golpeado) {
         for (auto& barco : barcos) {
             if (barco.recibirDisparo(celda)) {
                 return barco.isHundido() ? "¡Hundido!" : "¡Tocado!";
@@ -42,6 +52,7 @@ std::string Tablero::recibirDisparo(int x, int y) {
     }
     return "¡Agua!";
 }
+
 
 void Tablero::mostrar() const {
     std::cout << "  ";
@@ -78,7 +89,11 @@ void Tablero::mostrarPropio() const {
         for (int j = 0; j < columnas; ++j) {
             const Celda& celda = celdas[i * columnas + j];
             if (celda.isGolpeado()) {
-                std::cout << "X ";
+                if (celda.estaVacia()) {
+                    std::cout << "a "; // Marca de agua
+                } else {
+                    std::cout << "X "; // Marca de golpe a un barco
+                }
             } else if (celda.tieneBarco()) {
                 std::cout << "B ";
             } else {

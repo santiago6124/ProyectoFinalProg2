@@ -1,11 +1,12 @@
 #include "Jugador.h"
-#include <cstdlib>
 #include <ctime>
+#include <cstdlib>
+
 #include <iostream>
 
 Jugador::Jugador(const std::string& nombre, int filas, int columnas) 
     : nombre(nombre), tableroPropio(filas, columnas), tableroRival(filas, columnas) {
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    srand(static_cast<unsigned int>(time(0)));  // Inicializar el generador de números aleatorios
 }
 
 void Jugador::colocarBarcos() {
@@ -47,13 +48,14 @@ void Jugador::colocarBarcosAleatoriamente() {
 }
 
 
+
 std::string Jugador::realizarDisparo(int x, int y) {
     return tableroRival.recibirDisparo(x, y);
 }
 
 std::pair<int, int> Jugador::dispararAleatoriamente() {
-    int x = std::rand() % tableroRival.getFilas();
-    int y = std::rand() % tableroRival.getColumnas();
+    int x = rand() % tableroPropio.getFilas();
+    int y = rand() % tableroPropio.getColumnas();
     return {x, y};
 }
 

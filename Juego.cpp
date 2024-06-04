@@ -11,7 +11,7 @@ void Juego::iniciar() {
     jugador1->colocarBarcos();
     
     if (jugador2->getNombre() == "Maquina") {
-        std::cout << jugador2->getNombre() << ", la maquina colocara sus barcos automaticamente." << std::endl;
+        std::cout << jugador2->getNombre() << ", la máquina colocará sus barcos automáticamente." << std::endl;
         jugador2->colocarBarcosAleatoriamente();
     } else {
         std::cout << jugador2->getNombre() << ", coloca tus barcos:" << std::endl;
@@ -38,9 +38,9 @@ void Juego::turno() {
     std::cout << resultado << std::endl;
 
     std::cout << jugador1->getNombre() << "'s Tablero Propio:" << std::endl;
-    jugador1->getTableroPropio().mostrarPropio();
+    jugador1->getTableroPropio().mostrar(); // Mostrar el tablero con las marcas de agua y barcos golpeados
     std::cout << jugador2->getNombre() << "'s Tablero Propio:" << std::endl;
-    jugador2->getTableroPropio().mostrarPropio();
+    jugador2->getTableroPropio().mostrar(); // Mostrar el tablero con las marcas de agua y barcos golpeados
 
     turnoActual = (turnoActual == jugador1) ? jugador2 : jugador1;
 }

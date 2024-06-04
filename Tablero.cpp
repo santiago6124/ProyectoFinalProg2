@@ -55,17 +55,18 @@ void Tablero::mostrar() const {
             const Celda& celda = celdas[i * columnas + j];
             if (celda.isGolpeado()) {
                 if (celda.estaVacia()) {
-                    std::cout << "A ";
+                    std::cout << "a "; // Marca de agua
                 } else {
-                    std::cout << "X ";
+                    std::cout << "X "; // Marca de golpe a un barco
                 }
             } else {
-                std::cout << "~ ";
+                std::cout << "~ "; // Casilla sin golpear
             }
         }
         std::cout << std::endl;
     }
 }
+
 void Tablero::mostrarPropio() const {
     std::cout << "  ";
     for (int j = 0; j < columnas; ++j) {

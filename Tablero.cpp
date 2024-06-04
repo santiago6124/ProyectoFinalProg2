@@ -16,7 +16,7 @@ bool Tablero::colocarBarco(Barco& barco, int x, int y, char orientacion) {
         int newY = (orientacion == 'H') ? y + i : y;
         
         if (newX >= filas || newY >= columnas || !celdas[newX * columnas + newY].estaVacia()) {
-            return false; // No se puede colocar el barco aquí
+            return false; // No se puede colocar el barco aqui
         }
         
         celdasParaBarco.push_back(&celdas[newX * columnas + newY]);
@@ -55,7 +55,7 @@ void Tablero::mostrar() const {
             const Celda& celda = celdas[i * columnas + j];
             if (celda.isGolpeado()) {
                 if (celda.estaVacia()) {
-                    std::cout << "~ ";
+                    std::cout << "A ";
                 } else {
                     std::cout << "X ";
                 }

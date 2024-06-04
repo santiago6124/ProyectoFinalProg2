@@ -2,7 +2,7 @@
 #include "Juego.h"
 
 void mostrarMenu() {
-    std::cout << "1. Jugar contra la máquina" << std::endl;
+    std::cout << "1. Jugar contra la maquina" << std::endl;
     std::cout << "2. Jugar contra otro jugador" << std::endl;
     std::cout << "3. Ver ranking" << std::endl;
     std::cout << "4. Salir" << std::endl;
@@ -14,16 +14,16 @@ int main() {
     std::cin >> opcion;
 
     int filas, columnas;
-    std::cout << "Ingrese el tamanio del tablero (mínimo 10x10): ";
+    std::cout << "Ingrese el tamanio del tablero (minimo 10x10): ";
     std::cin >> filas >> columnas;
     if (filas < 10 || columnas < 10) {
-        std::cout << "Tamanio mínimo del tablero es 10x10." << std::endl;
+        std::cout << "Tamanio minimo del tablero es 10x10." << std::endl;
         return 1;
     }
 
     if (opcion == 1) {
         Jugador jugador1("Jugador 1", filas, columnas);
-        Jugador maquina("Máquina", filas, columnas);
+        Jugador maquina("Maquina", filas, columnas);
         Juego juego(jugador1, maquina);
         juego.iniciar();
         while (true) {

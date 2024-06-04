@@ -10,10 +10,14 @@ void Juego::iniciar() {
     std::cout << jugador1->getNombre() << ", coloca tus barcos:" << std::endl;
     jugador1->colocarBarcos();
     
-    std::cout << jugador2->getNombre() << ", coloca tus barcos:" << std::endl;
-    jugador2->colocarBarcos();
+    if (jugador2->getNombre() == "Maquina") {
+        std::cout << jugador2->getNombre() << ", la maquina colocara sus barcos automaticamente." << std::endl;
+        jugador2->colocarBarcosAleatoriamente();
+    } else {
+        std::cout << jugador2->getNombre() << ", coloca tus barcos:" << std::endl;
+        jugador2->colocarBarcos();
+    }
 }
-
 
 void Juego::turno() {
     int x, y;
@@ -27,7 +31,7 @@ void Juego::turno() {
         resultado = turnoActual->realizarDisparo(x, y);
     } else {
         std::tie(x, y) = jugador2->dispararAleatoriamente();
-        std::cout << "La máquina dispara a " << jugador2->getTableroPropio().coordenadaATexto(x, y) << std::endl;
+        std::cout << "La maquina dispara a " << jugador2->getTableroPropio().coordenadaATexto(x, y) << std::endl;
         resultado = turnoActual->realizarDisparo(x, y);
     }
 

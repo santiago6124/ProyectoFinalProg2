@@ -1,8 +1,6 @@
 #include "Tablero.h"
-#include <iostream>
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
-    // Inicializar las celdas
     for (int i = 0; i < filas; ++i) {
         for (int j = 0; j < columnas; ++j) {
             celdas.push_back(Celda(i, j));
@@ -11,15 +9,36 @@ Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
 }
 
 bool Tablero::colocarBarco(Barco& barco, int x, int y, char orientacion) {
-    // Implementar la lógica para colocar el barco
+    Celda& celdaInicial = celdas[x * columnas + y];
+    barco.colocar(celdaInicial, orientacion);
+    barcos.push_back(barco);
     return true;
 }
 
 std::string Tablero::recibirDisparo(int x, int y) {
-    // Implementar la lógica para recibir un disparo
-    return "Miss"; // O "Hit", según el resultado
+    Celda& celda = celdas[x * columnas + y];
+    if (celda.recibirDisparo()) {
+        for (auto& barco : barcos) {
+            if (barco.recibirDisparo(celda)) {
+                return barco.isHundido() ? "¡Hundido!" : "¡Tocado!";
+            }
+        }
+    }
+    return "¡Agua!";
 }
 
 void Tablero::mostrar() {
-    // Implementar la lógica para mostrar el tablero
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            Celda& celda = celdas[i * columnas + j];
+            if (celda.estaVacia()) {
+                std::cout << "~ ";
+            } else if (celda.isGolpeado()) {
+                std::cout << "X ";
+            } else {
+                std::cout << "O ";
+            }
+        }
+        std::cout << std::endl;
+    }
 }

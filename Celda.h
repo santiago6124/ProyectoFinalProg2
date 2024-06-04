@@ -11,10 +11,14 @@ private:
     bool golpeado;
 
 public:
-    Celda(int x, int y) : x(x), y(y), barco(nullptr), golpeado(false) {}
-    
+    Celda(int x, int y);
+
     bool recibirDisparo();
-    bool estaVacia() ;
+    bool estaVacia() const;
+    int getX() const;
+    int getY() const;
+    bool isGolpeado() const;
+    void setBarco(Barco* barco);
 };
 
-#endif 
+#endif

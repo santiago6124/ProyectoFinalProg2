@@ -19,6 +19,7 @@ public:
     void colocarBarcos();
     std::string realizarDisparo(int x, int y);
     bool todosBarcosHundidos() const;
+    std::string getNombre() const;
 };
 
-#endif 
+#endif

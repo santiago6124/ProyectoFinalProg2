@@ -15,6 +15,7 @@ public:
 
     bool recibirDisparo();
     bool estaVacia() const;
+     bool tieneBarco() const;
     int getX() const;
     int getY() const;
     bool isGolpeado() const;

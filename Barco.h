@@ -13,7 +13,7 @@ private:
 public:
     Barco(int tamaño);
 
-    void colocar(Celda& celda, char orientacion);
+  void colocar(const std::vector<Celda*>& celdas);
     bool recibirDisparo(Celda& celda);
     bool isHundido() const;
     int getTamaño() const;

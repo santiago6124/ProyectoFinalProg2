@@ -9,21 +9,27 @@ Jugador::Jugador(const std::string& nombre, int filas, int columnas)
 }
 
 void Jugador::colocarBarcos() {
-    // Método para que el usuario coloque manualmente los barcos
     for (int i = 0; i < 10; ++i) {
         int tamaño = i < 4 ? 1 : (i < 7 ? 2 : (i < 9 ? 3 : 4));
         char orientacion;
         std::string coord;
         int x, y;
-        std::cout << "Introduce la coordenada inicial y orientación (H/V) para el barco de tamaño " << tamaño << ": ";
+        std::cout << nombre << ", introduce la coordenada inicial y orientación (H/V) para el barco de tamaño " << tamaño << ": ";
         std::cin >> coord >> orientacion;
         x = coord[0] - 'A';
         y = std::stoi(coord.substr(1)) - 1;
         Barco barco(tamaño);
-        tableroPropio.colocarBarco(barco, x, y, orientacion);
+        while (!tableroPropio.colocarBarco(barco, x, y, orientacion)) {
+            std::cout << "No se puede colocar el barco aquí. Intenta de nuevo: ";
+            std::cin >> coord >> orientacion;
+            x = coord[0] - 'A';
+            y = std::stoi(coord.substr(1)) - 1;
+        }
         barcos.push_back(barco);
+        tableroPropio.mostrarPropio();  // Mostrar el tablero después de cada colocación
     }
 }
+
 
 void Jugador::colocarBarcosAleatoriamente() {
     // Método para colocar barcos aleatoriamente
@@ -39,6 +45,7 @@ void Jugador::colocarBarcosAleatoriamente() {
         barcos.push_back(barco);
     }
 }
+
 
 std::string Jugador::realizarDisparo(int x, int y) {
     return tableroRival.recibirDisparo(x, y);

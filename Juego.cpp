@@ -6,11 +6,13 @@
 Juego::Juego(Jugador& j1, Jugador& j2) : jugador1(&j1), jugador2(&j2), turnoActual(&j1), estado("iniciado") {}
 
 void Juego::iniciar() {
-    std::cout << "Jugador 1, coloca tus barcos:" << std::endl;
+    std::cout << jugador1->getNombre() << ", coloca tus barcos:" << std::endl;
     jugador1->colocarBarcos();
-    std::cout << "Máquina colocando barcos..." << std::endl;
-    jugador2->colocarBarcosAleatoriamente();
+    
+    std::cout << jugador2->getNombre() << ", coloca tus barcos:" << std::endl;
+    jugador2->colocarBarcos();
 }
+
 
 void Juego::turno() {
     int x, y;
@@ -30,8 +32,10 @@ void Juego::turno() {
 
     std::cout << resultado << std::endl;
 
-    jugador1->getTableroPropio().mostrar();
-    jugador2->getTableroPropio().mostrar();
+    std::cout << jugador1->getNombre() << "'s Tablero Propio:" << std::endl;
+    jugador1->getTableroPropio().mostrarPropio();
+    std::cout << jugador2->getNombre() << "'s Tablero Propio:" << std::endl;
+    jugador2->getTableroPropio().mostrarPropio();
 
     turnoActual = (turnoActual == jugador1) ? jugador2 : jugador1;
 }

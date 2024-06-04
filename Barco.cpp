@@ -2,16 +2,10 @@
 
 Barco::Barco(int tamaño) : tamaño(tamaño), hundido(false) {}
 
-void Barco::colocar(Celda& celda, char orientacion) {
-    for (int i = 0; i < tamaño; ++i) {
-        celdas.push_back(&celda);
-        if (orientacion == 'H') {
-            celda = Celda(celda.getX() + 1, celda.getY());
-        } else {
-            celda = Celda(celda.getX(), celda.getY() + 1);
-        }
-    }
+void Barco::colocar(const std::vector<Celda*>& celdas) {
+    this->celdas = celdas;
 }
+
 
 bool Barco::recibirDisparo(Celda& celda) {
     for (auto& c : celdas) {
@@ -37,3 +31,4 @@ bool Barco::isHundido() const {
 int Barco::getTamaño() const {
     return tamaño;
 }
+

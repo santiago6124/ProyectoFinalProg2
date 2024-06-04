@@ -15,6 +15,9 @@ bool Celda::estaVacia() const {
     return barco == nullptr;
 }
 
+bool Celda::tieneBarco() const {
+    return barco != nullptr;
+}
 int Celda::getX() const {
     return x;
 }

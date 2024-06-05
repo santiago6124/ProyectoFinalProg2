@@ -1,4 +1,3 @@
-// Tablero.cpp
 #include "Tablero.h"
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas) {
@@ -52,7 +51,6 @@ std::string Tablero::recibirDisparo(int x, int y) {
     }
     return "¡Agua!";
 }
-
 
 void Tablero::mostrar() const {
     std::cout << "  ";

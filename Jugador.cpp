@@ -32,20 +32,31 @@ void Jugador::colocarBarcos() {
 }
 
 void Jugador::colocarBarcosAleatoriamente() {
-    int barcosPorTamanio[] = {1, 2, 3, 4};
-    for (int tamanio = 4; tamanio >= 1; --tamanio) {
-        for (int i = 0; i < barcosPorTamanio[tamanio - 1]; ++i) {
+    std::srand(std::time(0));  // Inicializar la semilla de aleatoriedad
+
+    int barcosPorTamanio[] = {4, 3, 2, 1};
+    int cantidadBarcos[] = {1, 2, 3, 4};
+
+    for (int idx = 0; idx < 4; ++idx) {
+        int tamanio = barcosPorTamanio[idx];
+        for (int i = 0; i < cantidadBarcos[idx]; ++i) {
             char orientacion = std::rand() % 2 == 0 ? 'H' : 'V';
             int x, y;
             Barco barco(tamanio);
-            do {
+            bool colocado = false;
+
+            while (!colocado) {
                 x = std::rand() % tableroPropio.getFilas();
                 y = std::rand() % tableroPropio.getColumnas();
-            } while (!tableroPropio.colocarBarco(barco, x, y, orientacion));
-            barcos.push_back(barco);
+                if (tableroPropio.colocarBarco(barco, x, y, orientacion)) {
+                    barcos.push_back(barco);
+                    colocado = true;
+                }
+            }
         }
     }
 }
+
 
 
 

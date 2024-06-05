@@ -107,3 +107,7 @@ void Tablero::mostrarPropio() const {
 std::string Tablero::coordenadaATexto(int x, int y) const {
     return std::string(1, 'A' + x) + std::to_string(y + 1);
 }
+
+Celda& Tablero::getCelda(int fila, int columna) {
+    return celdas[fila * columnas + columna];
+}

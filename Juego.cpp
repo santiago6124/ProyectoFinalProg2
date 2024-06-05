@@ -23,49 +23,61 @@ void Juego::iniciar()
     }
 }
 
-void Juego::turno()
-{
+void Juego::turno() {
     int x, y;
     std::string resultado;
-    if (turnoActual == jugador1)
-    {
-        std::string coord;
-        std::cout << "Turno de " << turnoActual->getNombre() << ". Ingresa las coordenadas para disparar (Ej: A1): ";
-        std::cin >> coord;
-        x = coord[0] - 'A';
-        y = std::stoi(coord.substr(1)) - 1;
+    bool disparoValido = false;
 
-        // Validación de límites
-        if (x < 0 || x >= jugador2->getTableroPropio().getFilas() || y < 0 || y >= jugador2->getTableroPropio().getColumnas())
-        {
-            std::cout << "Coordenadas fuera de los límites. Intenta de nuevo." << std::endl;
-            return; // Salir del método y esperar la siguiente entrada
+    while (!disparoValido) {
+        if (turnoActual == jugador1) {
+            std::string coord;
+            std::cout << "Turno de " << turnoActual->getNombre() << ". Ingresa las coordenadas para disparar (Ej: A1): ";
+            std::cin >> coord;
+            x = coord[0] - 'A';
+            y = std::stoi(coord.substr(1)) - 1;
+
+            // Validación de límites
+            if (x < 0 || x >= jugador2->getTableroPropio().getFilas() || y < 0 || y >= jugador2->getTableroPropio().getColumnas()) {
+                std::cout << "Coordenadas fuera de los límites. Intenta de nuevo." << std::endl;
+                continue; // Volver a pedir la coordenada
+            }
+
+            // Validación de repetición de disparo
+            if (jugador2->getTableroPropio().getCelda(x, y).isGolpeado()) {
+                std::cout << "¡Ya disparaste a esta posición! Intenta de nuevo." << std::endl;
+                continue; // Volver a pedir la coordenada
+            }
+
+            resultado = jugador2->getTableroPropio().recibirDisparo(x, y);
+        } else {
+            std::tie(x, y) = jugador2->dispararAleatoriamente();
+            std::cout << "La maquina dispara a " << jugador1->getTableroPropio().coordenadaATexto(x, y) << std::endl;
+
+            // Validación de límites
+            if (x < 0 || x >= jugador1->getTableroPropio().getFilas() || y < 0 || y >= jugador1->getTableroPropio().getColumnas()) {
+                std::cout << "Error en las coordenadas disparadas por la máquina. Intentando de nuevo." << std::endl;
+                continue; // Volver a disparar
+            }
+
+            // Validación de repetición de disparo
+            if (jugador1->getTableroPropio().getCelda(x, y).isGolpeado()) {
+                continue; // Volver a disparar
+            }
+
+            resultado = jugador1->getTableroPropio().recibirDisparo(x, y);
         }
 
-        resultado = jugador2->getTableroPropio().recibirDisparo(x, y);
+        std::cout << resultado << std::endl;
+
+        std::cout << "Tablero del rival:" << std::endl;
+        (turnoActual == jugador1) ? jugador2->getTableroPropio().mostrar() : jugador1->getTableroPropio().mostrar();
+
+        disparoValido = true; // Salir del bucle si el disparo fue válido
     }
-    else
-    {
-        std::tie(x, y) = jugador2->dispararAleatoriamente();
-        std::cout << "La maquina dispara a " << jugador1->getTableroPropio().coordenadaATexto(x, y) << std::endl;
-
-        // Validación de límites
-        if (x < 0 || x >= jugador1->getTableroPropio().getFilas() || y < 0 || y >= jugador1->getTableroPropio().getColumnas())
-        {
-            std::cout << "Error en las coordenadas disparadas por la máquina. Intentando de nuevo." << std::endl;
-            return; // Salir del método y esperar la siguiente acción
-        }
-
-        resultado = jugador1->getTableroPropio().recibirDisparo(x, y);
-    }
-
-    std::cout << resultado << std::endl;
-
-    std::cout << "Tablero del rival:" << std::endl;
-    (turnoActual == jugador1) ? jugador2->getTableroPropio().mostrar() : jugador1->getTableroPropio().mostrar();
 
     turnoActual = (turnoActual == jugador1) ? jugador2 : jugador1;
 }
+
 
 Jugador *Juego::comprobarVictoria()
 {

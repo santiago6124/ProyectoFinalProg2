@@ -25,6 +25,7 @@ public:
     std::string coordenadaATexto(int x, int y) const;
     int getFilas() const { return filas; }
     int getColumnas() const { return columnas; }
+    Celda& getCelda(int fila, int columna);
 };
 
 #endif

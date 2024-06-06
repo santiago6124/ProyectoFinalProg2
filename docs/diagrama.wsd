@@ -1,0 +1,42 @@
+@startuml
+
+
+class Tablero {
+}
+
+class Jugador {
+}
+
+Jugador o-- Tablero
+
+class Maquina {
+}
+
+class Usuario{
+}
+
+Maquina --> Jugador
+Usuario --> Jugador
+
+class Barco {
+}
+
+Tablero o-- Barco
+
+' Casillero=Coordenada=Celda
+class Celda{
+}
+
+Tablero o-- Celda
+
+class Partida{
+}
+
+Partida o-- Jugador
+
+class Archivo{
+}
+
+Partida o-- Archivo
+
+@enduml

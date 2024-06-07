@@ -1,8 +1,9 @@
 #ifndef ARCHIVO_H
 #define ARCHIVO_H
 
-#include <vector>
 #include <string>
+#include <vector>
+#include <utility>
 
 class Archivo {
 public:

@@ -8,16 +8,15 @@ const std::string& Jugador::getNombre() const {
     return nombre;
 }
 
-void Jugador::colocarBarcos() {
-    // Implementación manual de colocación de barcos
-}
-
-void Jugador::colocarBarcosAleatoriamente() {
-    // Implementación de colocación de barcos aleatoriamente
-}
-
 bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
-    return oponente.tableroPropio.recibirAtaque(fila, columna);
+    bool resultado = oponente.tableroPropio.recibirAtaque(fila, columna);
+    std::vector<std::vector<Celda>>& celdasOponente = const_cast<std::vector<std::vector<Celda>>&>(tableroOponente.getCeldas());
+    if (resultado) {
+        celdasOponente[fila][columna].setEstado(TOCADO);
+    } else {
+        celdasOponente[fila][columna].setEstado(AGUA);
+    }
+    return resultado;
 }
 
 void Jugador::mostrarTableros() const {

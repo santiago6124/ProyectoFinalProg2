@@ -8,10 +8,15 @@
 class Tablero {
 public:
     Tablero(int filas, int columnas);
-    void colocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal);
+    void colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal);
     bool recibirAtaque(int fila, int columna);
     void mostrarTablero() const;
     bool todosBarcosHundidos() const;
+    int getFilas() const;
+    int getColumnas() const;
+    bool puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const;
+
+    const std::vector<std::vector<Celda>>& getCeldas() const; // Método para acceder a celdas
 
 private:
     int filas;

@@ -3,13 +3,15 @@
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
 
-void Tablero::colocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) {
+void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal) {
     int size = barco.getSize();
     for (int i = 0; i < size; ++i) {
         if (horizontal) {
             celdas[filaInicio][columnaInicio + i].setEstado(BARCO);
+            barco.addPosicion(filaInicio, columnaInicio + i);
         } else {
             celdas[filaInicio + i][columnaInicio].setEstado(BARCO);
+            barco.addPosicion(filaInicio + i, columnaInicio);
         }
     }
     barcos.push_back(barco);
@@ -49,4 +51,36 @@ bool Tablero::todosBarcosHundidos() const {
         }
     }
     return true;
+}
+
+int Tablero::getFilas() const {
+    return filas;
+}
+
+int Tablero::getColumnas() const {
+    return columnas;
+}
+
+bool Tablero::puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const {
+    int size = barco.getSize();
+    if (horizontal) {
+        if (columnaInicio + size > columnas) return false;
+        for (int i = 0; i < size; ++i) {
+            if (celdas[filaInicio][columnaInicio + i].getEstado() != VACIO) {
+                return false;
+            }
+        }
+    } else {
+        if (filaInicio + size > filas) return false;
+        for (int i = 0; i < size; ++i) {
+            if (celdas[filaInicio + i][columnaInicio].getEstado() != VACIO) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+const std::vector<std::vector<Celda>>& Tablero::getCeldas() const {
+    return celdas;
 }

@@ -6,7 +6,7 @@
 class Maquina : public Jugador {
 public:
     Maquina(const std::string& nombre, int filas, int columnas);
-    void colocarBarcosAleatoriamente();
+    void colocarBarcos() override;
 };
 
 #endif // MAQUINA_H

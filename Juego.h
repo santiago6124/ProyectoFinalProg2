@@ -1,14 +1,13 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
-#include "Usuario.h"
-#include "Maquina.h"
-#include "Archivo.h"
+#include "Jugador.h"
+#include <string>
 #include <vector>
 
 class Juego {
 public:
-    Juego(Jugador& jugador1, Jugador& jugador2);
+    Juego(Jugador& j1, Jugador& j2);
     void iniciar();
     void guardarRanking(const std::string &filename, const std::vector<std::pair<std::string, int>> &ranking);
     std::vector<std::pair<std::string, int>> cargarRanking(const std::string &filename);

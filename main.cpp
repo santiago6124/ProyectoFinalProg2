@@ -4,12 +4,18 @@
 #include <iostream>
 
 int main() {
-    int filas = 10;
-    int columnas = 10;
-    int opcion;
+    int filas, columnas, opcion;
 
     std::cout << "Seleccione el modo de juego:\n1. Jugador vs Máquina\n2. Jugador vs Jugador\n";
     std::cin >> opcion;
+
+    std::cout << "Ingrese el tamaño del tablero (mínimo 10x10): ";
+    std::cin >> filas >> columnas;
+    if (filas < 10 || columnas < 10) {
+        std::cout << "El tamaño mínimo del tablero es 10x10. Usando tamaño por defecto 10x10.\n";
+        filas = 10;
+        columnas = 10;
+    }
 
     if (opcion == 1) {
         Usuario jugador1("Jugador 1", filas, columnas);

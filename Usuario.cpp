@@ -5,7 +5,7 @@ Usuario::Usuario(const std::string& nombre, int filas, int columnas)
     : Jugador(nombre, filas, columnas) {}
 
 void Usuario::colocarBarcos() {
-    int tamanios[] = {5, 4, 3, 3, 2};
+    int tamanios[] = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
     for (int size : tamanios) {
         bool colocado = false;
         while (!colocado) {
@@ -24,6 +24,7 @@ void Usuario::colocarBarcos() {
             Barco barco(size);
             if (tableroPropio.puedeColocarBarco(barco, fila, columna, horizontal)) {
                 tableroPropio.colocarBarco(barco, fila, columna, horizontal);
+                tableroPropio.mostrarTablero();  // Mostrar el tablero después de colocar el barco
                 colocado = true;
             } else {
                 std::cout << "No se puede colocar el barco aquí, intente de nuevo.\n";

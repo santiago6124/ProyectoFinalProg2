@@ -1,9 +1,9 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 
-#include <vector>
 #include "Celda.h"
 #include "Barco.h"
+#include <vector>
 
 class Tablero {
 public:
@@ -12,11 +12,11 @@ public:
     bool recibirAtaque(int fila, int columna);
     void mostrarTablero() const;
     bool todosBarcosHundidos() const;
+    bool puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const;
     int getFilas() const;
     int getColumnas() const;
-    bool puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const;
-
-    const std::vector<std::vector<Celda>>& getCeldas() const; // Método para acceder a celdas
+    const std::vector<std::vector<Celda>>& getCeldas() const;
+    bool verificarHundimiento(int fila, int columna);
 
 private:
     int filas;

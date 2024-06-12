@@ -84,3 +84,22 @@ bool Tablero::puedeColocarBarco(const Barco &barco, int filaInicio, int columnaI
 const std::vector<std::vector<Celda>>& Tablero::getCeldas() const {
     return celdas;
 }
+
+bool Tablero::verificarHundimiento(int fila, int columna) {
+    for (auto& barco : barcos) {
+        bool hundido = true;
+        for (const auto& pos : barco.getPosiciones()) {
+            if (celdas[pos.first][pos.second].getEstado() != TOCADO) {
+                hundido = false;
+                break;
+            }
+        }
+        if (hundido) {
+            for (const auto& pos : barco.getPosiciones()) {
+                celdas[pos.first][pos.second].setEstado(HUNDIDO);
+            }
+            return true;
+        }
+    }
+    return false;
+}

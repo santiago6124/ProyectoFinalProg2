@@ -8,13 +8,13 @@ Maquina::Maquina(const std::string& nombre, int filas, int columnas)
 }
 
 void Maquina::colocarBarcos() {
-    int tamanios[] = {5, 4, 3, 3, 2};
+    int tamanios[] = {4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
     for (int size : tamanios) {
         bool colocado = false;
         while (!colocado) {
-            int fila = rand() % tableroPropio.getFilas();
-            int columna = rand() % tableroPropio.getColumnas();
-            bool horizontal = rand() % 2;
+            int fila = generarFila();
+            int columna = generarColumna();
+            bool horizontal = generarOrientacion();
 
             Barco barco(size);
             if (tableroPropio.puedeColocarBarco(barco, fila, columna, horizontal)) {
@@ -24,3 +24,16 @@ void Maquina::colocarBarcos() {
         }
     }
 }
+
+int Maquina::generarFila() {
+    return rand() % tableroPropio.getFilas();
+}
+
+int Maquina::generarColumna() {
+    return rand() % tableroPropio.getColumnas();
+}
+
+bool Maquina::generarOrientacion() {
+    return rand() % 2;
+}
+    

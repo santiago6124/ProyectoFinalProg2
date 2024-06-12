@@ -13,9 +13,16 @@ bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
     std::vector<std::vector<Celda>>& celdasOponente = const_cast<std::vector<std::vector<Celda>>&>(tableroOponente.getCeldas());
     if (resultado) {
         celdasOponente[fila][columna].setEstado(TOCADO);
+        std::cout << "¡Tocado!\n";
     } else {
         celdasOponente[fila][columna].setEstado(AGUA);
+        std::cout << "Agua.\n";
     }
+
+    if (oponente.tableroPropio.verificarHundimiento(fila, columna)) {
+        std::cout << "¡Barco hundido!\n";
+    }
+
     return resultado;
 }
 

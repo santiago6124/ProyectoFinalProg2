@@ -19,6 +19,10 @@ Maquina --> Jugador
 Usuario --> Jugador
 
 class Barco {
+    - size: Int
+    - posiciones: vector<Coordenada>
+    + getPosiciones(): vector<Coordenada>
+    + addPosicion(Coordenada): void
 }
 
 Tablero o-- Barco

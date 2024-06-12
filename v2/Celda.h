@@ -8,7 +8,7 @@ enum class EstadoCelda {
     miss = 3
 };
 
-enum class Orientacion {
+enum class Orientation {
     unknown = 0,
     horizontal = 1,
     vertical = 2
@@ -17,14 +17,14 @@ enum class Orientacion {
 class Celda {
     private:
         EstadoCelda estado;
-        Orientacion orientacion;
+        Orientation orientation;
         bool barco;
     public:
         Celda();
         EstadoCelda getEstado();
         void setEstado(EstadoCelda estado);
-        Orientacion getOrientacion();
-        void setOrientacion(Orientacion orientacion);
+        Orientation getOrientation();
+        void setOrientation(Orientation orientation);
         bool getBarco();
         void setBarco(bool barco);
 };

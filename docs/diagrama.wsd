@@ -29,6 +29,9 @@ Tablero o-- Barco
 
 ' Casillero=Coordenada=Celda
 class Celda{
+    - estado: Estado
+    + getEstado(): Estado
+    + setEstado(Estado): void
 }
 
 Tablero o-- Celda

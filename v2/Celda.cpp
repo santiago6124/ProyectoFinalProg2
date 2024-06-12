@@ -2,7 +2,7 @@
 
 Celda::Celda() {
     estado = EstadoCelda::unknown;
-    orientacion = Orientacion::unknown;
+    orientation = Orientation::unknown;
     barco = false;
 }
 
@@ -14,12 +14,12 @@ void Celda::setEstado(EstadoCelda estado) {
     this->estado = estado;
 }
 
-Orientacion Celda::getOrientacion() {
-    return orientacion;
+Orientation Celda::getOrientation() {
+    return orientation;
 }
 
-void Celda::setOrientacion(Orientacion orientacion) {
-    this->orientacion = orientacion;
+void Celda::setOrientation(Orientation orientation) {
+    this->orientation = orientation;
 }
 
 bool Celda::getBarco() {

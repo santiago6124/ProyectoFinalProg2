@@ -34,6 +34,12 @@ class Jugador {
 Jugador o-- Tablero
 
 class Maquina {
+    + Maquina(nombre: Str, filas: Int, columnas: Int)
+    + colocarBarcos(): void override
+    + realizarAtaque(Jugador): bool
+    - generarFila(): int
+    - generarColumna(): int
+    - generarOrientacion(): bool
 }
 
 class Usuario{

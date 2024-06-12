@@ -6,6 +6,12 @@
 #include "Barco.h"
 
 class Tablero {
+private:
+    int filas;
+    int columnas;
+    std::vector<std::vector<Celda>> celdas;
+    std::vector<Barco> barcos;
+
 public:
     Tablero(int filas, int columnas);
     void colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal);
@@ -15,15 +21,12 @@ public:
     int getFilas() const;
     int getColumnas() const;
     bool puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const;
-    std::vector<std::vector<Celda>>& getCeldas(); // Non-const reference
-    const std::vector<std::vector<Celda>>& getCeldas() const; // Const reference for const methods
-    bool verificarHundimiento(int fila, int columna); // New method
+    std::vector<std::vector<Celda>>& getCeldas();
+    const std::vector<std::vector<Celda>>& getCeldas() const;
+    bool verificarHundimiento(int fila, int columna);
 
-private:
-    int filas;
-    int columnas;
-    std::vector<std::vector<Celda>> celdas;
-    std::vector<Barco> barcos;
+    static int convertirFila(char letra);
+    static int convertirColumna(int numero);
 };
 
-#endif // TABLERO_H
+#endif

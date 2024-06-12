@@ -1,5 +1,6 @@
 #include "Tablero.h"
 #include <iostream>
+#include <iomanip>
 
 Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
 
@@ -28,15 +29,23 @@ bool Tablero::recibirAtaque(int fila, int columna) {
 }
 
 void Tablero::mostrarTablero() const {
-    for (const auto &fila : celdas) {
-        for (const auto &celda : fila) {
-            switch (celda.getEstado()) {
+    std::cout << "   ";
+    for (int i = 1; i <= columnas; ++i) {
+        std::cout << std::setw(2) << i << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < filas; ++i) {
+        std::cout << static_cast<char>('A' + i) << "  ";
+        for (int j = 0; j < columnas; ++j) {
+            switch (celdas[i][j].getEstado()) {
                 case VACIO: std::cout << '.'; break;
                 case BARCO: std::cout << 'B'; break;
                 case AGUA: std::cout << '~'; break;
                 case TOCADO: std::cout << 'X'; break;
                 case HUNDIDO: std::cout << '#'; break;
             }
+            std::cout << "  ";
         }
         std::cout << std::endl;
     }
@@ -106,4 +115,12 @@ bool Tablero::verificarHundimiento(int fila, int columna) {
         }
     }
     return false;
+}
+
+int Tablero::convertirFila(char letra) {
+    return letra - 'A';
+}
+
+int Tablero::convertirColumna(int numero) {
+    return numero - 1;
 }

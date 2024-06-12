@@ -6,13 +6,13 @@
 int main() {
     int filas, columnas, opcion;
 
-    std::cout << "Seleccione el modo de juego:\n1. Jugador vs Máquina\n2. Jugador vs Jugador\n";
+    std::cout << "Seleccione el modo de juego:\n1. Jugador vs Maquina\n2. Jugador vs Jugador\n";
     std::cin >> opcion;
 
-    std::cout << "Ingrese el tamaño del tablero (mínimo 10x10): ";
+    std::cout << "Ingrese el tamanio del tablero (minimo 10x10): ";
     std::cin >> filas >> columnas;
     if (filas < 10 || columnas < 10) {
-        std::cout << "El tamaño mínimo del tablero es 10x10. Usando tamaño por defecto 10x10.\n";
+        std::cout << "El tamanio minimo del tablero es 10x10. Usando tamanio por defecto 10x10.\n";
         filas = 10;
         columnas = 10;
     }
@@ -28,7 +28,7 @@ int main() {
         Juego juego(jugador1, jugador2);
         juego.iniciar();
     } else {
-        std::cout << "Opción no válida.\n";
+        std::cout << "Opcion no valida.\n";
     }
 
     return 0;

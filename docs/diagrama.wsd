@@ -20,6 +20,15 @@ class Tablero {
 }
 
 class Jugador {
+    + Jugador(nombre: Str, filas: Int, columnas: Int)
+    + getNombre(): Str
+    + realizarAtaque(Jugador, Coordenada): virtual bool
+    + mostrarTableroOponente(): void
+    + todosBarcosHundidos(): bool
+    + colocarBarcos(): virtual void
+    # nombre: Str
+    # tableroPropio: Tablero
+    # tableroOponente: Tablero
 }
 
 Jugador o-- Tablero

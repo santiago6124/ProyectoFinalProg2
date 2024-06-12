@@ -81,24 +81,28 @@ bool Tablero::puedeColocarBarco(const Barco &barco, int filaInicio, int columnaI
     return true;
 }
 
+std::vector<std::vector<Celda>>& Tablero::getCeldas() {
+    return celdas;
+}
+
 const std::vector<std::vector<Celda>>& Tablero::getCeldas() const {
     return celdas;
 }
 
 bool Tablero::verificarHundimiento(int fila, int columna) {
     for (auto& barco : barcos) {
-        bool hundido = true;
         for (const auto& pos : barco.getPosiciones()) {
-            if (celdas[pos.first][pos.second].getEstado() != TOCADO) {
-                hundido = false;
-                break;
+            if (pos.first == fila && pos.second == columna) {
+                for (const auto& p : barco.getPosiciones()) {
+                    if (celdas[p.first][p.second].getEstado() != TOCADO) {
+                        return false;
+                    }
+                }
+                for (const auto& p : barco.getPosiciones()) {
+                    celdas[p.first][p.second].setEstado(HUNDIDO);
+                }
+                return true;
             }
-        }
-        if (hundido) {
-            for (const auto& pos : barco.getPosiciones()) {
-                celdas[pos.first][pos.second].setEstado(HUNDIDO);
-            }
-            return true;
         }
     }
     return false;

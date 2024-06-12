@@ -7,6 +7,7 @@ class Maquina : public Jugador {
 public:
     Maquina(const std::string& nombre, int filas, int columnas);
     void colocarBarcos() override;
+    bool realizarAtaque(Jugador &oponente);
 
 private:
     int generarFila();

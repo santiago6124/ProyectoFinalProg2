@@ -1,4 +1,5 @@
 #include "Juego.h"
+#include "Maquina.h"
 #include <iostream>
 #include <limits>
 #include <algorithm>
@@ -14,15 +15,19 @@ void Juego::iniciar() {
 
     while (true) {
         std::cout << "Turno de " << turnoActual->getNombre() << "\n";
-        turnoActual->mostrarTableros();
+        turnoActual->mostrarTableroOponente();
 
-        int fila, columna;
-        std::cout << "Ingrese la fila a atacar: ";
-        std::cin >> fila;
-        std::cout << "Ingrese la columna a atacar: ";
-        std::cin >> columna;
+        if (dynamic_cast<Maquina*>(turnoActual)) {
+            dynamic_cast<Maquina*>(turnoActual)->realizarAtaque(*oponente);
+        } else {
+            int fila, columna;
+            std::cout << "Ingrese la fila a atacar: ";
+            std::cin >> fila;
+            std::cout << "Ingrese la columna a atacar: ";
+            std::cin >> columna;
 
-        turnoActual->realizarAtaque(*oponente, fila, columna);
+            turnoActual->realizarAtaque(*oponente, fila, columna);
+        }
 
         if (oponente->todosBarcosHundidos()) {
             std::cout << "¡" << turnoActual->getNombre() << " ha ganado!\n";

@@ -10,12 +10,11 @@ const std::string& Jugador::getNombre() const {
 
 bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
     bool resultado = oponente.tableroPropio.recibirAtaque(fila, columna);
-    std::vector<std::vector<Celda>>& celdasOponente = const_cast<std::vector<std::vector<Celda>>&>(tableroOponente.getCeldas());
     if (resultado) {
-        celdasOponente[fila][columna].setEstado(TOCADO);
+        tableroOponente.getCeldas()[fila][columna].setEstado(TOCADO);
         std::cout << "¡Tocado!\n";
     } else {
-        celdasOponente[fila][columna].setEstado(AGUA);
+        tableroOponente.getCeldas()[fila][columna].setEstado(AGUA);
         std::cout << "Agua.\n";
     }
 
@@ -26,9 +25,7 @@ bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
     return resultado;
 }
 
-void Jugador::mostrarTableros() const {
-    std::cout << "Tablero de " << nombre << ":\n";
-    tableroPropio.mostrarTablero();
+void Jugador::mostrarTableroOponente() const {
     std::cout << "Tablero del oponente:\n";
     tableroOponente.mostrarTablero();
 }
@@ -36,3 +33,4 @@ void Jugador::mostrarTableros() const {
 bool Jugador::todosBarcosHundidos() const {
     return tableroPropio.todosBarcosHundidos();
 }
+    

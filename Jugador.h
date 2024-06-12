@@ -8,8 +8,8 @@ class Jugador {
 public:
     Jugador(const std::string &nombre, int filas, int columnas);
     const std::string& getNombre() const;
-    bool realizarAtaque(Jugador &oponente, int fila, int columna);
-    void mostrarTableros() const;
+    virtual bool realizarAtaque(Jugador &oponente, int fila, int columna);
+    void mostrarTableroOponente() const;
     bool todosBarcosHundidos() const;
     virtual void colocarBarcos() = 0;
 

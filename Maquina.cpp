@@ -36,4 +36,9 @@ int Maquina::generarColumna() {
 bool Maquina::generarOrientacion() {
     return rand() % 2;
 }
-    
+
+bool Maquina::realizarAtaque(Jugador &oponente) {
+    int fila = generarFila();
+    int columna = generarColumna();
+    return Jugador::realizarAtaque(oponente, fila, columna);
+}

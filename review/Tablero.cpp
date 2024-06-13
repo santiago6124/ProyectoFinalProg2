@@ -39,11 +39,17 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
     if (barco.isHorizontal()) {
         if (x + barco.getLongitud() > size) return false;
         for (int i = 0; i < barco.getLongitud(); i++) {
+            if (coordenadas[y][x + i].getBarco() != nullptr) return false;
+        }
+        for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y][x + i].setBarco(&barco);
             barco.agregarCoordenada(x + i, y);
         }
     } else {
         if (y + barco.getLongitud() > size) return false;
+        for (int i = 0; i < barco.getLongitud(); i++) {
+            if (coordenadas[y + i][x].getBarco() != nullptr) return false;
+        }
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y + i][x].setBarco(&barco);
             barco.agregarCoordenada(x, y + i);

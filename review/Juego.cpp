@@ -4,16 +4,60 @@ using namespace std;
 
 void Juego::jugar() {
     // Crear barcos para los jugadores
-    Barco barco1(3, true);
-    Barco barco2(4, false);
+    vector<Barco> barcosJugador1 = {Barco(3, true), Barco(4, false)};
+    vector<Barco> barcosJugador2 = {Barco(3, true), Barco(4, false)};
 
-    // Agregar barcos a los jugadores
-    jugador1.agregarBarco(&barco1);
-    jugador2.agregarBarco(&barco2);
+    // Colocar barcos para el jugador 1
+    for (Barco& barco : barcosJugador1) {
+        bool colocado = false;
+        while (!colocado) {
+            int x, y;
+            char orientacion;
+            std::cout << jugador1.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
+                      << barco.getLongitud() << " (x y) y la orientación (H/V): ";
+            std::cin >> x >> y >> orientacion;
+            if (orientacion == 'H' || orientacion == 'h') {
+                barco = Barco(barco.getLongitud(), true);
+            } else if (orientacion == 'V' || orientacion == 'v') {
+                barco = Barco(barco.getLongitud(), false);
+            } else {
+                std::cout << "Orientación no válida. Intenta de nuevo." << std::endl;
+                continue;
+            }
+            colocado = jugador1.getTablero().colocarBarco(x, y, barco);
+            if (!colocado) {
+                std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
+            } else {
+                jugador1.agregarBarco(&barco);
+            }
+        }
+    }
 
-    // Colocar barcos en los tableros
-    jugador1.getTablero().colocarBarco(0, 0, barco1);
-    jugador2.getTablero().colocarBarco(2, 2, barco2);
+    // Colocar barcos para el jugador 2
+    for (Barco& barco : barcosJugador2) {
+        bool colocado = false;
+        while (!colocado) {
+            int x, y;
+            char orientacion;
+            std::cout << jugador2.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
+                      << barco.getLongitud() << " (x y) y la orientación (H/V): ";
+            std::cin >> x >> y >> orientacion;
+            if (orientacion == 'H' || orientacion == 'h') {
+                barco = Barco(barco.getLongitud(), true);
+            } else if (orientacion == 'V' || orientacion == 'v') {
+                barco = Barco(barco.getLongitud(), false);
+            } else {
+                std::cout << "Orientación no válida. Intenta de nuevo." << std::endl;
+                continue;
+            }
+            colocado = jugador2.getTablero().colocarBarco(x, y, barco);
+            if (!colocado) {
+                std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
+            } else {
+                jugador2.agregarBarco(&barco);
+            }
+        }
+    }
 
     // Mostrar tableros iniciales
     std::cout << "Tablero " << jugador1.getNombre() << ":" << std::endl;

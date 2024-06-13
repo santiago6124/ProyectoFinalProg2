@@ -1,13 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Barco.h"
-#include "Tablero.h"
 #include "Juego.h"
 
-
 int main() {
-    Juego juego(10);
+    Juego juego("Jugador 1", "Jugador 2", 10);
     juego.jugar();
     return 0;
 }

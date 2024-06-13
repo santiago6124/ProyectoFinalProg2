@@ -1,5 +1,5 @@
 #include "Juego.h"
-#include "Tablero.h"
+#include "Barco.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -7,25 +7,36 @@ using namespace std;
 
 
 void Juego::jugar() {
-    // Ejemplo de juego: Colocar barcos y realizar ataques
+    // Crear barcos para los jugadores
     Barco barco1(3, true);
     Barco barco2(4, false);
 
-    tableroJugador1.colocarBarco(0, 0, barco1);
-    tableroJugador2.colocarBarco(2, 2, barco2);
+    // Colocar barcos en los tableros
+    jugador1.getTablero().colocarBarco(0, 0, barco1);
+    jugador2.getTablero().colocarBarco(2, 2, barco2);
 
-    tableroJugador1.mostrarTablero();
+    // Mostrar tableros iniciales
+    std::cout << "Tablero " << jugador1.getNombre() << ":" << std::endl;
+    jugador1.getTablero().mostrarTablero();
     std::cout << std::endl;
-    tableroJugador2.mostrarTablero();
 
-    std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(2, 2) ? "Golpe!" : "Fallo!") << std::endl;
-    std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(0, 0) ? "Golpe!" : "Fallo!") << std::endl;
-    std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(2, 5) ? "Golpe!" : "Fallo!") << std::endl;
-    std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(1, 0) ? "Golpe!" : "Fallo!") << std::endl;
-    std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(5, 2) ? "Golpe!" : "Fallo!") << std::endl;
-    std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(2, 0) ? "Golpe!" : "Fallo!") << std::endl;
-
-    tableroJugador1.mostrarTablero();
+    std::cout << "Tablero " << jugador2.getNombre() << ":" << std::endl;
+    jugador2.getTablero().mostrarTablero();
     std::cout << std::endl;
-    tableroJugador2.mostrarTablero();
+
+    // Realizar ataques
+    std::cout << jugador1.getNombre() << " ataca (2, 2): "
+              << (jugador2.getTablero().atacar(2, 2) ? "Golpe!" : "Fallo!") << std::endl;
+
+    std::cout << jugador2.getNombre() << " ataca (0, 0): "
+              << (jugador1.getTablero().atacar(0, 0) ? "Golpe!" : "Fallo!") << std::endl;
+
+    // Mostrar tableros después de los ataques
+    std::cout << "Tablero " << jugador1.getNombre() << ":" << std::endl;
+    jugador1.getTablero().mostrarTablero();
+    std::cout << std::endl;
+
+    std::cout << "Tablero " << jugador2.getNombre() << ":" << std::endl;
+    jugador2.getTablero().mostrarTablero();
+    std::cout << std::endl;
 }

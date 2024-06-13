@@ -20,6 +20,10 @@ void Juego::jugar() {
 
     std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(2, 2) ? "Golpe!" : "Fallo!") << std::endl;
     std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(0, 0) ? "Golpe!" : "Fallo!") << std::endl;
+    std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(2, 5) ? "Golpe!" : "Fallo!") << std::endl;
+    std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(1, 0) ? "Golpe!" : "Fallo!") << std::endl;
+    std::cout << "Jugador 1 ataca (2, 2): " << (tableroJugador2.atacar(5, 2) ? "Golpe!" : "Fallo!") << std::endl;
+    std::cout << "Jugador 2 ataca (0, 0): " << (tableroJugador1.atacar(2, 0) ? "Golpe!" : "Fallo!") << std::endl;
 
     tableroJugador1.mostrarTablero();
     std::cout << std::endl;

@@ -12,12 +12,12 @@ using namespace std;
 
     class Tablero {
         private:
-            vector<vector<char>> grid;
+            vector<vector<char>> coordenadas;
             int size;
 
         public:
             // Constructor
-            Tablero(int size) : size(size), grid(size, vector<char>(size, '.')) {}
+            Tablero(int size) : size(size), coordenadas(size, vector<char>(size, '.')) {}
 
             void mostrarTablero();
 

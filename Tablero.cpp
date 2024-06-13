@@ -2,7 +2,8 @@
 #include <iostream>
 #include <iomanip>
 
-Tablero::Tablero(int filas, int columnas) : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
+Tablero::Tablero(int filas, int columnas)
+    : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
 
 void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal) {
     int size = barco.getSize();
@@ -18,41 +19,45 @@ void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool
     barcos.push_back(barco);
 }
 
-bool Tablero::recibirAtaque(int fila, int columna) {
+EstadoCelda Tablero::recibirAtaque(int fila, int columna) {
     if (celdas[fila][columna].getEstado() == BARCO) {
-        celdas[fila][columna].setEstado(TOCADO);
         if (verificarHundimiento(fila, columna)) {
-            std::cout << "¡Barco hundido!\n";
+            celdas[fila][columna].setEstado(HUNDIDO);
+            return HUNDIDO;
         }
-        return true;
+        celdas[fila][columna].setEstado(TOCADO);
+        return TOCADO;
     } else {
         celdas[fila][columna].setEstado(AGUA);
-        return false;
+        return AGUA;
     }
 }
 
 bool Tablero::verificarHundimiento(int fila, int columna) {
     for (auto& barco : barcos) {
-        for (const auto& pos : barco.getPosiciones()) {
-            if (pos.first == fila && pos.second == columna) {
-                bool hundido = true;
-                for (const auto& p : barco.getPosiciones()) {
-                    if (celdas[p.first][p.second].getEstado() != TOCADO) {
-                        hundido = false;
-                        break;
-                    }
-                }
-                if (hundido) {
-                    for (const auto& p : barco.getPosiciones()) {
-                        celdas[p.first][p.second].setEstado(HUNDIDO);
-                    }
-                    return true;
+        if (barco.contienePosicion(fila, columna)) {
+            for (const auto& pos : barco.getPosiciones()) {
+                if (celdas[pos.first][pos.second].getEstado() != TOCADO && !(pos.first == fila && pos.second == columna)) {
+                    std::cout<<pos.first<<" "<<pos.second<<" "<<celdas[pos.first][pos.second].getEstado()<<std::endl;
+                    return false;
                 }
             }
+            return true;
         }
     }
     return false;
 }
+
+void Tablero::hundirBarco(int fila, int columna){
+    for (auto& barco : barcos) {
+        if (barco.contienePosicion(fila, columna)) {
+            for (const auto& pos : barco.getPosiciones()) {
+                celdas[pos.first][pos.second].setEstado(HUNDIDO);
+            }
+        }
+    }
+}
+
 
 void Tablero::mostrarTablero() const {
     std::cout << "   ";

@@ -15,7 +15,7 @@ private:
 public:
     Tablero(int filas, int columnas);
     void colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal);
-    bool recibirAtaque(int fila, int columna);
+    EstadoCelda recibirAtaque(int fila, int columna);
     void mostrarTablero() const;
     bool todosBarcosHundidos() const;
     int getFilas() const;
@@ -24,7 +24,7 @@ public:
     std::vector<std::vector<Celda>>& getCeldas();
     const std::vector<std::vector<Celda>>& getCeldas() const;
     bool verificarHundimiento(int fila, int columna);
-
+    void hundirBarco(int fila, int columna);
     static int convertirFila(char letra);
     static int convertirColumna(int numero);
 };

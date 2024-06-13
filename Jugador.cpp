@@ -1,5 +1,5 @@
 #include "Jugador.h"
-#include <cctype> 
+#include <cctype>
 #include <limits>
 #include <iostream>
 
@@ -11,6 +11,10 @@ const std::string& Jugador::getNombre() const {
 }
 
 bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
+    if (tableroOponente.getCeldas()[fila][columna].getEstado() != VACIO) {
+        return false;
+    }
+
     bool resultado = oponente.tableroPropio.recibirAtaque(fila, columna);
     if (resultado) {
         tableroOponente.getCeldas()[fila][columna].setEstado(TOCADO);
@@ -24,7 +28,7 @@ bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
         std::cout << "¡Barco hundido!\n";
     }
 
-    return resultado;
+    return true;
 }
 
 void Jugador::mostrarTableroOponente() const {
@@ -63,7 +67,6 @@ bool Jugador::validarColumna(int &columna, int columnas) {
     if (std::cin.fail() || columna < 1 || columna > columnas) {
         std::cin.clear(); // Clear the error flag
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descartar entrada inválida
-        std::cout << "Entrada inválida. Intente de nuevo.\n";
         return false;
     } else {
         columna = Tablero::convertirColumna(columna);

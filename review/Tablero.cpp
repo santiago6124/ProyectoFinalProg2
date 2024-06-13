@@ -18,7 +18,9 @@ Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenad
 void Tablero::mostrarTablero() {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {
-            if (coord.getBarco() != nullptr && coord.isTocado()) {
+            if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->isHundido()) {
+                std::cout << '#' << " ";
+            } else if (coord.getBarco() != nullptr && coord.isTocado()) {
                 std::cout << 'X' << " ";
             } else if (coord.getBarco() != nullptr) {
                 std::cout << 'B' << " ";
@@ -38,11 +40,13 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
         if (x + barco.getLongitud() > size) return false;
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y][x + i].setBarco(&barco);
+            barco.agregarCoordenada(x + i, y);
         }
     } else {
         if (y + barco.getLongitud() > size) return false;
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y + i][x].setBarco(&barco);
+            barco.agregarCoordenada(x, y + i);
         }
     }
     return true;
@@ -55,6 +59,11 @@ bool Tablero::atacar(int x, int y) {
         if (coord.getBarco() != nullptr) {
             coord.setTocado(true);
             coord.getBarco()->recibirGolpe();
+            if (coord.getBarco()->isHundido()) {
+                for (const auto& coordPos : coord.getBarco()->getCoordenadas()) {
+                    coordenadas[coordPos.second][coordPos.first].setTocado(true);
+                }
+            }
             return true;
         } else {
             coord.setTocado(true);

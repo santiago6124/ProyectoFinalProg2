@@ -1,28 +1,39 @@
 #pragma once
 
 #ifndef Barco_H
- #define Barco_H
+#define Barco_H
 
- class Barco
- {
-    private:
-        int longitud; // Número de coordenadas que ocupa
-        bool horizontal; // Orientación del barco
-        bool hundido = false;
-        int contGolpes = 0;
-    public:
-        // Constructor
-        Barco(int longitud, bool horizontal);
+#include <vector>
+#include <utility>
 
-        // Verificar si el barco está hundido
-        bool verificarHundido();
+class Barco {
+private:
+    int longitud; // Número de coordenadas que ocupa
+    bool horizontal; // Orientación del barco
+    bool hundido = false;
+    int contGolpes = 0;
+    std::vector<std::pair<int, int>> coordenadas; // Coordenadas del barco
 
-        // Método para registrar un golpe
-        void recibirGolpe();
+public:
+    // Constructor
+    Barco(int longitud, bool horizontal);
 
-        // Métodos de acceso
-        int getLongitud()  { return longitud; } // const { return ..}
-        bool isHorizontal()  { return horizontal; } // const { return ..}
-        bool isHundido()  { return hundido; } // const { return ..}
- };
+    // Verificar si el barco está hundido
+    bool verificarHundido();
+
+    // Método para registrar un golpe
+    void recibirGolpe();
+
+    // Añadir coordenada del barco
+    void agregarCoordenada(int x, int y) { coordenadas.push_back({x, y}); }
+
+    // Obtener coordenadas del barco
+    const std::vector<std::pair<int, int>>& getCoordenadas() const { return coordenadas; }
+
+    // Métodos de acceso
+    int getLongitud() const { return longitud; }
+    bool isHorizontal() const { return horizontal; }
+    bool isHundido() const { return hundido; }
+};
+
 #endif

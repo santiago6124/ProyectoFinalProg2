@@ -43,7 +43,7 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
         }
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y][x + i].setBarco(&barco);
-            barco.agregarCoordenada(x + i, y);
+            barco.agregarCoordenada(x + i, y); // ¡¡¡ Sacar
         }
     } else {
         if (y + barco.getLongitud() > size) return false;
@@ -52,7 +52,7 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
         }
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y + i][x].setBarco(&barco);
-            barco.agregarCoordenada(x, y + i);
+            barco.agregarCoordenada(x, y + i); // ¡¡¡ Sacar
         }
     }
     return true;
@@ -72,7 +72,7 @@ bool Tablero::atacar(int x, int y) {
             }
             return true;
         } else {
-            coord.setTocado(true);
+            coord.setTocado(true); // esto podria ir mas arriba, y simplificado
         }
     }
     return false;

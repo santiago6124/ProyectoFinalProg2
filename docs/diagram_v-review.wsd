@@ -3,9 +3,14 @@
 class Tablero {
     - [][] coordenadas: Coordenada
     - n : int // tamaño del tablero
-    - mmostrarTablero() : void
+    - Tablero(int size) : constructor
+        '   -> inicializa objetos Coordenada en coordenadas
+    - mostrarTablero() : void
+        '   -> mostrarTablero: imprime el tablero, validando: coord.getBarco(), coord.isTocado()
     - colocarBarco(int x, int y, Barco) : void
+        '   -> Coordenas.setBarco, ¿¿¿ barco.agregarCoordenada ???
     - atacar(int x, int y) : bool
+        '   -> Coordenas.setBarco, coord.setTocado(true), coord.getBarco()->recibirGolpe()
 }
 
 class Coordenada {
@@ -35,7 +40,7 @@ class Barco {
     - isHundido() : bool
 }
 
-Barco "1" o-- "0..*" Coordenada
+Coordenada "1" o-- "0..*" Barco
 
 class Jugador {
     - nombre : str
@@ -45,6 +50,15 @@ class Jugador {
     - getNombre() : str
     - getTablero() : Tablero
 }
+
+class Usuario {
+}
+
+class Maquina {
+}
+
+Usuario --|> Jugador
+Maquina --|> Jugador
 
 Jugador "1" o-- "1" Tablero
 

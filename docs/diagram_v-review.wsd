@@ -3,6 +3,9 @@
 class Tablero {
     - [][] coordenadas: Coordenada
     - n : int // tamaño del tablero
+    - mmostrarTablero() : void
+    - colocarBarco(int x, int y, Barco) : void
+    - atacar(int x, int y) : bool
 }
 
 class Coordenada {
@@ -10,6 +13,12 @@ class Coordenada {
     - numero : int
     - Barco: Barco, default=null
     - tocado : bool, default=false
+    - getLetra() : str
+    - getNumero() : int
+    - isTocado() : bool
+    - getBarco() : Barco
+    - setBarco(Barco) : void
+    - setTocado() : void
 }
 
 Tablero "1" o-- "0..*" Coordenada
@@ -20,6 +29,10 @@ class Barco {
     - hundido : bool, default=false
     - contGolpes : int, default=0
     - verificarHundido() : bool // contGolpes == longitud ?
+    - recibirGolpe() : void
+    - getLongitud() : int
+    - isHorizontal() : bool
+    - isHundido() : bool
 }
 
 Barco "1" o-- "0..*" Coordenada
@@ -29,6 +42,8 @@ class Jugador {
     - tablero : Tablero
     ' - [] barcos : Barco
     ' - [] disparos : Coordenada
+    - getNombre() : str
+    - getTablero() : Tablero
 }
 
 Jugador "1" o-- "1" Tablero

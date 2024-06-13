@@ -1,0 +1,36 @@
+@startuml
+
+class Tablero {
+    - [][] coordenadas: Coordenada
+    - n : int // tamaño del tablero
+}
+
+class Coordenada {
+    - letra : str
+    - numero : int
+    - Barco: Barco, default=null
+    - tocado : bool, default=false
+}
+
+Tablero "1" o-- "0..*" Coordenada
+
+class Barco {
+    - longitud : int //n coordenadas que ocupa
+    - horizontal : bool // orientacion
+    - hundido : bool, default=false
+    - contGolpes : int, default=0
+    - verificarHundido() : bool // contGolpes == longitud ?
+}
+
+Barco "1" o-- "0..*" Coordenada
+
+class Jugador {
+    - nombre : str
+    - tablero : Tablero
+    ' - [] barcos : Barco
+    ' - [] disparos : Coordenada
+}
+
+Jugador "1" o-- "1" Tablero
+
+@enduml

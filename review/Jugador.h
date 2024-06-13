@@ -4,38 +4,31 @@
 #include <vector>
 #include "Tablero.h"
 #include "Barco.h"
-using namespace std;
 
-#ifndef Jugador_H
-#define Jugador_H
+#ifndef JUGADOR_H
+#define JUGADOR_H
+
 class Jugador {
 private:
-    string nombre;
+    std::string nombre;
     Tablero tablero;
-    vector<Barco*> barcos; // Vector para almacenar los barcos del jugador
+    std::vector<Barco*> barcos; // Vector para almacenar los barcos del jugador
 
 public:
     // Constructor
-    Jugador(string nombre, int sizeTablero) : nombre(nombre), tablero(sizeTablero) {}
+    Jugador(std::string nombre, int sizeTablero);
 
     // Métodos de acceso
-    string getNombre() const { return nombre; }
-    Tablero& getTablero() { return tablero; }
+    std::string getNombre() const;
+    Tablero& getTablero();
 
     // Añadir barco al jugador
-    void agregarBarco(Barco* barco) { barcos.push_back(barco); }
+    void agregarBarco(Barco* barco);
 
     // Verificar si todos los barcos están hundidos
-    bool todosBarcosHundidos() const {
-        for (const auto& barco : barcos) {
-            if (!barco->isHundido()) {
-                return false;
-            }
-        }
-        return true;
-    }
+    bool todosBarcosHundidos() const;
 
     // Otros métodos, como colocar barcos, realizar disparos, etc.
 };
 
-#endif
+#endif // JUGADOR_H

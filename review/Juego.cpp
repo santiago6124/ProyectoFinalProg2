@@ -28,6 +28,18 @@ void Juego::jugar() {
     std::cout << jugador1.getNombre() << " ataca (2, 2): "
               << (jugador2.getTablero().atacar(2, 2) ? "Golpe!" : "Fallo!") << std::endl;
 
+    // Realizar ataques
+    std::cout << jugador1.getNombre() << " ataca (2, 3): "
+              << (jugador2.getTablero().atacar(2, 3) ? "Golpe!" : "Fallo!") << std::endl;
+
+    // Realizar ataques
+    std::cout << jugador1.getNombre() << " ataca (2, 4): "
+              << (jugador2.getTablero().atacar(2, 4) ? "Golpe!" : "Fallo!") << std::endl;
+
+    // Realizar ataques
+    std::cout << jugador1.getNombre() << " ataca (2, 5): "
+              << (jugador2.getTablero().atacar(2, 5) ? "Golpe!" : "Fallo!") << std::endl;
+
     std::cout << jugador2.getNombre() << " ataca (0, 0): "
               << (jugador1.getTablero().atacar(0, 0) ? "Golpe!" : "Fallo!") << std::endl;
 

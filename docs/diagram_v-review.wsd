@@ -33,4 +33,12 @@ class Jugador {
 
 Jugador "1" o-- "1" Tablero
 
+class Juego {
+    - jugador1: Jugador
+    - jugador2: Jugador
+    + jugar()
+}
+
+Juego "1" o-- "1" Jugador
+
 @enduml

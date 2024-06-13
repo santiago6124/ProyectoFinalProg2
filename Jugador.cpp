@@ -32,6 +32,11 @@ void Jugador::mostrarTableroOponente() const {
     tableroOponente.mostrarTablero();
 }
 
+void Jugador::mostrarTableroPropio() const {
+    std::cout << "Tu tablero:\n";
+    tableroPropio.mostrarTablero();
+}
+
 bool Jugador::todosBarcosHundidos() const {
     return tableroPropio.todosBarcosHundidos();
 }
@@ -57,7 +62,7 @@ bool Jugador::validarFila(const std::string &inputFila, int &fila, int filas) {
 bool Jugador::validarColumna(int &columna, int columnas) {
     if (std::cin.fail() || columna < 1 || columna > columnas) {
         std::cin.clear(); // Clear the error flag
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descartar entrada inválida
         std::cout << "Entrada inválida. Intente de nuevo.\n";
         return false;
     } else {
@@ -65,4 +70,3 @@ bool Jugador::validarColumna(int &columna, int columnas) {
         return true;
     }
 }
-

@@ -4,15 +4,17 @@
 #include "Tablero.h"
 #include <string>
 
-class Jugador {
+class Jugador
+{
 public:
     Jugador(const std::string &nombre, int filas, int columnas);
-    const std::string& getNombre() const;
+    const std::string &getNombre() const;
     virtual bool realizarAtaque(Jugador &oponente, int fila, int columna);
     void mostrarTableroOponente() const;
     bool todosBarcosHundidos() const;
     virtual void colocarBarcos() = 0;
-
+    void mostrarTableroPropio() const;
+    
     int getFilasTablero() const;
     int getColumnasTablero() const;
 

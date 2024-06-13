@@ -40,5 +40,6 @@ bool Maquina::generarOrientacion() {
 bool Maquina::realizarAtaque(Jugador &oponente) {
     int fila = generarFila();
     int columna = generarColumna();
-    return Jugador::realizarAtaque(oponente, fila, columna);
+    bool resultado = Jugador::realizarAtaque(oponente, fila, columna);
+    return resultado;
 }

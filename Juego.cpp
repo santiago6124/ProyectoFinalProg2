@@ -15,7 +15,6 @@ void Juego::iniciar() {
 
     while (true) {
         std::cout << "Turno de " << turnoActual->getNombre() << "\n";
-        turnoActual->mostrarTableroOponente();
 
         if (dynamic_cast<Maquina*>(turnoActual)) {
             dynamic_cast<Maquina*>(turnoActual)->realizarAtaque(*oponente);
@@ -42,7 +41,7 @@ void Juego::iniciar() {
                 std::cin >> columna;
                 if (std::cin.fail() || columna < 1 || columna > oponente->getColumnasTablero()) {
                     std::cin.clear(); // Clear the error flag
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descartar entrada inválida
                     std::cout << "Entrada inválida. Intente de nuevo.\n";
                 } else {
                     columna = Tablero::convertirColumna(columna);
@@ -52,6 +51,9 @@ void Juego::iniciar() {
 
             turnoActual->realizarAtaque(*oponente, fila, columna);
         }
+
+        // Mostrar el tablero del oponente actualizado después del ataque
+        turnoActual->mostrarTableroOponente();
 
         if (oponente->todosBarcosHundidos()) {
             std::cout << "¡" << turnoActual->getNombre() << " ha ganado!\n";

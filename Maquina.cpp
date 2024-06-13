@@ -38,8 +38,18 @@ bool Maquina::generarOrientacion() {
 }
 
 bool Maquina::realizarAtaque(Jugador &oponente) {
-    int fila = generarFila();
-    int columna = generarColumna();
-    bool resultado = Jugador::realizarAtaque(oponente, fila, columna);
-    return resultado;
+    int fila, columna;
+    bool ataqueExitoso = false;
+
+    while (!ataqueExitoso) {
+        fila = generarFila();
+        columna = generarColumna();
+
+        // Verificar si la celda ya ha sido atacada
+        if (tableroOponente.getCeldas()[fila][columna].getEstado() == VACIO) {
+            ataqueExitoso = Jugador::realizarAtaque(oponente, fila, columna);
+        }
+    }
+    
+    return ataqueExitoso;
 }

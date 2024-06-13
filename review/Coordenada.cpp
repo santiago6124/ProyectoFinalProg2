@@ -3,10 +3,10 @@
 // Constructores
 Coordenada::Coordenada() : letra(""), numero(0) {}
 
-Coordenada::Coordenada(string letra, int numero) : letra(letra), numero(numero) {}
+Coordenada::Coordenada(std::string letra, int numero) : letra(letra), numero(numero) {}
 
 // Métodos de acceso
-string Coordenada::getLetra() const {
+std::string Coordenada::getLetra() const {
     return letra;
 }
 
@@ -30,3 +30,4 @@ void Coordenada::setBarco(Barco* barco) {
 void Coordenada::setTocado(bool tocado) {
     this->tocado = tocado;
 }
+    

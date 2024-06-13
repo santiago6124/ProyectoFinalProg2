@@ -1,11 +1,11 @@
 #include "Juego.h"
 #include <iostream>
-using namespace std;
+#include <vector>
 
 void Juego::jugar() {
     // Crear barcos para los jugadores
-    vector<Barco> barcosJugador1 = {Barco(3, true), Barco(4, false)};
-    vector<Barco> barcosJugador2 = {Barco(3, true), Barco(4, false)};
+    std::vector<Barco> barcosJugador1 = {Barco(3, true), Barco(4, false)};
+    std::vector<Barco> barcosJugador2 = {Barco(3, true), Barco(4, false)};
 
     // Colocar barcos para el jugador 1
     for (Barco& barco : barcosJugador1) {
@@ -27,8 +27,6 @@ void Juego::jugar() {
             colocado = jugador1.getTablero().colocarBarco(x, y, barco);
             if (!colocado) {
                 std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
-            } else {
-                jugador1.agregarBarco(&barco);
             }
         }
     }
@@ -53,8 +51,6 @@ void Juego::jugar() {
             colocado = jugador2.getTablero().colocarBarco(x, y, barco);
             if (!colocado) {
                 std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
-            } else {
-                jugador2.agregarBarco(&barco);
             }
         }
     }

@@ -1,14 +1,11 @@
 #pragma once
 
-#include <string>
-#include <iostream>
 #include <vector>
-#include "Barco.h"
 #include "Coordenada.h"
-using namespace std;
+#include "Barco.h"
 
-#ifndef Tablero_H
-#define Tablero_H
+#ifndef TABLERO_H
+#define TABLERO_H
 
 class Tablero {
 private:
@@ -26,6 +23,9 @@ public:
 
     // Atacar una posición
     bool atacar(int x, int y);
+
+    // Verificar si todos los barcos están hundidos
+    bool todosBarcosHundidos() const;
 };
 
 #endif

@@ -1,9 +1,5 @@
 #include "Tablero.h"
-#include "Barco.h"
-#include <string>
 #include <iostream>
-#include <vector>
-using namespace std;
 
 // Constructor
 Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenada>(size)) {
@@ -43,7 +39,6 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
         }
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y][x + i].setBarco(&barco);
-            barco.agregarCoordenada(x + i, y); // ¡¡¡ Sacar
         }
     } else {
         if (y + barco.getLongitud() > size) return false;
@@ -52,7 +47,6 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
         }
         for (int i = 0; i < barco.getLongitud(); i++) {
             coordenadas[y + i][x].setBarco(&barco);
-            barco.agregarCoordenada(x, y + i); // ¡¡¡ Sacar
         }
     }
     return true;
@@ -65,15 +59,22 @@ bool Tablero::atacar(int x, int y) {
         if (coord.getBarco() != nullptr) {
             coord.setTocado(true);
             coord.getBarco()->recibirGolpe();
-            if (coord.getBarco()->isHundido()) {
-                for (const auto& coordPos : coord.getBarco()->getCoordenadas()) {
-                    coordenadas[coordPos.second][coordPos.first].setTocado(true);
-                }
-            }
             return true;
         } else {
-            coord.setTocado(true); // esto podria ir mas arriba, y simplificado
+            coord.setTocado(true);
         }
     }
     return false;
+}
+
+// Verificar si todos los barcos están hundidos
+bool Tablero::todosBarcosHundidos() const {
+    for (const auto& row : coordenadas) {
+        for (const auto& coord : row) {
+            if (coord.getBarco() != nullptr && !coord.getBarco()->isHundido()) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

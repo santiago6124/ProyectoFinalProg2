@@ -1,13 +1,10 @@
 #pragma once
 
 #include <string>
-#include <iostream>
-#include <vector>
 #include "Jugador.h"
-using namespace std;
 
-#ifndef Juego_H
-#define Juego_H
+#ifndef JUEGO_H
+#define JUEGO_H
 
 class Juego {
 private:

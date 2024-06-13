@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "Barco.h"
+#include "Coordenada.h"
 using namespace std;
 
 #ifndef Tablero_H
@@ -12,12 +13,12 @@ using namespace std;
 
     class Tablero {
         private:
-            vector<vector<char>> coordenadas;
+            std::vector<std::vector<Coordenada>> coordenadas;
             int size;
 
         public:
             // Constructor
-            Tablero(int size) : size(size), coordenadas(size, vector<char>(size, '.')) {}
+            Tablero(int size);
 
             void mostrarTablero();
 
@@ -26,7 +27,6 @@ using namespace std;
 
             // Atacar una posición
             bool atacar(int x, int y);
-
-    };
+        };
 
 #endif

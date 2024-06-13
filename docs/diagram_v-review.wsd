@@ -33,11 +33,19 @@ class Barco {
     - horizontal : bool // orientacion
     - hundido : bool, default=false
     - contGolpes : int, default=0
+    - Barco(int longitud, bool horizontal) : constructor
+        '   -> longitud_, horizontal_
     - verificarHundido() : bool // contGolpes == longitud ?
+        '   -> return contGolpes == longitud
     - recibirGolpe() : void
+        '   -> contGolpes++, validar si hundido asignar = true
     - getLongitud() : int
+        '   -> return longitud
     - isHorizontal() : bool
+        '   -> return horizontal
     - isHundido() : bool
+        '   -> return hundido
+
 }
 
 Coordenada "1" o-- "0..*" Barco

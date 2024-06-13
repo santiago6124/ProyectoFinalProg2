@@ -12,7 +12,9 @@ private:
     bool horizontal; // Orientación del barco
     bool hundido = false;
     int contGolpes = 0;
-    std::vector<std::pair<int, int>> coordenadas; // Coordenadas del barco
+    std::vector<std::pair<int, int>> coordenadas; // Coordenadas del barco, totalmente innecesario, volar a la mierda
+    // sacar el vector de coordenadas y el método agregarCoordenada
+    // BARCO DESCONOCE DE COORDENADAS
 
 public:
     // Constructor

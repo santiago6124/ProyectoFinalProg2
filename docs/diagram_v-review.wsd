@@ -19,11 +19,17 @@ class Coordenada {
     - Barco: Barco, default=null
     - tocado : bool, default=false
     - getLetra() : str
+        '   -> return letra
     - getNumero() : int
+        '   -> return numero
     - isTocado() : bool
+        '   -> return tocado
     - getBarco() : Barco
+        '   -> return barco
     - setBarco(Barco) : void
+        '   -> this->barco = barco
     - setTocado() : void
+        '   -> this->tocado = tocado
 }
 
 Tablero "1" o-- "0..*" Coordenada

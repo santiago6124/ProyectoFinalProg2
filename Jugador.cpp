@@ -1,4 +1,6 @@
 #include "Jugador.h"
+#include <cctype> 
+#include <limits>
 #include <iostream>
 
 Jugador::Jugador(const std::string &nombre, int filas, int columnas)
@@ -33,4 +35,34 @@ void Jugador::mostrarTableroOponente() const {
 bool Jugador::todosBarcosHundidos() const {
     return tableroPropio.todosBarcosHundidos();
 }
-    
+
+int Jugador::getFilasTablero() const {
+    return tableroPropio.getFilas();
+}
+
+int Jugador::getColumnasTablero() const {
+    return tableroPropio.getColumnas();
+}
+
+bool Jugador::validarFila(const std::string &inputFila, int &fila, int filas) {
+    if (inputFila.length() == 1 && isalpha(inputFila[0])) {
+        fila = Tablero::convertirFila(toupper(inputFila[0]));
+        if (fila >= 0 && fila < filas) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Jugador::validarColumna(int &columna, int columnas) {
+    if (std::cin.fail() || columna < 1 || columna > columnas) {
+        std::cin.clear(); // Clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+        std::cout << "Entrada inválida. Intente de nuevo.\n";
+        return false;
+    } else {
+        columna = Tablero::convertirColumna(columna);
+        return true;
+    }
+}
+

@@ -13,6 +13,12 @@ public:
     bool todosBarcosHundidos() const;
     virtual void colocarBarcos() = 0;
 
+    int getFilasTablero() const;
+    int getColumnasTablero() const;
+
+    static bool validarFila(const std::string &inputFila, int &fila, int filas);
+    static bool validarColumna(int &columna, int columnas);
+
 protected:
     std::string nombre;
     Tablero tableroPropio;

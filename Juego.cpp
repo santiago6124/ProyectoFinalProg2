@@ -21,10 +21,34 @@ void Juego::iniciar() {
             dynamic_cast<Maquina*>(turnoActual)->realizarAtaque(*oponente);
         } else {
             int fila, columna;
-            std::cout << "Ingrese la fila a atacar: ";
-            std::cin >> fila;
-            std::cout << "Ingrese la columna a atacar: ";
-            std::cin >> columna;
+
+            // Validar fila
+            while (true) {
+                std::cout << "Ingrese la fila a atacar (A-" << static_cast<char>('A' + oponente->getFilasTablero() - 1) << "): ";
+                std::string inputFila;
+                std::cin >> inputFila;
+                if (inputFila.length() == 1 && isalpha(inputFila[0])) {
+                    fila = Tablero::convertirFila(toupper(inputFila[0]));
+                    if (fila >= 0 && fila < oponente->getFilasTablero()) {
+                        break;
+                    }
+                }
+                std::cout << "Entrada inválida. Intente de nuevo.\n";
+            }
+
+            // Validar columna
+            while (true) {
+                std::cout << "Ingrese la columna a atacar (1-" << oponente->getColumnasTablero() << "): ";
+                std::cin >> columna;
+                if (std::cin.fail() || columna < 1 || columna > oponente->getColumnasTablero()) {
+                    std::cin.clear(); // Clear the error flag
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+                    std::cout << "Entrada inválida. Intente de nuevo.\n";
+                } else {
+                    columna = Tablero::convertirColumna(columna);
+                    break;
+                }
+            }
 
             turnoActual->realizarAtaque(*oponente, fila, columna);
         }

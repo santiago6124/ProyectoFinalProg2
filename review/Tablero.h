@@ -3,13 +3,15 @@
 #include <vector>
 #include "Coordenada.h"
 #include "Barco.h"
+#include <string>
+using namespace std; 
 
-#ifndef TABLERO_H
-#define TABLERO_H
+#ifndef Tablero_H
+#define Tablero_H
 
 class Tablero {
 private:
-    std::vector<std::vector<Coordenada>> coordenadas;
+    vector<vector<Coordenada>> coordenadas;
     int size;
 
 public:

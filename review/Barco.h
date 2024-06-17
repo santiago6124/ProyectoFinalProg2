@@ -21,9 +21,9 @@ public:
     void recibirGolpe();
 
     // Métodos de acceso
-    int getLongitud() const { return longitud; }
-    bool isHorizontal() const { return horizontal; }
-    bool isHundido() const { return hundido; }
+    int getLongitud() { return longitud; }
+    bool isHorizontal() { return horizontal; }
+    bool isHundido() { return hundido; }
 };
 
 #endif

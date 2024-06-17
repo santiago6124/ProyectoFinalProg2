@@ -4,8 +4,8 @@
 
 void Juego::jugar() {
     // Crear barcos para los jugadores
-    std::vector<Barco> barcosJugador1 = {Barco(3, true), Barco(4, false)};
-    std::vector<Barco> barcosJugador2 = {Barco(3, true), Barco(4, false)};
+    std::vector<Barco> barcosJugador1 = {Barco(3, true)};//, Barco(4, false)};
+    std::vector<Barco> barcosJugador2 = {Barco(3, true)};//, Barco(4, false)};
 
     // Colocar barcos para el jugador 1
     for (Barco& barco : barcosJugador1) {
@@ -15,7 +15,10 @@ void Juego::jugar() {
             char orientacion;
             std::cout << jugador1.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
                       << barco.getLongitud() << " (x y) y la orientación (H/V): ";
-            std::cin >> x >> y >> orientacion;
+            // std::cin >> x >> y >> orientacion;
+            x = 0;
+            y = 0;
+            orientacion = 'H';
             if (orientacion == 'H' || orientacion == 'h') {
                 barco = Barco(barco.getLongitud(), true);
             } else if (orientacion == 'V' || orientacion == 'v') {
@@ -39,7 +42,10 @@ void Juego::jugar() {
             char orientacion;
             std::cout << jugador2.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
                       << barco.getLongitud() << " (x y) y la orientación (H/V): ";
-            std::cin >> x >> y >> orientacion;
+            // std::cin >> x >> y >> orientacion;
+            x = 2;
+            y = 2;
+            orientacion = 'V';
             if (orientacion == 'H' || orientacion == 'h') {
                 barco = Barco(barco.getLongitud(), true);
             } else if (orientacion == 'V' || orientacion == 'v') {

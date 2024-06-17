@@ -2,13 +2,14 @@
 
 #include <string>
 #include "Barco.h"
+using namespace std;
 
-#ifndef COORDENADA_H
-#define COORDENADA_H
+#ifndef Coordenada_H
+#define Coordenada_H
 
 class Coordenada {
 private:
-    std::string letra;
+    string letra;
     int numero;
     Barco* barco = nullptr;
     bool tocado = false;
@@ -16,10 +17,10 @@ private:
 public:
     // Constructores
     Coordenada();
-    Coordenada(std::string letra, int numero);
+    Coordenada(string letra, int numero);
 
     // Métodos de acceso
-    std::string getLetra() const;
+    string getLetra() const;
     int getNumero() const;
     bool isTocado() const;
     Barco* getBarco() const;
@@ -29,4 +30,4 @@ public:
     void setTocado(bool tocado);
 };
 
-#endif // COORDENADA_H
+#endif

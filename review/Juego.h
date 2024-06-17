@@ -2,9 +2,10 @@
 
 #include <string>
 #include "Jugador.h"
+using namespace std;
 
-#ifndef JUEGO_H
-#define JUEGO_H
+#ifndef Juego_H
+#define Juego_H
 
 class Juego {
 private:
@@ -13,7 +14,7 @@ private:
 
 public:
     // Constructor
-    Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
+    Juego(const string& nombreJugador1, const string& nombreJugador2, int size)
         : jugador1(nombreJugador1, size), jugador2(nombreJugador2, size) {}
 
     void jugar();

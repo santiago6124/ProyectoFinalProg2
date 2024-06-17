@@ -2,21 +2,22 @@
 
 #include <string>
 #include "Tablero.h"
+using namespace std;
 
-#ifndef JUGADOR_H
-#define JUGADOR_H
+#ifndef Jugador_H
+#define Jugador_H
 
 class Jugador {
 private:
-    std::string nombre;
+    string nombre;
     Tablero tablero;
 
 public:
     // Constructor
-    Jugador(std::string nombre, int sizeTablero);
+    Jugador(string nombre, int sizeTablero);
 
     // Métodos de acceso
-    std::string getNombre() const;
+    string getNombre() const;
     Tablero& getTablero();
 
     // Métodos para interactuar con el tablero
@@ -27,4 +28,4 @@ public:
     bool todosBarcosHundidos() const;
 };
 
-#endif // JUGADOR_H
+#endif

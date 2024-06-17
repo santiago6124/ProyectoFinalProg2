@@ -1,73 +1,47 @@
 #include "Juego.h"
+#include "Usuario.h"
+#include "Maquina.h"
 #include <iostream>
-#include <vector>
 
 void Juego::jugar() {
-    // Crear barcos para los jugadores
-    std::vector<Barco> barcosJugador1 = {Barco(3, true)};//, Barco(4, false)};
-    std::vector<Barco> barcosJugador2 = {Barco(3, true)};//, Barco(4, false)};
+    int modo;
+    std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
+    std::cin >> modo;
 
-    // Colocar barcos para el jugador 1
-    for (Barco& barco : barcosJugador1) {
-        bool colocado = false;
-        while (!colocado) {
-            int x, y;
-            char orientacion;
-            std::cout << jugador1.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
-                      << barco.getLongitud() << " (x y) y la orientación (H/V): ";
-            // std::cin >> x >> y >> orientacion;
-            x = 0;
-            y = 0;
-            orientacion = 'H';
-            if (orientacion == 'H' || orientacion == 'h') {
-                barco = Barco(barco.getLongitud(), true);
-            } else if (orientacion == 'V' || orientacion == 'v') {
-                barco = Barco(barco.getLongitud(), false);
-            } else {
-                std::cout << "Orientación no válida. Intenta de nuevo." << std::endl;
-                continue;
-            }
-            colocado = jugador1.getTablero().colocarBarco(x, y, barco);
-            if (!colocado) {
-                std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
-            }
-        }
+    Jugador* jugador1;
+    Jugador* jugador2;
+
+    if (modo == 1) {
+        jugador1 = new Usuario("Jugador 1", 10);
+        jugador2 = new Usuario("Jugador 2", 10);
+    } else if (modo == 2) {
+        jugador1 = new Usuario("Jugador", 10);
+        jugador2 = new Maquina("Maquina", 10);
+    } else {
+        std::cout << "Modo de juego no válido." << std::endl;
+        return;
     }
 
-    // Colocar barcos para el jugador 2
+    // Aquí seguirías con la lógica del juego, utilizando jugador1 y jugador2
+    // Crear barcos para los jugadores
+    std::vector<Barco> barcosJugador1 = {Barco(3, true)};
+    std::vector<Barco> barcosJugador2 = {Barco(3, true)};
+
+    // Colocar barcos para los jugadores
+    for (Barco& barco : barcosJugador1) {
+        while (!jugador1->colocarBarco(0, 0, barco));
+    }
     for (Barco& barco : barcosJugador2) {
-        bool colocado = false;
-        while (!colocado) {
-            int x, y;
-            char orientacion;
-            std::cout << jugador2.getNombre() << ", ingresa las coordenadas para colocar tu barco de longitud "
-                      << barco.getLongitud() << " (x y) y la orientación (H/V): ";
-            // std::cin >> x >> y >> orientacion;
-            x = 2;
-            y = 2;
-            orientacion = 'V';
-            if (orientacion == 'H' || orientacion == 'h') {
-                barco = Barco(barco.getLongitud(), true);
-            } else if (orientacion == 'V' || orientacion == 'v') {
-                barco = Barco(barco.getLongitud(), false);
-            } else {
-                std::cout << "Orientación no válida. Intenta de nuevo." << std::endl;
-                continue;
-            }
-            colocado = jugador2.getTablero().colocarBarco(x, y, barco);
-            if (!colocado) {
-                std::cout << "No se pudo colocar el barco. Intenta de nuevo." << std::endl;
-            }
-        }
+        while (!jugador2->colocarBarco(0, 0, barco));
     }
 
     // Mostrar tableros iniciales
-    std::cout << "Tablero " << jugador1.getNombre() << ":" << std::endl;
-    jugador1.getTablero().mostrarTablero();
+    std::cout << "Tablero " << jugador1->getNombre() << ":" << std::endl;
+    jugador1->getTablero().mostrarTablero();
     std::cout << std::endl;
 
-    std::cout << "Tablero " << jugador2.getNombre() << ":" << std::endl;
-    jugador2.getTablero().mostrarTablero();
+    std::cout << "Tablero " << jugador2->getNombre() << ":" << std::endl;
+    jugador2->getTablero().mostrarTablero();
     std::cout << std::endl;
 
     bool juegoTerminado = false;
@@ -75,35 +49,32 @@ void Juego::jugar() {
         int x, y;
 
         // Turno del jugador 1
-        std::cout << jugador1.getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-        std::cin >> x >> y;
-        std::cout << jugador1.getNombre() << " ataca (" << x << ", " << y << "): "
-                  << (jugador2.getTablero().atacar(x, y) ? "Golpe!" : "Fallo!") << std::endl;
-        std::cout << "Tablero " << jugador2.getNombre() << " después del ataque:" << std::endl;
-        jugador2.getTablero().mostrarTablero();
+        jugador1->atacar(x, y);
+        std::cout << "Tablero " << jugador2->getNombre() << " después del ataque:" << std::endl;
+        jugador2->getTablero().mostrarTablero();
         std::cout << std::endl;
 
         // Verificar si todos los barcos del jugador2 están hundidos
-        if (jugador2.todosBarcosHundidos()) {
-            std::cout << jugador1.getNombre() << " ha ganado!" << std::endl;
+        if (jugador2->todosBarcosHundidos()) {
+            std::cout << jugador1->getNombre() << " ha ganado!" << std::endl;
             juegoTerminado = true;
             break;
         }
 
         // Turno del jugador 2
-        std::cout << jugador2.getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-        std::cin >> x >> y;
-        std::cout << jugador2.getNombre() << " ataca (" << x << ", " << y << "): "
-                  << (jugador1.getTablero().atacar(x, y) ? "Golpe!" : "Fallo!") << std::endl;
-        std::cout << "Tablero " << jugador1.getNombre() << " después del ataque:" << std::endl;
-        jugador1.getTablero().mostrarTablero();
+        jugador2->atacar(x, y);
+        std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
+        jugador1->getTablero().mostrarTablero();
         std::cout << std::endl;
 
         // Verificar si todos los barcos del jugador1 están hundidos
-        if (jugador1.todosBarcosHundidos()) {
-            std::cout << jugador2.getNombre() << " ha ganado!" << std::endl;
+        if (jugador1->todosBarcosHundidos()) {
+            std::cout << jugador2->getNombre() << " ha ganado!" << std::endl;
             juegoTerminado = true;
             break;
         }
     }
+
+    delete jugador1;
+    delete jugador2;
 }

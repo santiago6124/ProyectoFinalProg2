@@ -3,7 +3,6 @@
 #include <string>
 #include "Tablero.h"
 using namespace std;
-
 #ifndef Jugador_H
 #define Jugador_H
 
@@ -21,8 +20,8 @@ public:
     Tablero& getTablero();
 
     // Métodos para interactuar con el tablero
-    bool colocarBarco(int x, int y, Barco& barco);
-    bool atacar(int x, int y);
+    virtual bool colocarBarco(int x, int y, Barco& barco);
+    virtual bool atacar(int x, int y);
 
     // Verificar si todos los barcos están hundidos
     bool todosBarcosHundidos() const;

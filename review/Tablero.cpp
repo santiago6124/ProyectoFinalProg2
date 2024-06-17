@@ -10,6 +10,11 @@ Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenad
     }
 }
 
+// Método para obtener el tamaño del tablero
+int Tablero::getSize() const {
+    return size;
+}
+
 // Mostrar el tablero
 void Tablero::mostrarTablero() {
     for (const auto& row : coordenadas) {

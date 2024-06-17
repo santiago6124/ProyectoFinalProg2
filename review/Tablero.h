@@ -28,6 +28,9 @@ public:
 
     // Verificar si todos los barcos están hundidos
     bool todosBarcosHundidos() const;
+
+    // Obtener el tamaño del tablero
+    int getSize() const;
 };
 
 #endif

@@ -1,17 +1,15 @@
 #include "Barco.h"
 
-Barco::Barco(int longitud_, bool horizontal_) {
-    longitud = longitud_;
-    horizontal = horizontal_;
-}
-
-bool Barco::verificarHundido() {
-    return contGolpes == longitud;
-}
+Barco::Barco(int longitud_, bool horizontal_)
+    : longitud(longitud_), horizontal(horizontal_), contGolpes(0), hundido(false) {}
 
 void Barco::recibirGolpe() {
     contGolpes++;
-    if (verificarHundido()) {
+    verificarHundido();
+}
+
+void Barco::verificarHundido() {
+    if (contGolpes == longitud) {
         hundido = true;
     }
 }

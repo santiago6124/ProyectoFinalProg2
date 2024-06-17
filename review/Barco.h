@@ -1,29 +1,20 @@
-#pragma once
-
-#ifndef Barco_H
-#define Barco_H
+#ifndef BARCO_H
+#define BARCO_H
 
 class Barco {
 private:
-    int longitud; // Número de coordenadas que ocupa
-    bool horizontal; // Orientación del barco
-    bool hundido = false;
-    int contGolpes = 0;
+    int longitud;
+    bool horizontal;
+    int contGolpes;
+    bool hundido;
 
 public:
-    // Constructor
-    Barco(int longitud, bool horizontal);
-
-    // Verificar si el barco está hundido
-    bool verificarHundido();
-
-    // Método para registrar un golpe
+    Barco(int longitud_, bool horizontal_);
+    int getLongitud() const { return longitud; }
+    bool isHorizontal() const { return horizontal; }
+    bool isHundido() const { return hundido; }
     void recibirGolpe();
-
-    // Métodos de acceso
-    int getLongitud() { return longitud; }
-    bool isHorizontal() { return horizontal; }
-    bool isHundido() { return hundido; }
+    void verificarHundido();
 };
 
-#endif
+#endif // BARCO_H

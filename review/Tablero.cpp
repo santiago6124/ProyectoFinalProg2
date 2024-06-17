@@ -1,7 +1,6 @@
 #include "Tablero.h"
 #include <iostream>
 
-// Constructor
 Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenada>(size)) {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
@@ -10,8 +9,7 @@ Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenad
     }
 }
 
-// Mostrar el tablero
-void Tablero::mostrarTablero() {
+void Tablero::mostrarTablero() const {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {
             if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->isHundido()) {
@@ -30,7 +28,6 @@ void Tablero::mostrarTablero() {
     }
 }
 
-// Colocar un barco en el tablero
 bool Tablero::colocarBarco(int x, int y, Barco& barco) {
     if (barco.isHorizontal()) {
         if (x + barco.getLongitud() > size) return false;
@@ -52,7 +49,6 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
     return true;
 }
 
-// Atacar una posición
 bool Tablero::atacar(int x, int y) {
     if (x >= 0 && x < size && y >= 0 && y < size) {
         Coordenada& coord = coordenadas[y][x];
@@ -67,7 +63,6 @@ bool Tablero::atacar(int x, int y) {
     return false;
 }
 
-// Verificar si todos los barcos están hundidos
 bool Tablero::todosBarcosHundidos() const {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {

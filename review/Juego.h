@@ -1,23 +1,19 @@
-#pragma once
+#ifndef JUEGO_H
+#define JUEGO_H
 
-#include <string>
-#include "Jugador.h"
-using namespace std;
-
-#ifndef Juego_H
-#define Juego_H
+#include "Usuario.h"
+#include "Maquina.h"
 
 class Juego {
 private:
-    Jugador jugador1;
-    Jugador jugador2;
+    Usuario jugador1;
+    Jugador* jugador2;
+    bool contraMaquina;
 
 public:
-    // Constructor
-    Juego(const string& nombreJugador1, const string& nombreJugador2, int size)
-        : jugador1(nombreJugador1, size), jugador2(nombreJugador2, size) {}
-
+    Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int sizeTablero, bool contraMaquina);
     void jugar();
+    ~Juego();  // Destructor para liberar memoria
 };
 
-#endif
+#endif // JUEGO_H

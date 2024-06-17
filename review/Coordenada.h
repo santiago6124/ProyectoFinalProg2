@@ -1,33 +1,27 @@
-#pragma once
+#ifndef COORDENADA_H
+#define COORDENADA_H
 
 #include <string>
 #include "Barco.h"
-using namespace std;
-
-#ifndef Coordenada_H
-#define Coordenada_H
 
 class Coordenada {
 private:
-    string letra;
+    std::string letra;
     int numero;
-    Barco* barco = nullptr;
-    bool tocado = false;
+    bool tocado;
+    Barco* barco;
 
 public:
-    // Constructores
     Coordenada();
-    Coordenada(string letra, int numero);
+    Coordenada(std::string letra, int numero);
 
-    // Métodos de acceso
-    string getLetra() const;
+    std::string getLetra() const;
     int getNumero() const;
     bool isTocado() const;
     Barco* getBarco() const;
 
-    // Métodos de modificación
     void setBarco(Barco* barco);
     void setTocado(bool tocado);
 };
 
-#endif
+#endif // COORDENADA_H

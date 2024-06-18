@@ -2,7 +2,7 @@
 
 class Tablero {
     - [][] coordenadas: Coordenada
-    - n : int // tamaño del tablero
+    - size : int // tamaño del tablero
     - Tablero(int size) : constructor
         '   -> inicializa objetos Coordenada en coordenadas
     - mostrarTablero() : void
@@ -14,7 +14,7 @@ class Tablero {
     - todosBarcosHundidos() : bool
         '   -> return all barco.isHundido()
     - getSize(): int
-        '   -> return n
+        '   -> return size
 }
 
 class Coordenada {
@@ -69,12 +69,12 @@ class Jugador {
     - tablero : Tablero
     ' - [] barcos : Barco
     ' - [] disparos : Coordenada
-    - Jugador(str nombre, Tablero tablero) : constructor
-        '   -> nombre_, tablero_
+    - Jugador(str nombre, int sizeTablero) : constructor
+        '   -> nombre_, sizeTablero_
     - getNombre() : str
     - getTablero() : Tablero
-    - colocarBarco(int x, int y, Barco) : void
-    - atacar(int x, int y) : bool
+    - colocarBarco(int x, int y, Barco& barco) : bool
+    - atacar(Tablero& tableroOponente, int x, int y) : virtual bool
     - todosBarcosHundidos() : bool
 }
 

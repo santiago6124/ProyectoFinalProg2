@@ -4,7 +4,10 @@
 #include "Juego.h"
 
 int main() {
-    Juego juego("Jugador 1", "Jugador 2", 10);
+    int sizeTablero;
+    std::cout << "Selecciona el tamaño del tablero: ";
+    std::cin >> sizeTablero;
+    Juego juego("Jugador 1", "Jugador 2", sizeTablero);
     juego.jugar();
     return 0;
 }

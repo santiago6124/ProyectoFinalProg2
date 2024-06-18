@@ -1,12 +1,14 @@
+// Juego.cpp
 #include "Juego.h"
 #include "Usuario.h"
 #include "Maquina.h"
 #include <iostream>
 #include <cctype>
 #include <sstream>
-#include "util.h" // Incluye el archivo de utilidades
+#include "util.h"
 
-Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size) {
+Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
+    : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0) {
     int modo;
     std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
     std::cin >> modo;
@@ -22,7 +24,6 @@ Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador
         exit(1);
     }
 }
-
 
 void Juego::jugar() {
     // Crear barcos para los jugadores
@@ -60,6 +61,7 @@ void Juego::jugar() {
             std::cin >> entrada;
             if (parsearEntrada(entrada, x, y)) {
                 ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
+                if (ataqueValido) ataquesJugador1++;
                 if (!ataqueValido) {
                     std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
                 }
@@ -74,6 +76,9 @@ void Juego::jugar() {
         // Verificar si todos los barcos del jugador2 están hundidos
         if (jugador2->todosBarcosHundidos()) {
             std::cout << jugador1->getNombre() << " ha ganado!" << std::endl;
+            ranking.agregarJugador(jugador1->getNombre(), ataquesJugador1);
+            ranking.guardar();
+            ranking.mostrar();
             juegoTerminado = true;
             break;
         }
@@ -86,6 +91,7 @@ void Juego::jugar() {
                 std::cin >> entrada;
                 if (parsearEntrada(entrada, x, y)) {
                     ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
+                    if (ataqueValido) ataquesJugador2++;
                     if (!ataqueValido) {
                         std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
                     }
@@ -94,6 +100,7 @@ void Juego::jugar() {
                 }
             } else if (dynamic_cast<Maquina*>(jugador2.get())) {
                 ataqueValido = dynamic_cast<Maquina*>(jugador2.get())->atacar(jugador1->getTablero(), x, y);
+                if (ataqueValido) ataquesJugador2++;
             }
         }
         std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
@@ -103,6 +110,9 @@ void Juego::jugar() {
         // Verificar si todos los barcos del jugador1 están hundidos
         if (jugador1->todosBarcosHundidos()) {
             std::cout << jugador2->getNombre() << " ha ganado!" << std::endl;
+            ranking.agregarJugador(jugador2->getNombre(), ataquesJugador2);
+            ranking.guardar();
+            ranking.mostrar();
             juegoTerminado = true;
             break;
         }

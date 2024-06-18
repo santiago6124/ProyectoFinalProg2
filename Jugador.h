@@ -25,6 +25,11 @@ public:
     void incrementarTiros();
     int getTiros() const;
 
+    const Tablero& getTableroPropio() const;
+    const Tablero& getTableroOponente() const;
+    Tablero& getTableroPropio();
+    Tablero& getTableroOponente();
+
 protected:
     string nombre;
     Tablero tableroPropio;

@@ -1,9 +1,11 @@
 #include "Tablero.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <sstream>
 
 Tablero::Tablero(int filas, int columnas)
-    : filas(filas), columnas(columnas), celdas(filas, vector<Celda>(columnas)) {}
+    : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
 
 void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal) {
     int size = barco.getSize();
@@ -19,21 +21,21 @@ void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool
     barcos.push_back(barco);
 }
 
-EstadoCelda Tablero::recibirAtaque(int fila, int columna) {
+std::vector<std::pair<int, int>> Tablero::recibirAtaque(int fila, int columna) {
+    std::vector<std::pair<int, int>> celdasAfectadas;
     if (celdas[fila][columna].getEstado() == BARCO) {
         if (verificarHundimiento(fila, columna)) {
-            hundirBarco(fila, columna);
-            return HUNDIDO;
+            hundirBarco(fila, columna, celdasAfectadas);
+        } else {
+            celdas[fila][columna].setEstado(TOCADO);
+            celdasAfectadas.push_back({fila, columna});
         }
-        celdas[fila][columna].setEstado(TOCADO);
-        return TOCADO;
     } else {
         celdas[fila][columna].setEstado(AGUA);
-        return AGUA;
+        celdasAfectadas.push_back({fila, columna});
     }
+    return celdasAfectadas;
 }
-
-
 
 bool Tablero::verificarHundimiento(int fila, int columna) {
     for (auto& barco : barcos) {
@@ -49,13 +51,13 @@ bool Tablero::verificarHundimiento(int fila, int columna) {
     return false;
 }
 
-
-void Tablero::hundirBarco(int fila, int columna) {
+void Tablero::hundirBarco(int fila, int columna, std::vector<std::pair<int, int>>& celdasAfectadas) {
     for (auto& barco : barcos) {
         if (barco.contienePosicion(fila, columna)) {
             for (const auto& pos : barco.getPosiciones()) {
                 celdas[pos.first][pos.second].setEstado(HUNDIDO);
-                cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
+                celdasAfectadas.push_back({pos.first, pos.second});
+                std::cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
             }
             break; // Salir del bucle una vez que hemos encontrado y hundido el barco correspondiente
         }
@@ -63,25 +65,25 @@ void Tablero::hundirBarco(int fila, int columna) {
 }
 
 void Tablero::mostrarTablero() const {
-    cout << "   ";
+    std::cout << "   ";
     for (int i = 1; i <= columnas; ++i) {
-        cout << setw(2) << i << " ";
+        std::cout << std::setw(2) << i << " ";
     }
-    cout << endl;
+    std::cout << std::endl;
 
     for (int i = 0; i < filas; ++i) {
-        cout << static_cast<char>('A' + i) << "  ";
+        std::cout << static_cast<char>('A' + i) << "  ";
         for (int j = 0; j < columnas; ++j) {
             switch (celdas[i][j].getEstado()) {
-                case VACIO: cout << '.'; break;
-                case BARCO: cout << 'B'; break;
-                case AGUA: cout << '~'; break;
-                case TOCADO: cout << 'X'; break;
-                case HUNDIDO: cout << '#'; break;
+                case VACIO: std::cout << '.'; break;
+                case BARCO: std::cout << 'B'; break;
+                case AGUA: std::cout << '~'; break;
+                case TOCADO: std::cout << 'X'; break;
+                case HUNDIDO: std::cout << '#'; break;
             }
-            cout << "  ";
+            std::cout << "  ";
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 
@@ -124,11 +126,11 @@ bool Tablero::puedeColocarBarco(const Barco &barco, int filaInicio, int columnaI
     return true;
 }
 
-vector<vector<Celda>>& Tablero::getCeldas() {
+std::vector<std::vector<Celda>>& Tablero::getCeldas() {
     return celdas;
 }
 
-const vector<vector<Celda>>& Tablero::getCeldas() const {
+const std::vector<std::vector<Celda>>& Tablero::getCeldas() const {
     return celdas;
 }
 
@@ -138,4 +140,26 @@ int Tablero::convertirFila(char letra) {
 
 int Tablero::convertirColumna(int numero) {
     return numero - 1;
+}
+
+vector<vector<int>> Tablero::getDatos() const {
+    vector<vector<int>> datos(filas, vector<int>(columnas));
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            datos[i][j] = static_cast<int>(celdas[i][j].getEstado());
+        }
+    }
+    return datos;
+}
+
+void Tablero::setDatos(const vector<vector<int>> &nuevosDatos) {
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            celdas[i][j].setEstado(static_cast<EstadoCelda>(nuevosDatos[i][j]));
+        }
+    }
+
+    // Mostrar el tablero después de cargar los datos para depuración
+    std::cout << "Tablero después de cargar los datos:" << std::endl;
+    mostrarTablero();
 }

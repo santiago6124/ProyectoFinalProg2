@@ -11,26 +11,27 @@ const string &Jugador::getNombre() const
     return nombre;
 }
 
-bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna)
-{ 
-    if (tableroOponente.getCeldas()[fila][columna].getEstado() != VACIO)
-    {
+bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna) {
+    if (tableroOponente.getCeldas()[fila][columna].getEstado() != VACIO) {
         return false;
     }
+
     incrementarTiros();
-    EstadoCelda resultado = oponente.tableroPropio.recibirAtaque(fila, columna);
-    tableroOponente.getCeldas()[fila][columna].setEstado(resultado);
-    if (resultado == TOCADO)
-    {
-        cout << "¡Tocado!\n";
-    }
-    else if (resultado == AGUA)
-    {
-        cout << "Agua.\n";
-    }
-    else if (resultado == HUNDIDO)
-    {
-        cout << "Barco Hundido!\n";
+    std::vector<std::pair<int, int>> celdasAfectadas = oponente.tableroPropio.recibirAtaque(fila, columna);
+
+    for (const auto &par : celdasAfectadas) {
+        int f = par.first;
+        int c = par.second;
+        EstadoCelda resultado = oponente.tableroPropio.getCeldas()[f][c].getEstado();
+        tableroOponente.getCeldas()[f][c].setEstado(resultado);
+        
+        if (resultado == TOCADO) {
+            std::cout << "¡Tocado en (" << f << ", " << c << ")!\n";
+        } else if (resultado == AGUA) {
+            std::cout << "Agua en (" << f << ", " << c << ").\n";
+        } else if (resultado == HUNDIDO) {
+            std::cout << "Barco Hundido en (" << f << ", " << c << ")!\n";
+        }
     }
 
     return true;
@@ -97,4 +98,20 @@ bool Jugador::validarColumna(int &columna, int columnas)
         columna = Tablero::convertirColumna(columna);
         return true;
     }
+}
+
+const Tablero& Jugador::getTableroPropio() const {
+    return tableroPropio;
+}
+
+const Tablero& Jugador::getTableroOponente() const {
+    return tableroOponente;
+}
+
+Tablero& Jugador::getTableroPropio() {
+    return tableroPropio;
+}
+
+Tablero& Jugador::getTableroOponente() {
+    return tableroOponente;
 }

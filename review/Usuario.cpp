@@ -2,7 +2,7 @@
 #include <iostream>
 
 // Constructor
-Usuario::Usuario(string nombre, int sizeTablero) : Jugador(nombre, sizeTablero) {}
+Usuario::Usuario(std::string nombre, int sizeTablero) : Jugador(nombre, sizeTablero) {}
 
 // Sobreescribir métodos para interactuar con el tablero
 bool Usuario::colocarBarco(int x, int y, Barco& barco) {
@@ -21,7 +21,9 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
     return Jugador::colocarBarco(x, y, barco);
 }
 
-bool Usuario::atacar(int x, int y) {
+bool Usuario::atacar(Tablero& tableroOponente) {
+    int x, y;
+    std::cout << getNombre() << ", ingresa las coordenadas para atacar (x y): ";
     std::cin >> x >> y;
-    return Jugador::atacar(x, y);
+    return Jugador::atacar(tableroOponente, x, y);
 }

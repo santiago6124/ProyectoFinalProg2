@@ -1,7 +1,9 @@
 #include "Maquina.h"
+#include <ctime>
+#include <cstdlib>
 
 // Constructor
-Maquina::Maquina(string nombre, int sizeTablero) : Jugador(nombre, sizeTablero) {
+Maquina::Maquina(std::string nombre, int sizeTablero) : Jugador(nombre, sizeTablero) {
     srand(time(0)); // Inicializar semilla para random
 }
 
@@ -18,8 +20,8 @@ bool Maquina::colocarBarco(int x, int y, Barco& barco) {
     return true;
 }
 
-bool Maquina::atacar(int x, int y) {
-    x = rand() % getTablero().getSize();
-    y = rand() % getTablero().getSize();
-    return Jugador::atacar(x, y);
+bool Maquina::atacar(Tablero& tableroOponente, int x, int y) {
+    x = rand() % tableroOponente.getSize();
+    y = rand() % tableroOponente.getSize();
+    return tableroOponente.atacar(x, y);
 }

@@ -9,8 +9,8 @@ public:
     Usuario(string nombre, int sizeTablero);
 
     // Sobreescribir métodos para interactuar con el tablero
-    bool colocarBarco(int x, int y, Barco& barco) override;
-    bool atacar(int x, int y) ;
+    bool colocarBarco(int x, int y, Barco& barco);
+    bool atacar(Tablero& tableroOponente) ;
 };
 
 #endif

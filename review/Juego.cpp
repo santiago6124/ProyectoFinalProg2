@@ -49,8 +49,9 @@ void Juego::jugar() {
         int x, y;
 
         // Turno del jugador 1
-        std::cout << jugador1->getNombre() << ", Ataca (x y): ";
-        jugador2->atacar(x, y);
+        std::cout << jugador1->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
+        std::cin >> x >> y;
+        jugador1->atacar(jugador2->getTablero(), x, y);
         std::cout << "Tablero " << jugador2->getNombre() << " después del ataque:" << std::endl;
         jugador2->getTablero().mostrarTablero();
         std::cout << std::endl;
@@ -63,8 +64,14 @@ void Juego::jugar() {
         }
 
         // Turno del jugador 2
-        std::cout << jugador2->getNombre() << ", Ataca (x y): ";
-        jugador1->atacar(x, y);
+
+        if (dynamic_cast<Usuario*>(jugador2)) {
+            std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
+            std::cin >> x >> y;
+            jugador2->atacar(jugador1->getTablero(), x, y);
+        } else if (dynamic_cast<Maquina*>(jugador2)) {
+            dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);
+        }
         std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
         jugador1->getTablero().mostrarTablero();
         std::cout << std::endl;

@@ -1,7 +1,7 @@
 #include "Usuario.h"
 #include <iostream>
-#include <cctype> // Para toupper
-#include <limits> // Para numeric_limits
+#include <cctype>
+#include <limits>
 
 Usuario::Usuario(const string& nombre, int filas, int columnas)
     : Jugador(nombre, filas, columnas) {}
@@ -16,7 +16,7 @@ void Usuario::colocarBarcos() {
              int fila;
              int columna;
              bool horizontal;
-             // Validar fila
+
              while (true) {
                  string inputFila;
                  cout << "Ingrese la fila inicial (A-" << static_cast<char>('A' + tableroPropio.getFilas() - 1) << "): ";
@@ -30,13 +30,12 @@ void Usuario::colocarBarcos() {
                  cout << "Entrada invalida. Intente de nuevo.\n";
              }
 
-             // Validar columna
              while (true) {
                  cout << "Ingrese la columna inicial (1-" << tableroPropio.getColumnas() << "): ";
                  cin >> columna;
                  if (cin.fail() || columna < 1 || columna > tableroPropio.getColumnas()) {
-                     cin.clear(); // Clear the error flag
-                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                     cin.clear();
+                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                      cout << "Entrada invalida. Intente de nuevo.\n";
                  } else {
                      columna = Tablero::convertirColumna(columna);
@@ -62,7 +61,7 @@ void Usuario::colocarBarcos() {
              Barco barco(size);
              if (tableroPropio.puedeColocarBarco(barco, fila, columna, horizontal)) {
                  tableroPropio.colocarBarco(barco, fila, columna, horizontal);
-                 tableroPropio.mostrarTablero();  // Mostrar el tablero después de colocar el barco
+                 tableroPropio.mostrarTablero();
                  colocado = true;
              } else {
                  cout << "No se puede colocar el barco aqui, intente de nuevo.\n";

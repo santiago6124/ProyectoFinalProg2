@@ -34,7 +34,7 @@ protected:
     string nombre;
     Tablero tableroPropio;
     Tablero tableroOponente;
-    int tiros; // Nueva variable para contar los tiros
+    int tiros;
 };
 
-#endif // JUGADOR_H
+#endif

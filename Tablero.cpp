@@ -57,9 +57,8 @@ void Tablero::hundirBarco(int fila, int columna, std::vector<std::pair<int, int>
             for (const auto& pos : barco.getPosiciones()) {
                 celdas[pos.first][pos.second].setEstado(HUNDIDO);
                 celdasAfectadas.push_back({pos.first, pos.second});
-                std::cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
             }
-            break; // Salir del bucle una vez que hemos encontrado y hundido el barco correspondiente
+            break;
         }
     }
 }
@@ -159,7 +158,6 @@ void Tablero::setDatos(const vector<vector<int>> &nuevosDatos) {
         }
     }
 
-    // Mostrar el tablero después de cargar los datos para depuración
     std::cout << "Tablero después de cargar los datos:" << std::endl;
     mostrarTablero();
 }

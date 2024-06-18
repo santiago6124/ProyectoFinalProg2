@@ -23,7 +23,6 @@ bool Archivo::cargarPartida(vector<vector<int>> &tablero1, vector<vector<int>> &
     string linea;
     int fila = 0;
 
-    // Leer el tablero del primer jugador
     for (int i = 0; i < tablero1.size(); ++i) {
         if (!getline(archivo, linea)) {
             cerr << "Error al leer la línea del tablero del jugador 1, línea: " << i << endl;
@@ -38,7 +37,6 @@ bool Archivo::cargarPartida(vector<vector<int>> &tablero1, vector<vector<int>> &
         }
     }
 
-    // Leer el tablero del segundo jugador
     for (int i = 0; i < tablero2.size(); ++i) {
         if (!getline(archivo, linea)) {
             cerr << "Error al leer la línea del tablero del jugador 2, línea: " << i << endl;
@@ -64,7 +62,6 @@ void Archivo::guardarPartida(const vector<vector<int>> &tablero1, const vector<v
         return;
     }
 
-    // Guardar el tablero del primer jugador
     for (const auto &fila : tablero1) {
         for (int celda : fila) {
             archivo << celda << " ";
@@ -72,7 +69,6 @@ void Archivo::guardarPartida(const vector<vector<int>> &tablero1, const vector<v
         archivo << endl;
     }
 
-    // Guardar el tablero del segundo jugador
     for (const auto &fila : tablero2) {
         for (int celda : fila) {
             archivo << celda << " ";

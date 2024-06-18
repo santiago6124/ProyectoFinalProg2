@@ -39,4 +39,4 @@ private:
     void hundirBarco(int fila, int columna, std::vector<std::pair<int, int>>& celdasAfectadas);
     bool verificarHundimiento(int fila, int columna);
 };
-#endif // TABLERO_H
+#endif

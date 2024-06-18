@@ -10,4 +10,4 @@ public:
     static void guardarPartida(const std::vector<std::vector<int>> &tablero1, const std::vector<std::vector<int>> &tablero2);
 };
 
-#endif // ARCHIVO_H
+#endif

@@ -45,7 +45,6 @@ bool Maquina::realizarAtaque(Jugador &oponente) {
         fila = generarFila();
         columna = generarColumna();
 
-        // Verificar si la celda ya ha sido atacada
         if (tableroOponente.getCeldas()[fila][columna].getEstado() == VACIO) {
             ataqueExitoso = Jugador::realizarAtaque(oponente, fila, columna);
         }

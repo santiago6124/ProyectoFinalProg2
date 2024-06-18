@@ -10,8 +10,6 @@ public:
     int getSize() const;
     const std::vector<std::pair<int, int>>& getPosiciones() const;
     void addPosicion(int fila, int columna);
-    
-    // Agregar esta función
     bool contienePosicion(int fila, int columna) const;
 
 private:
@@ -19,4 +17,4 @@ private:
     std::vector<std::pair<int, int>> posiciones;
 };
 
-#endif // BARCO_H
+#endif

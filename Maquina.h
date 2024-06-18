@@ -16,4 +16,4 @@ private:
     bool generarOrientacion();
 };
 
-#endif // MAQUINA_H
+#endif

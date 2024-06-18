@@ -19,7 +19,7 @@ int Tablero::getSize() const {
 void Tablero::mostrarTablero() {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {
-            if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->isHundido()) {
+            if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->verificarHundido()) {
                 std::cout << '#' << " ";
             } else if (coord.getBarco() != nullptr && coord.isTocado()) {
                 std::cout << 'X' << " ";
@@ -61,6 +61,9 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
 bool Tablero::atacar(int x, int y) {
     if (x >= 0 && x < size && y >= 0 && y < size) {
         Coordenada& coord = coordenadas[y][x];
+        if (coord.isTocado()) {
+            return false;
+        }
         if (coord.getBarco() != nullptr) {
             coord.setTocado(true);
             coord.getBarco()->recibirGolpe();
@@ -68,6 +71,7 @@ bool Tablero::atacar(int x, int y) {
         } else {
             coord.setTocado(true);
         }
+        return true;
     }
     return false;
 }
@@ -76,7 +80,7 @@ bool Tablero::atacar(int x, int y) {
 bool Tablero::todosBarcosHundidos() const {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {
-            if (coord.getBarco() != nullptr && !coord.getBarco()->isHundido()) {
+            if (coord.getBarco() != nullptr && !coord.getBarco()->verificarHundido()) {
                 return false;
             }
         }

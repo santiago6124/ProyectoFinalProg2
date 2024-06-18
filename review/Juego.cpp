@@ -22,7 +22,6 @@ void Juego::jugar() {
         return;
     }
 
-    // Aquí seguirías con la lógica del juego, utilizando jugador1 y jugador2
     // Crear barcos para los jugadores
     std::vector<Barco> barcosJugador1 = {Barco(3, true)};
     std::vector<Barco> barcosJugador2 = {Barco(3, true)};
@@ -49,9 +48,15 @@ void Juego::jugar() {
         int x, y;
 
         // Turno del jugador 1
-        std::cout << jugador1->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-        std::cin >> x >> y;
-        jugador1->atacar(jugador2->getTablero(), x, y);
+        bool ataqueValido = false;
+        while (!ataqueValido) {
+            std::cout << jugador1->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
+            std::cin >> x >> y;
+            ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
+            if (!ataqueValido) {
+                std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+            }
+        }
         std::cout << "Tablero " << jugador2->getNombre() << " después del ataque:" << std::endl;
         jugador2->getTablero().mostrarTablero();
         std::cout << std::endl;
@@ -64,13 +69,18 @@ void Juego::jugar() {
         }
 
         // Turno del jugador 2
-
-        if (dynamic_cast<Usuario*>(jugador2)) {
-            std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-            std::cin >> x >> y;
-            jugador2->atacar(jugador1->getTablero(), x, y);
-        } else if (dynamic_cast<Maquina*>(jugador2)) {
-            dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);
+        ataqueValido = false;
+        while (!ataqueValido) {
+            if (dynamic_cast<Usuario*>(jugador2)) {
+                std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
+                std::cin >> x >> y;
+                ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
+                if (!ataqueValido) {
+                    std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                }
+            } else if (dynamic_cast<Maquina*>(jugador2)) {
+                ataqueValido = dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);
+            }
         }
         std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
         jugador1->getTablero().mostrarTablero();

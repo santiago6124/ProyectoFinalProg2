@@ -12,7 +12,7 @@ public:
     Tablero& getTablero();
 
     bool colocarBarco(int x, int y, Barco& barco);
-    bool atacar(int x, int y);
+
     
     // New method to attack opponent's board
     virtual bool atacar(Tablero& tableroOponente, int x, int y);

@@ -1,11 +1,12 @@
 #include "Tablero.h"
 #include <iostream>
+#include <iomanip>
 
 // Constructor
 Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenada>(size)) {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            coordenadas[i][j] = Coordenada(std::to_string(i + 1), j + 1);
+            coordenadas[i][j] = Coordenada(std::string(1, 'A' + i), j + 1);
         }
     }
 }
@@ -17,18 +18,28 @@ int Tablero::getSize() const {
 
 // Mostrar el tablero
 void Tablero::mostrarTablero() {
-    for (const auto& row : coordenadas) {
-        for (const auto& coord : row) {
+    // Mostrar los números de las columnas
+    std::cout << "  ";
+    for (int j = 1; j <= size; ++j) {
+        std::cout << std::setw(2) << j << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < size; ++i) {
+        // Mostrar la letra de la fila
+        std::cout << char('A' + i) << " ";
+        for (int j = 0; j < size; ++j) {
+            const Coordenada& coord = coordenadas[i][j];
             if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->verificarHundido()) {
-                std::cout << '#' << " ";
+                std::cout << '#' << "  ";
             } else if (coord.getBarco() != nullptr && coord.isTocado()) {
-                std::cout << 'X' << " ";
+                std::cout << 'X' << "  ";
             } else if (coord.getBarco() != nullptr) {
-                std::cout << 'B' << " ";
+                std::cout << 'B' << "  ";
             } else if (coord.isTocado()) {
-                std::cout << 'O' << " ";
+                std::cout << 'O' << "  ";
             } else {
-                std::cout << '.' << " ";
+                std::cout << '.' << "  ";
             }
         }
         std::cout << std::endl;

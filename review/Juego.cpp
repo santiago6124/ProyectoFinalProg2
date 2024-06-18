@@ -2,6 +2,20 @@
 #include "Usuario.h"
 #include "Maquina.h"
 #include <iostream>
+#include <cctype>
+#include <sstream>
+
+bool parsearEntrada(const std::string& entrada, int& x, int& y) {
+    if (entrada.length() < 2) return false;
+    char letra = entrada[0];
+    std::string numero = entrada.substr(1);
+    if (!std::isdigit(numero[0])) return false;
+
+    y = std::toupper(letra) - 'A';
+    x = std::stoi(numero) - 1;
+
+    return true;
+}
 
 void Juego::jugar() {
     int modo;
@@ -45,16 +59,21 @@ void Juego::jugar() {
 
     bool juegoTerminado = false;
     while (!juegoTerminado) {
+        std::string entrada;
         int x, y;
 
         // Turno del jugador 1
         bool ataqueValido = false;
         while (!ataqueValido) {
-            std::cout << jugador1->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-            std::cin >> x >> y;
-            ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
-            if (!ataqueValido) {
-                std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+            std::cout << jugador1->getNombre() << ", ingresa las coordenadas para atacar (Ej. A1, B3): ";
+            std::cin >> entrada;
+            if (parsearEntrada(entrada, x, y)) {
+                ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
+                if (!ataqueValido) {
+                    std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                }
+            } else {
+                std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
             }
         }
         std::cout << "Tablero " << jugador2->getNombre() << " después del ataque:" << std::endl;
@@ -72,11 +91,15 @@ void Juego::jugar() {
         ataqueValido = false;
         while (!ataqueValido) {
             if (dynamic_cast<Usuario*>(jugador2)) {
-                std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-                std::cin >> x >> y;
-                ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
-                if (!ataqueValido) {
-                    std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (Ej. A1, B3): ";
+                std::cin >> entrada;
+                if (parsearEntrada(entrada, x, y)) {
+                    ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
+                    if (!ataqueValido) {
+                        std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                    }
+                } else {
+                    std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
                 }
             } else if (dynamic_cast<Maquina*>(jugador2)) {
                 ataqueValido = dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);

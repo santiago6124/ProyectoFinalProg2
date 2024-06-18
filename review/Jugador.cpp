@@ -17,9 +17,7 @@ bool Jugador::colocarBarco(int x, int y, Barco& barco) {
     return tablero.colocarBarco(x, y, barco);
 }
 
-bool Jugador::atacar(int x, int y) {
-    return tablero.atacar(x, y);
-}
+
 
 // Nuevo método para atacar el tablero del oponente
 bool Jugador::atacar(Tablero& tableroOponente, int x, int y) {

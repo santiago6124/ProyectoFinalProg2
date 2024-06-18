@@ -1,9 +1,10 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 
-#include "Jugador.h"
 #include <vector>
 #include <string>
+#include <utility>
+#include "Jugador.h"
 
 class Juego {
 public:
@@ -13,8 +14,8 @@ public:
     std::vector<std::pair<std::string, int>> cargarRanking(const std::string &filename);
 
 private:
-    Jugador &jugador1;
-    Jugador &jugador2;
+    Jugador& jugador1;
+    Jugador& jugador2;
 };
 
 #endif // JUEGO_H

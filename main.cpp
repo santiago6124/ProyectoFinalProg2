@@ -2,9 +2,11 @@
 #include "Usuario.h"
 #include "Maquina.h"
 #include <iostream>
+#include <string>
 
 int main() {
     int filas, columnas, opcion;
+    std::string nombreJugador1, nombreJugador2, nombreJugador;
 
     std::cout << "Seleccione el modo de juego:\n1. Jugador vs Maquina\n2. Jugador vs Jugador\n";
     std::cin >> opcion;
@@ -18,13 +20,19 @@ int main() {
     }
 
     if (opcion == 1) {
-        Usuario jugador1("Jugador 1", filas, columnas);
+        std::cout << "Ingrese el nombre del jugador.\n";
+        std::cin >> nombreJugador;
+        Usuario jugador1(nombreJugador, filas, columnas);
         Maquina maquina("Maquina", filas, columnas);
         Juego juego(jugador1, maquina);
         juego.iniciar();
     } else if (opcion == 2) {
-        Usuario jugador1("Jugador 1", filas, columnas);
-        Usuario jugador2("Jugador 2", filas, columnas);
+        std::cout << "Ingrese el nombre del jugador 1.\n";
+        std::cin >> nombreJugador1;
+        Usuario jugador1(nombreJugador1, filas, columnas);
+        std::cout << "Ingrese el nombre del jugador 2.\n";
+        std::cin >> nombreJugador2;
+        Usuario jugador2(nombreJugador2, filas, columnas);
         Juego juego(jugador1, jugador2);
         juego.iniciar();
     } else {

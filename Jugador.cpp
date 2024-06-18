@@ -4,7 +4,7 @@
 #include <iostream>
 
 Jugador::Jugador(const std::string &nombre, int filas, int columnas)
-    : nombre(nombre), tableroPropio(filas, columnas), tableroOponente(filas, columnas) {}
+    : nombre(nombre), tableroPropio(filas, columnas), tableroOponente(filas, columnas), tiros(0) {}
 
 const std::string &Jugador::getNombre() const
 {
@@ -12,12 +12,12 @@ const std::string &Jugador::getNombre() const
 }
 
 bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna)
-{
+{ 
     if (tableroOponente.getCeldas()[fila][columna].getEstado() != VACIO)
     {
         return false;
     }
-
+    incrementarTiros();
     EstadoCelda resultado = oponente.tableroPropio.recibirAtaque(fila, columna);
     tableroOponente.getCeldas()[fila][columna].setEstado(resultado);
     if (resultado == TOCADO)
@@ -63,6 +63,14 @@ int Jugador::getColumnasTablero() const
     return tableroPropio.getColumnas();
 }
 
+void Jugador::incrementarTiros() {
+    ++tiros;
+}
+
+int Jugador::getTiros() const {
+    return tiros;
+}
+
 bool Jugador::validarFila(const std::string &inputFila, int &fila, int filas)
 {
     if (inputFila.length() == 1 && isalpha(inputFila[0]))
@@ -80,8 +88,8 @@ bool Jugador::validarColumna(int &columna, int columnas)
 {
     if (std::cin.fail() || columna < 1 || columna > columnas)
     {
-        std::cin.clear();                                                
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return false;
     }
     else

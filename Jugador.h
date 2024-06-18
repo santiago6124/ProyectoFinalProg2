@@ -21,10 +21,14 @@ public:
     static bool validarFila(const std::string &inputFila, int &fila, int filas);
     static bool validarColumna(int &columna, int columnas);
 
+    void incrementarTiros();
+    int getTiros() const;
+
 protected:
     std::string nombre;
     Tablero tableroPropio;
     Tablero tableroOponente;
+    int tiros; // Nueva variable para contar los tiros
 };
 
 #endif // JUGADOR_H

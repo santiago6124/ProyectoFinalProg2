@@ -4,13 +4,14 @@
 #include <vector>
 #include "Celda.h"
 #include "Barco.h"
+using namespace std;
 
 class Tablero {
 private:
     int filas;
     int columnas;
-    std::vector<std::vector<Celda>> celdas;
-    std::vector<Barco> barcos;
+    vector<vector<Celda>> celdas;
+    vector<Barco> barcos;
 
 public:
     Tablero(int filas, int columnas);
@@ -21,8 +22,8 @@ public:
     int getFilas() const;
     int getColumnas() const;
     bool puedeColocarBarco(const Barco &barco, int filaInicio, int columnaInicio, bool horizontal) const;
-    std::vector<std::vector<Celda>>& getCeldas();
-    const std::vector<std::vector<Celda>>& getCeldas() const;
+    vector<vector<Celda>>& getCeldas();
+    const vector<vector<Celda>>& getCeldas() const;
     bool verificarHundimiento(int fila, int columna);
     void hundirBarco(int fila, int columna);
     static int convertirFila(char letra);

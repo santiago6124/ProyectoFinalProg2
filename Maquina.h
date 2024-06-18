@@ -2,10 +2,11 @@
 #define MAQUINA_H
 
 #include "Jugador.h"
+using namespace std;
 
 class Maquina : public Jugador {
 public:
-    Maquina(const std::string& nombre, int filas, int columnas);
+    Maquina(const string& nombre, int filas, int columnas);
     void colocarBarcos() override;
     bool realizarAtaque(Jugador &oponente);
 

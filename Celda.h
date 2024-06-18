@@ -13,4 +13,4 @@ private:
     EstadoCelda estado;
 };
 
-#endif // CELDA_H
+#endif

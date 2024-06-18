@@ -1,9 +1,9 @@
 #include "Usuario.h"
 #include <iostream>
 #include <cctype> // Para toupper
-#include <limits> // Para std::numeric_limits
+#include <limits> // Para numeric_limits
 
-Usuario::Usuario(const std::string& nombre, int filas, int columnas)
+Usuario::Usuario(const string& nombre, int filas, int columnas)
     : Jugador(nombre, filas, columnas) {}
 
 void Usuario::colocarBarcos() {
@@ -12,32 +12,32 @@ void Usuario::colocarBarcos() {
      for (int size : tamanios) {
          bool colocado = false;
          while (!colocado) {
-             std::cout << "Colocando barco de tamanio " << size << "\n";
+             cout << "Colocando barco de tamanio " << size << "\n";
              int fila;
              int columna;
              bool horizontal;
              // Validar fila
              while (true) {
-                 std::string inputFila;
-                 std::cout << "Ingrese la fila inicial (A-" << static_cast<char>('A' + tableroPropio.getFilas() - 1) << "): ";
-                 std::cin >> inputFila;
+                 string inputFila;
+                 cout << "Ingrese la fila inicial (A-" << static_cast<char>('A' + tableroPropio.getFilas() - 1) << "): ";
+                 cin >> inputFila;
                  if (inputFila.length() == 1 && isalpha(inputFila[0])) {
                      fila = Tablero::convertirFila(toupper(inputFila[0]));
                      if (fila >= 0 && fila < tableroPropio.getFilas()) {
                          break;
                      }
                  }
-                 std::cout << "Entrada invalida. Intente de nuevo.\n";
+                 cout << "Entrada invalida. Intente de nuevo.\n";
              }
 
              // Validar columna
              while (true) {
-                 std::cout << "Ingrese la columna inicial (1-" << tableroPropio.getColumnas() << "): ";
-                 std::cin >> columna;
-                 if (std::cin.fail() || columna < 1 || columna > tableroPropio.getColumnas()) {
-                     std::cin.clear(); // Clear the error flag
-                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
-                     std::cout << "Entrada invalida. Intente de nuevo.\n";
+                 cout << "Ingrese la columna inicial (1-" << tableroPropio.getColumnas() << "): ";
+                 cin >> columna;
+                 if (cin.fail() || columna < 1 || columna > tableroPropio.getColumnas()) {
+                     cin.clear(); // Clear the error flag
+                     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                     cout << "Entrada invalida. Intente de nuevo.\n";
                  } else {
                      columna = Tablero::convertirColumna(columna);
                      break;
@@ -46,9 +46,9 @@ void Usuario::colocarBarcos() {
 
              // Validar orientación
              while (true) {
-                 std::string orientacion;
-                 std::cout << "Ingrese la orientacion (H para horizontal, V para vertical): ";
-                 std::cin >> orientacion;
+                 string orientacion;
+                 cout << "Ingrese la orientacion (H para horizontal, V para vertical): ";
+                 cin >> orientacion;
                  if (orientacion.length() == 1) {
                      char dir = toupper(orientacion[0]);
                      if (dir == 'H' || dir == 'V') {
@@ -56,7 +56,7 @@ void Usuario::colocarBarcos() {
                          break;
                      }
                  }
-                 std::cout << "Entrada invalida. Intente de nuevo.\n";
+                 cout << "Entrada invalida. Intente de nuevo.\n";
              }
 
              Barco barco(size);
@@ -65,7 +65,7 @@ void Usuario::colocarBarcos() {
                  tableroPropio.mostrarTablero();  // Mostrar el tablero después de colocar el barco
                  colocado = true;
              } else {
-                 std::cout << "No se puede colocar el barco aqui, intente de nuevo.\n";
+                 cout << "No se puede colocar el barco aqui, intente de nuevo.\n";
              }
          }
      }

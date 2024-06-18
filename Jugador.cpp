@@ -3,10 +3,10 @@
 #include <limits>
 #include <iostream>
 
-Jugador::Jugador(const std::string &nombre, int filas, int columnas)
+Jugador::Jugador(const string &nombre, int filas, int columnas)
     : nombre(nombre), tableroPropio(filas, columnas), tableroOponente(filas, columnas), tiros(0) {}
 
-const std::string &Jugador::getNombre() const
+const string &Jugador::getNombre() const
 {
     return nombre;
 }
@@ -22,15 +22,15 @@ bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna)
     tableroOponente.getCeldas()[fila][columna].setEstado(resultado);
     if (resultado == TOCADO)
     {
-        std::cout << "¡Tocado!\n";
+        cout << "¡Tocado!\n";
     }
     else if (resultado == AGUA)
     {
-        std::cout << "Agua.\n";
+        cout << "Agua.\n";
     }
     else if (resultado == HUNDIDO)
     {
-        std::cout << "Barco Hundido!\n";
+        cout << "Barco Hundido!\n";
     }
 
     return true;
@@ -38,13 +38,13 @@ bool Jugador::realizarAtaque(Jugador &oponente, int fila, int columna)
 
 void Jugador::mostrarTableroOponente() const
 {
-    std::cout << "Tablero del oponente:\n";
+    cout << "Tablero del oponente:\n";
     tableroOponente.mostrarTablero();
 }
 
 void Jugador::mostrarTableroPropio() const
 {
-    std::cout << "Tu tablero:\n";
+    cout << "Tu tablero:\n";
     tableroPropio.mostrarTablero();
 }
 
@@ -71,7 +71,7 @@ int Jugador::getTiros() const {
     return tiros;
 }
 
-bool Jugador::validarFila(const std::string &inputFila, int &fila, int filas)
+bool Jugador::validarFila(const string &inputFila, int &fila, int filas)
 {
     if (inputFila.length() == 1 && isalpha(inputFila[0]))
     {
@@ -86,10 +86,10 @@ bool Jugador::validarFila(const std::string &inputFila, int &fila, int filas)
 
 bool Jugador::validarColumna(int &columna, int columnas)
 {
-    if (std::cin.fail() || columna < 1 || columna > columnas)
+    if (cin.fail() || columna < 1 || columna > columnas)
     {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return false;
     }
     else

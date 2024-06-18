@@ -5,17 +5,18 @@
 #include <string>
 #include <utility>
 #include "Jugador.h"
+using namespace std;
 
 class Juego {
 public:
     Juego(Jugador& j1, Jugador& j2);
     void iniciar();
-    void guardarRanking(const std::string &filename, const std::vector<std::pair<std::string, int>> &ranking);
-    std::vector<std::pair<std::string, int>> cargarRanking(const std::string &filename);
+    void guardarRanking(const string &filename, const vector<pair<string, int>> &ranking);
+    vector<pair<string, int>> cargarRanking(const string &filename);
 
 private:
     Jugador& jugador1;
     Jugador& jugador2;
 };
 
-#endif // JUEGO_H
+#endif

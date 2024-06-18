@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-Maquina::Maquina(const std::string& nombre, int filas, int columnas)
+Maquina::Maquina(const string& nombre, int filas, int columnas)
     : Jugador(nombre, filas, columnas) {
     srand(time(0));
 }

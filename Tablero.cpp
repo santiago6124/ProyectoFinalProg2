@@ -3,7 +3,7 @@
 #include <iomanip>
 
 Tablero::Tablero(int filas, int columnas)
-    : filas(filas), columnas(columnas), celdas(filas, std::vector<Celda>(columnas)) {}
+    : filas(filas), columnas(columnas), celdas(filas, vector<Celda>(columnas)) {}
 
 void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool horizontal) {
     int size = barco.getSize();
@@ -55,7 +55,7 @@ void Tablero::hundirBarco(int fila, int columna) {
         if (barco.contienePosicion(fila, columna)) {
             for (const auto& pos : barco.getPosiciones()) {
                 celdas[pos.first][pos.second].setEstado(HUNDIDO);
-                std::cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
+                cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
             }
             break; // Salir del bucle una vez que hemos encontrado y hundido el barco correspondiente
         }
@@ -63,25 +63,25 @@ void Tablero::hundirBarco(int fila, int columna) {
 }
 
 void Tablero::mostrarTablero() const {
-    std::cout << "   ";
+    cout << "   ";
     for (int i = 1; i <= columnas; ++i) {
-        std::cout << std::setw(2) << i << " ";
+        cout << setw(2) << i << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 
     for (int i = 0; i < filas; ++i) {
-        std::cout << static_cast<char>('A' + i) << "  ";
+        cout << static_cast<char>('A' + i) << "  ";
         for (int j = 0; j < columnas; ++j) {
             switch (celdas[i][j].getEstado()) {
-                case VACIO: std::cout << '.'; break;
-                case BARCO: std::cout << 'B'; break;
-                case AGUA: std::cout << '~'; break;
-                case TOCADO: std::cout << 'X'; break;
-                case HUNDIDO: std::cout << '#'; break;
+                case VACIO: cout << '.'; break;
+                case BARCO: cout << 'B'; break;
+                case AGUA: cout << '~'; break;
+                case TOCADO: cout << 'X'; break;
+                case HUNDIDO: cout << '#'; break;
             }
-            std::cout << "  ";
+            cout << "  ";
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 }
 
@@ -124,11 +124,11 @@ bool Tablero::puedeColocarBarco(const Barco &barco, int filaInicio, int columnaI
     return true;
 }
 
-std::vector<std::vector<Celda>>& Tablero::getCeldas() {
+vector<vector<Celda>>& Tablero::getCeldas() {
     return celdas;
 }
 
-const std::vector<std::vector<Celda>>& Tablero::getCeldas() const {
+const vector<vector<Celda>>& Tablero::getCeldas() const {
     return celdas;
 }
 

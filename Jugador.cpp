@@ -80,8 +80,8 @@ bool Jugador::validarColumna(int &columna, int columnas)
 {
     if (std::cin.fail() || columna < 1 || columna > columnas)
     {
-        std::cin.clear();                                                   // Clear the error flag
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descartar entrada inválida
+        std::cin.clear();                                                
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         return false;
     }
     else

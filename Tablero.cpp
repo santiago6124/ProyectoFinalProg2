@@ -22,7 +22,7 @@ void Tablero::colocarBarco(Barco &barco, int filaInicio, int columnaInicio, bool
 EstadoCelda Tablero::recibirAtaque(int fila, int columna) {
     if (celdas[fila][columna].getEstado() == BARCO) {
         if (verificarHundimiento(fila, columna)) {
-            celdas[fila][columna].setEstado(HUNDIDO);
+            hundirBarco(fila, columna);
             return HUNDIDO;
         }
         celdas[fila][columna].setEstado(TOCADO);
@@ -33,12 +33,13 @@ EstadoCelda Tablero::recibirAtaque(int fila, int columna) {
     }
 }
 
+
+
 bool Tablero::verificarHundimiento(int fila, int columna) {
     for (auto& barco : barcos) {
         if (barco.contienePosicion(fila, columna)) {
             for (const auto& pos : barco.getPosiciones()) {
                 if (celdas[pos.first][pos.second].getEstado() != TOCADO && !(pos.first == fila && pos.second == columna)) {
-                    std::cout<<pos.first<<" "<<pos.second<<" "<<celdas[pos.first][pos.second].getEstado()<<std::endl;
                     return false;
                 }
             }
@@ -48,16 +49,18 @@ bool Tablero::verificarHundimiento(int fila, int columna) {
     return false;
 }
 
-void Tablero::hundirBarco(int fila, int columna){
+
+void Tablero::hundirBarco(int fila, int columna) {
     for (auto& barco : barcos) {
         if (barco.contienePosicion(fila, columna)) {
             for (const auto& pos : barco.getPosiciones()) {
                 celdas[pos.first][pos.second].setEstado(HUNDIDO);
+                std::cout << "Hundiendo celda en: (" << pos.first << ", " << pos.second << ")\n";  // Depuración
             }
+            break; // Salir del bucle una vez que hemos encontrado y hundido el barco correspondiente
         }
     }
 }
-
 
 void Tablero::mostrarTablero() const {
     std::cout << "   ";

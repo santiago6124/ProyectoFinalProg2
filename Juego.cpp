@@ -62,8 +62,9 @@ void Juego::iniciar() {
         // Mostrar el tablero del oponente actualizado después del ataque
         turnoActual->mostrarTableroOponente();
 
+        // Verificar si todos los barcos del oponente están hundidos
         if (oponente->todosBarcosHundidos()) {
-            std::cout << "¡" << turnoActual->getNombre() << " ha ganado!\n";
+            std::cout << turnoActual->getNombre() << " ha ganado!\n";
             break;
         }
 

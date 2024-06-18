@@ -13,6 +13,8 @@ class Tablero {
         '   -> Coordenas.setBarco, coord.setTocado(true), coord.getBarco()->recibirGolpe()
     - todosBarcosHundidos() : bool
         '   -> return all barco.isHundido()
+    - getSize(): int
+        '   -> return n
 }
 
 class Coordenada {
@@ -67,6 +69,8 @@ class Jugador {
     - tablero : Tablero
     ' - [] barcos : Barco
     ' - [] disparos : Coordenada
+    - Jugador(str nombre, Tablero tablero) : constructor
+        '   -> nombre_, tablero_
     - getNombre() : str
     - getTablero() : Tablero
     - colocarBarco(int x, int y, Barco) : void
@@ -75,9 +79,13 @@ class Jugador {
 }
 
 class Usuario {
+    - colocarBarco(int x, int y, Barco& barco) override: bool
+    - atacar(int x, int y) override: bool
 }
 
 class Maquina {
+    - colocarBarco(int x, int y, Barco& barco) override: bool
+    - atacar(int x, int y) override: bool
 }
 
 Usuario --|> Jugador

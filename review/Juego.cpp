@@ -4,41 +4,32 @@
 #include <iostream>
 #include <cctype>
 #include <sstream>
+#include "util.h" // Incluye el archivo de utilidades
 
-bool parsearEntrada(const std::string& entrada, int& x, int& y) {
-    if (entrada.length() < 2) return false;
-    char letra = entrada[0];
-    std::string numero = entrada.substr(1);
-    if (!std::isdigit(numero[0])) return false;
-
-    y = std::toupper(letra) - 'A';
-    x = std::stoi(numero) - 1;
-
-    return true;
-}
-
-void Juego::jugar() {
+Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size) {
     int modo;
     std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
     std::cin >> modo;
 
-    Jugador* jugador1;
-    Jugador* jugador2;
-
     if (modo == 1) {
-        jugador1 = new Usuario("Jugador 1", 10);
-        jugador2 = new Usuario("Jugador 2", 10);
+        jugador1 = std::make_unique<Usuario>(nombreJugador1, size);
+        jugador2 = std::make_unique<Usuario>(nombreJugador2, size);
     } else if (modo == 2) {
-        jugador1 = new Usuario("Jugador", 10);
-        jugador2 = new Maquina("Maquina", 10);
+        jugador1 = std::make_unique<Usuario>(nombreJugador1, size);
+        jugador2 = std::make_unique<Maquina>(nombreJugador2, size);
     } else {
         std::cout << "Modo de juego no válido." << std::endl;
-        return;
+        exit(1);
     }
+}
 
+
+void Juego::jugar() {
     // Crear barcos para los jugadores
-    std::vector<Barco> barcosJugador1 = {Barco(3, true)};
-    std::vector<Barco> barcosJugador2 = {Barco(3, true)};
+    std::vector<Barco> barcosJugador1 = {Barco(4, true), Barco(3, true), Barco(3, true),
+                                         Barco(2, true), Barco(2, true), Barco(2, true),
+                                         Barco(1, true), Barco(1, true), Barco(1, true), Barco(1, true)};
+    std::vector<Barco> barcosJugador2 = barcosJugador1;
 
     // Colocar barcos para los jugadores
     for (Barco& barco : barcosJugador1) {
@@ -90,7 +81,7 @@ void Juego::jugar() {
         // Turno del jugador 2
         ataqueValido = false;
         while (!ataqueValido) {
-            if (dynamic_cast<Usuario*>(jugador2)) {
+            if (dynamic_cast<Usuario*>(jugador2.get())) {
                 std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (Ej. A1, B3): ";
                 std::cin >> entrada;
                 if (parsearEntrada(entrada, x, y)) {
@@ -101,8 +92,8 @@ void Juego::jugar() {
                 } else {
                     std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
                 }
-            } else if (dynamic_cast<Maquina*>(jugador2)) {
-                ataqueValido = dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);
+            } else if (dynamic_cast<Maquina*>(jugador2.get())) {
+                ataqueValido = dynamic_cast<Maquina*>(jugador2.get())->atacar(jugador1->getTablero(), x, y);
             }
         }
         std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
@@ -116,7 +107,4 @@ void Juego::jugar() {
             break;
         }
     }
-
-    delete jugador1;
-    delete jugador2;
 }

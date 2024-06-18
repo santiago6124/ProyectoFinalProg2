@@ -11,7 +11,7 @@ public:
     Maquina(string nombre, int sizeTablero);
 
     // Sobreescribir métodos para interactuar con el tablero
-    bool colocarBarco(int x, int y, Barco& barco) ;
+    bool colocarBarco(int x, int y, Barco& barco) override;
     bool atacar(Tablero& tableroOponente, int x, int y) ;
 };
 

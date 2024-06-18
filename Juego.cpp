@@ -5,6 +5,8 @@
 #include <limits>
 #include <algorithm>
 
+using namespace std;
+
 Juego::Juego(Jugador& j1, Jugador& j2) : jugador1(j1), jugador2(j2) {}
 
 void Juego::iniciar() {
@@ -67,10 +69,8 @@ void Juego::iniciar() {
             }
         }
 
-        // Mostrar el tablero del oponente actualizado después del ataque
         turnoActual->mostrarTableroOponente();
 
-        // Verificar si todos los barcos del oponente están hundidos
         if (oponente->todosBarcosHundidos()) {
             cout << turnoActual->getNombre() << " ha ganado!\n";
             break;
@@ -79,32 +79,47 @@ void Juego::iniciar() {
         swap(turnoActual, oponente);
     }
 
-    // Guardar el ranking
+    // Obtener el ranking actual
     vector<pair<string, int>> ranking = cargarRanking("ranking.txt");
+
+    // Agregar el nuevo registro solo si es uno de los mejores 5 o si el ranking está vacío
     ranking.push_back(make_pair(turnoActual->getNombre(), turnoActual->getTiros()));
     sort(ranking.begin(), ranking.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
-        return a.second < b.second; // Ordenar de menor a mayor número de tiros
+        return a.second < b.second;
     });
     if (ranking.size() > 5) {
         ranking.resize(5);
     }
+
+    // Guardar el ranking actualizado en el archivo
     guardarRanking("ranking.txt", ranking);
 }
 
 void Juego::guardarRanking(const string &filename, const vector<pair<string, int>> &ranking) {
-    ofstream file(filename);
+    ofstream file(filename); // Abrir en modo de apéndice para añadir al final del archivo
     if (file.is_open()) {
-        // Agregar título explicativo al archivo
-        file << "Ranking de Jugadores respecto a tiros hechos\n";
-        for (const auto& record : ranking) {
+        // Ordenar el ranking por la cantidad de tiros (menor a mayor)
+        vector<pair<string, int>> rankingOrdenado = ranking;
+        sort(rankingOrdenado.begin(), rankingOrdenado.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+            return a.second < b.second;
+        });
+
+        // Limitar a los primeros 5 resultados
+        if (rankingOrdenado.size() > 5) {
+            rankingOrdenado.resize(5);
+        }
+
+        // Guardar en el archivo
+        for (const auto& record : rankingOrdenado) {
             file << record.first << " " << record.second << "\n";
         }
         file.close();
-        cout << "Ranking guardado exitosamente en " << filename << ".\n";
+        cout << "Ranking actualizado y guardado exitosamente en " << filename << ".\n";
     } else {
         cerr << "No se pudo abrir el archivo " << filename << " para guardar el ranking.\n";
     }
 }
+
 
 vector<pair<string, int>> Juego::cargarRanking(const string &filename) {
     vector<pair<string, int>> ranking;
@@ -112,12 +127,26 @@ vector<pair<string, int>> Juego::cargarRanking(const string &filename) {
     if (file.is_open()) {
         string nombre;
         int tiros;
+        // Leer el archivo y cargar los registros
         while (file >> nombre >> tiros) {
+            // Agregar el registro al vector de ranking
             ranking.push_back(make_pair(nombre, tiros));
         }
         file.close();
     } else {
         cerr << "No se pudo abrir el archivo " << filename << " para cargar el ranking.\n";
+        return ranking; // Devolver ranking vacío si no se puede abrir el archivo
     }
+
+    // Ordenar el ranking por la cantidad de tiros (menor a mayor)
+    sort(ranking.begin(), ranking.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+        return a.second < b.second;
+    });
+
+    // Limitar a los primeros 5 resultados
+    if (ranking.size() > 5) {
+        ranking.resize(5);
+    }
+
     return ranking;
 }

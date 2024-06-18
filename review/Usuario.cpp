@@ -30,6 +30,7 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
 
             if (Jugador::colocarBarco(x, y, barco)) {
                 colocado = true;
+                getTablero().mostrarTablero(); // Mostrar el estado del tablero después de colocar el barco
             } else {
                 std::cout << "No se pudo colocar el barco en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
             }

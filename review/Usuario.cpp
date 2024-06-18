@@ -22,7 +22,6 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
 }
 
 bool Usuario::atacar(int x, int y) {
-    std::cout << getNombre() << ", ingresa las coordenadas para atacar (x y): ";
     std::cin >> x >> y;
     return Jugador::atacar(x, y);
 }

@@ -6,6 +6,7 @@
 #include <cctype>
 #include <sstream>
 #include "util.h"
+
 Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
     : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0) {
     

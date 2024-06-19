@@ -21,8 +21,16 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
         if (parsearEntrada(entrada, x, y)) {
             if (orientacion == 'H' || orientacion == 'h') {
                 barco = Barco(barco.getLongitud(), true);
+                if (x + barco.getLongitud() > getTablero().getSize()) {
+                    std::cout << "El barco no cabe horizontalmente en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
+                    continue;
+                }
             } else if (orientacion == 'V' || orientacion == 'v') {
                 barco = Barco(barco.getLongitud(), false);
+                if (y + barco.getLongitud() > getTablero().getSize()) {
+                    std::cout << "El barco no cabe verticalmente en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
+                    continue;
+                }
             } else {
                 std::cout << "Orientacion no valida. Intenta de nuevo." << std::endl;
                 continue;
@@ -39,11 +47,4 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
         }
     }
     return true;
-}
-
-bool Usuario::atacar(Tablero& tableroOponente) {
-    int x, y;
-    std::cout << getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-    std::cin >> x >> y;
-    return Jugador::atacar(tableroOponente, x, y);
 }

@@ -11,14 +11,14 @@ Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenad
     }
 }
 
-// Método para obtener el tamaño del tablero
+// Metodo para obtener el tamaño del tablero
 int Tablero::getSize() const {
     return size;
 }
 
 // Mostrar el tablero
 void Tablero::mostrarTablero() {
-    // Mostrar los números de las columnas
+    // Mostrar los numeros de las columnas
     std::cout << "  ";
     for (int j = 1; j <= size; ++j) {
         std::cout << std::setw(2) << j << " ";
@@ -68,7 +68,7 @@ bool Tablero::colocarBarco(int x, int y, Barco& barco) {
     return true;
 }
 
-// Atacar una posición
+// Atacar una posicion
 bool Tablero::atacar(int x, int y) {
     if (x >= 0 && x < size && y >= 0 && y < size) {
         Coordenada& coord = coordenadas[y][x];
@@ -87,7 +87,7 @@ bool Tablero::atacar(int x, int y) {
     return false;
 }
 
-// Verificar si todos los barcos están hundidos
+// Verificar si todos los barcos estan hundidos
 bool Tablero::todosBarcosHundidos() const {
     for (const auto& row : coordenadas) {
         for (const auto& coord : row) {

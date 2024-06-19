@@ -5,7 +5,7 @@
 
 int main() {
     int sizeTablero;
-    std::cout << "Selecciona el tamaño del tablero: ";
+    std::cout << "Selecciona el tamanio del tablero: ";
     std::cin >> sizeTablero;
     Juego juego("Jugador 1", "Jugador 2", sizeTablero);
     juego.jugar();

@@ -1,6 +1,7 @@
 #include "Tablero.h"
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 
 // Constructor
 Tablero::Tablero(int size) : size(size), coordenadas(size, std::vector<Coordenada>(size)) {
@@ -103,4 +104,34 @@ bool Tablero::todosBarcosHundidos() const {
         }
     }
     return true;
+}
+
+// Convertir el tablero a una cadena de texto
+std::string Tablero::toString() const {
+    std::stringstream ss;
+    ss << "  ";
+    for (int j = 1; j <= size; ++j) {
+        ss << std::setw(2) << j << " ";
+    }
+    ss << '\n';
+
+    for (int i = 0; i < size; ++i) {
+        ss << char('A' + i) << " ";
+        for (int j = 0; j < size; ++j) {
+            const Coordenada& coord = coordenadas[i][j];
+            if (coord.getBarco() != nullptr && coord.isTocado() && coord.getBarco()->verificarHundido()) {
+                ss << '#' << "  ";
+            } else if (coord.getBarco() != nullptr && coord.isTocado()) {
+                ss << 'X' << "  ";
+            } else if (coord.getBarco() != nullptr) {
+                ss << 'B' << "  ";
+            } else if (coord.isTocado()) {
+                ss << '~' << "  ";
+            } else {
+                ss << '.' << "  ";
+            }
+        }
+        ss << '\n';
+    }
+    return ss.str();
 }

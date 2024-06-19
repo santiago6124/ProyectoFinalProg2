@@ -1,14 +1,15 @@
-// Juego.cpp
 #include "Juego.h"
 #include "Usuario.h"
 #include "Maquina.h"
+#include "Archivo.h"
 #include <iostream>
 #include <cctype>
 #include <sstream>
 #include "util.h"
 
+// Constructor de Juego
 Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
-    : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0) {
+    : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0), archivo("estado_juego.txt") {
     
     int modo = 0;
 
@@ -77,7 +78,13 @@ void Juego::jugar() {
             std::cin >> entrada;
             if (parsearEntrada(entrada, x, y)) {
                 ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
-                if (ataqueValido) ataquesJugador1++;
+                if (ataqueValido) {
+                    ataquesJugador1++;
+                    std::vector<std::string> estadoJuego = {"Estado del juego tras ataque del Jugador 1:\n",
+                                                           jugador1->getNombre() + ":\n" + jugador1->getTablero().toString(),
+                                                           jugador2->getNombre() + ":\n" + jugador2->getTablero().toString()};
+                    archivo.guardar(estadoJuego); // Guardar estado del juego
+                }
                 if (!ataqueValido) {
                     std::cout << "Coordenada ya atacada o no valida. Intenta de nuevo." << std::endl;
                 }
@@ -107,7 +114,13 @@ void Juego::jugar() {
                 std::cin >> entrada;
                 if (parsearEntrada(entrada, x, y)) {
                     ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
-                    if (ataqueValido) ataquesJugador2++;
+                    if (ataqueValido) {
+                        ataquesJugador2++;
+                        std::vector<std::string> estadoJuego = {
+                                                               jugador1->getNombre() + ":\n" + jugador1->getTablero().toString(),
+                                                               jugador2->getNombre() + ":\n" + jugador2->getTablero().toString()};
+                        archivo.guardar(estadoJuego); // Guardar estado del juego
+                    }
                     if (!ataqueValido) {
                         std::cout << "Coordenada ya atacada o no valida. Intenta de nuevo." << std::endl;
                     }
@@ -116,7 +129,13 @@ void Juego::jugar() {
                 }
             } else if (dynamic_cast<Maquina*>(jugador2.get())) {
                 ataqueValido = dynamic_cast<Maquina*>(jugador2.get())->atacar(jugador1->getTablero(), x, y);
-                if (ataqueValido) ataquesJugador2++;
+                if (ataqueValido) {
+                    ataquesJugador2++;
+                    std::vector<std::string> estadoJuego = {
+                                                           jugador1->getNombre() + ":\n" + jugador1->getTablero().toString(),
+                                                           jugador2->getNombre() + ":\n" + jugador2->getTablero().toString()};
+                    archivo.guardar(estadoJuego); // Guardar estado del juego
+                }
             }
         }
         std::cout << "Tablero " << jugador1->getNombre() << " despues del ataque:" << std::endl;
@@ -130,7 +149,6 @@ void Juego::jugar() {
             ranking.guardar();
             ranking.mostrar();
             juegoTerminado = true;
-            break;
         }
     }
 }

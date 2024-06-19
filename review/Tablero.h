@@ -14,6 +14,8 @@ public:
     bool atacar(int x, int y);
     bool todosBarcosHundidos() const;
 
+    std::string toString() const;
+
 private:
     int size;
     std::vector<std::vector<Coordenada>> coordenadas;

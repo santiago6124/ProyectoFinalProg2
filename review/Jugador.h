@@ -11,7 +11,7 @@ public:
     std::string getNombre() const;
     Tablero& getTablero();
 
-    bool colocarBarco(int x, int y, Barco& barco);
+    virtual bool colocarBarco(int x, int y, Barco& barco) = 0;
 
     
     // New method to attack opponent's board

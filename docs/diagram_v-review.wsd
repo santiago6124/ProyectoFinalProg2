@@ -6,20 +6,21 @@
 ' +			public
 
 class Tablero {
-    - [][] coordenadas: Coordenada
-    - size : int // tamaño del tablero
+    - coordenadas: vector Coordenada
+    - size : int
+        ' // tamaño del tablero
     + Tablero(int size) : constructor
         '   -> inicializa objetos Coordenada en coordenadas
+    + getSize(): int
+        '   -> return size
     + mostrarTablero() : void
         '   -> mostrarTablero: imprime el tablero, validando: coord.getBarco(), coord.isTocado()
-    + colocarBarco(int x, int y, Barco) : void
+    + colocarBarco(int x, int y, Barco) : bool
         '   -> Coordenas.setBarco, ¿¿¿ barco.agregarCoordenada ???
     + atacar(int x, int y) : bool
         '   -> Coordenas.setBarco, coord.setTocado(true), coord.getBarco()->recibirGolpe()
     + todosBarcosHundidos() : bool
         '   -> return all barco.isHundido()
-    + getSize(): int
-        '   -> return size
 }
 
 class Coordenada {
@@ -45,11 +46,13 @@ class Coordenada {
         '   -> this->tocado = tocado
 }
 
-Tablero "1" o-- "0..*" Coordenada
+Tablero "1" *-- "1..*" Coordenada
 
 class Barco {
-    - longitud : int //n coordenadas que ocupa
-    - horizontal : bool // orientacion
+    - longitud : int
+        ' n coordenadas que ocupa
+    - horizontal : bool 
+        ' orientacion
     - hundido : bool, default=false
     - contGolpes : int, default=0
     + Barco(int longitud, bool horizontal) : constructor
@@ -64,29 +67,26 @@ class Barco {
         '   -> return horizontal
     + isHundido() : bool
         '   -> return hundido
-
 }
 
-Coordenada "1" o-- "0..*" Barco
+Coordenada "1" o-- "1" Barco
 
 class Jugador {
     # nombre : str
     # tablero : Tablero
-    ' - [] barcos : Barco
-    ' - [] disparos : Coordenada
     + Jugador(str nombre, int sizeTablero) : constructor
         '   -> nombre_, sizeTablero_
     + getNombre() : str
     + getTablero() : Tablero
-    + colocarBarco(int x, int y, Barco& barco) : bool
-    + atacar(Tablero& tableroOponente, int x, int y) : virtual bool
+    + colocarBarco(int x, int y, Barco& barco) : virtual bool
+    + atacar(Tablero tableroOponente, int x, int y) : virtual bool
     + todosBarcosHundidos() : bool
 }
 
 class Usuario {
     + Usuario(string nombre, int sizeTablero) : constructor
-    + colocarBarco(int x, int y, Barco& barco) : bool
-    + atacar(int x, int y) : bool
+    + colocarBarco(int x, int y, Barco& barco) : bool override
+    + atacar(Tablero tableroOponente) : bool
 }
 
 class Maquina {
@@ -98,16 +98,19 @@ class Maquina {
 Usuario --|> Jugador
 Maquina --|> Jugador
 
-Jugador "1" o-- "1" Tablero
+Jugador "1" *-- "1" Tablero
 
 class Juego {
-    - jugador1: Jugador
-    - jugador2: Jugador
-    + Juego(const string& nombreJugador1, const string& nombreJugador2, int size)
-        : jugador1(nombreJugador1, size), jugador2(nombreJugador2, size) {}
+    - jugador1 : Jugador
+    - jugador2 : Jugador
+    - ranking : Ranking
+    - ataquesJugador1 : int
+    - ataquesJugador2 : int
+    + Juego(string nombreJugador1
+        , string nombreJugador2, int size) : constructor
     + jugar()
 }
 
-Juego "1" o-- "1" Jugador
+Juego "1" *-- "2" Jugador
 
 @enduml

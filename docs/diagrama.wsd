@@ -2,80 +2,43 @@
 
 
 class Tablero {
-    - filas: Int
-    - columnas: Int
-    - celdas: vector<vector<Celda>> // 2D
-    - barcos: vector<Barco>
-    + Tablero(filas: Int, columnas: Int)
-    + colocarBarco(Barco, filaInit, columnaInit, horizontal: bool): void
-    + recibirAtaque(Coordenada): bool
-    + mostrarTablero(): void
-    + todosBarcosHundidos(): bool
-    + getFilas(): Int
-    + getColumnas(): Int
-    + puedeColocarBarco(Barco, filaInit, columnaInit, horizontal: bool): bool
-    + vector<vector<Celda>> // 2D, repetido
-    + getCeldas(): vector<vector<Celda>> // 2D
-    + verificarHundimiento(Coordenada): bool
 }
 
 class Jugador {
-    + Jugador(nombre: Str, filas: Int, columnas: Int)
-    + getNombre(): Str
-    + realizarAtaque(Jugador, Coordenada): virtual bool
-    + mostrarTableroOponente(): void
-    + todosBarcosHundidos(): bool
-    + colocarBarcos(): virtual void
-    # nombre: Str
-    # tableroPropio: Tablero
-    # tableroOponente: Tablero
 }
 
 Jugador o-- Tablero
 
 class Maquina {
-    + Maquina(nombre: Str, filas: Int, columnas: Int)
-    + colocarBarcos(): void override
-    + realizarAtaque(Jugador): bool
-    - generarFila(): int
-    - generarColumna(): int
-    - generarOrientacion(): bool
 }
 
 class Usuario{
-    + Usuario(nombre: Str, filas: Int, columnas: Int)
-    + colocarBarcos(): void override
 }
 
 Maquina --> Jugador
 Usuario --> Jugador
 
 class Barco {
-    - size: Int
-    - posiciones: vector<Coordenada>
-    + getPosiciones(): vector<Coordenada>
-    + addPosicion(Coordenada): void
 }
 
 Tablero o-- Barco
 
 ' Casillero=Coordenada=Celda
-class Celda{
-    - estado: Estado
-    + getEstado(): Estado
-    + setEstado(Estado): void
+class Coordenada{
 }
 
-Tablero o-- Celda
+Tablero o-- Coordenada
 
-class Partida{
+Coordenada o-- Barco
+
+class Juego{
 }
 
-Partida o-- Jugador
+Juego o-- Jugador
 
 class Archivo{
 }
 
-Partida o-- Archivo
+Juego o-- Archivo
 
 @enduml

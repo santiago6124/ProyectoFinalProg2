@@ -39,10 +39,10 @@ void Juego::iniciar() {
 }
 
 void Juego::guardarRanking(const std::string &filename, const std::vector<std::pair<std::string, int>> &ranking) {
-    // Archivo::guardarRanking(filename, ranking); // Implementar según sea necesario
+    // Archivo::guardarRanking(filename, ranking); // Implementar segun sea necesario
 }
 
 std::vector<std::pair<std::string, int>> Juego::cargarRanking(const std::string &filename) {
-    // return Archivo::cargarRanking(filename); // Implementar según sea necesario
+    // return Archivo::cargarRanking(filename); // Implementar segun sea necesario
     return {};
 }

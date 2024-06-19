@@ -9,19 +9,35 @@
 
 Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
     : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0) {
-    int modo;
-    std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
-    std::cin >> modo;
+    
+    int modo = 0;
+
+    // Repetir el input hasta que se ingrese un modo de juego válido
+    while (modo != 1 && modo != 2) {
+        std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
+        std::cin >> modo;
+
+        if (modo != 1 && modo != 2) {
+            std::cout << "Modo de juego no valido. Por favor, ingresa 1 o 2." << std::endl;
+        }
+    }
+
+    std::string nombre1 = nombreJugador1;
+    std::string nombre2 = nombreJugador2;
 
     if (modo == 1) {
-        jugador1 = std::make_unique<Usuario>(nombreJugador1, size);
-        jugador2 = std::make_unique<Usuario>(nombreJugador2, size);
+        std::cout << "Ingresa el nombre del Jugador 1: ";
+        std::cin >> nombre1;
+        std::cout << "Ingresa el nombre del Jugador 2: ";
+        std::cin >> nombre2;
+        jugador1 = std::make_unique<Usuario>(nombre1, size);
+        jugador2 = std::make_unique<Usuario>(nombre2, size);
     } else if (modo == 2) {
-        jugador1 = std::make_unique<Usuario>(nombreJugador1, size);
-        jugador2 = std::make_unique<Maquina>(nombreJugador2, size);
-    } else {
-        std::cout << "Modo de juego no válido." << std::endl;
-        exit(1);
+        std::cout << "Ingresa el nombre del Jugador 1: ";
+        std::cin >> nombre1;
+        nombre2 = "Maquina";
+        jugador1 = std::make_unique<Usuario>(nombre1, size);
+        jugador2 = std::make_unique<Maquina>(nombre2, size);
     }
 }
 
@@ -63,17 +79,17 @@ void Juego::jugar() {
                 ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
                 if (ataqueValido) ataquesJugador1++;
                 if (!ataqueValido) {
-                    std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                    std::cout << "Coordenada ya atacada o no valida. Intenta de nuevo." << std::endl;
                 }
             } else {
-                std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
+                std::cout << "Formato de entrada no valido. Intenta de nuevo." << std::endl;
             }
         }
-        std::cout << "Tablero " << jugador2->getNombre() << " después del ataque:" << std::endl;
+        std::cout << "Tablero " << jugador2->getNombre() << " despues del ataque:" << std::endl;
         jugador2->getTablero().mostrarTablero();
         std::cout << std::endl;
 
-        // Verificar si todos los barcos del jugador2 están hundidos
+        // Verificar si todos los barcos del jugador2 estan hundidos
         if (jugador2->todosBarcosHundidos()) {
             std::cout << jugador1->getNombre() << " ha ganado!" << std::endl;
             ranking.agregarJugador(jugador1->getNombre(), ataquesJugador1);
@@ -93,21 +109,21 @@ void Juego::jugar() {
                     ataqueValido = jugador2->atacar(jugador1->getTablero(), x, y);
                     if (ataqueValido) ataquesJugador2++;
                     if (!ataqueValido) {
-                        std::cout << "Coordenada ya atacada o no válida. Intenta de nuevo." << std::endl;
+                        std::cout << "Coordenada ya atacada o no valida. Intenta de nuevo." << std::endl;
                     }
                 } else {
-                    std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
+                    std::cout << "Formato de entrada no valido. Intenta de nuevo." << std::endl;
                 }
             } else if (dynamic_cast<Maquina*>(jugador2.get())) {
                 ataqueValido = dynamic_cast<Maquina*>(jugador2.get())->atacar(jugador1->getTablero(), x, y);
                 if (ataqueValido) ataquesJugador2++;
             }
         }
-        std::cout << "Tablero " << jugador1->getNombre() << " después del ataque:" << std::endl;
+        std::cout << "Tablero " << jugador1->getNombre() << " despues del ataque:" << std::endl;
         jugador1->getTablero().mostrarTablero();
         std::cout << std::endl;
 
-        // Verificar si todos los barcos del jugador1 están hundidos
+        // Verificar si todos los barcos del jugador1 estan hundidos
         if (jugador1->todosBarcosHundidos()) {
             std::cout << jugador2->getNombre() << " ha ganado!" << std::endl;
             ranking.agregarJugador(jugador2->getNombre(), ataquesJugador2);

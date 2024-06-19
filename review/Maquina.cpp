@@ -7,7 +7,7 @@ Maquina::Maquina(std::string nombre, int sizeTablero) : Jugador(nombre, sizeTabl
     srand(time(0)); // Inicializar semilla para random
 }
 
-// Sobreescribir métodos para interactuar con el tablero
+// Sobreescribir metodos para interactuar con el tablero
 bool Maquina::colocarBarco(int x, int y, Barco& barco) {
     bool colocado = false;
     while (!colocado) {

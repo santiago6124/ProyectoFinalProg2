@@ -1,4 +1,3 @@
-// Ranking.cpp
 #include "Ranking.h"
 #include <fstream>
 #include <algorithm>
@@ -11,6 +10,10 @@ Ranking::Ranking(const std::string& archivo) : archivo(archivo) {
 void Ranking::agregarJugador(const std::string& nombre, int ataques) {
     jugadores.emplace_back(nombre, ataques);
     std::sort(jugadores.begin(), jugadores.end(), comparar);
+    if (jugadores.size() > 5) {
+        jugadores.resize(5); // Mantener solo los 5 mejores
+    }
+    guardar();
 }
 
 void Ranking::guardar() const {
@@ -28,6 +31,9 @@ void Ranking::cargar() {
         jugadores.emplace_back(nombre, ataques);
     }
     std::sort(jugadores.begin(), jugadores.end(), comparar);
+    if (jugadores.size() > 5) {
+        jugadores.resize(5);
+    }
 }
 
 void Ranking::mostrar() const {

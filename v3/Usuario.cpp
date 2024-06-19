@@ -16,7 +16,7 @@ void Usuario::colocarBarcos() {
             std::cout << "Ingrese la columna inicial: ";
             int columna;
             std::cin >> columna;
-            std::cout << "Ingrese la orientación (h para horizontal, v para vertical): ";
+            std::cout << "Ingrese la orientacion (h para horizontal, v para vertical): ";
             char orientacion;
             std::cin >> orientacion;
             bool horizontal = (orientacion == 'h');
@@ -24,10 +24,10 @@ void Usuario::colocarBarcos() {
             Barco barco(size);
             if (tableroPropio.puedeColocarBarco(barco, fila, columna, horizontal)) {
                 tableroPropio.colocarBarco(barco, fila, columna, horizontal);
-                tableroPropio.mostrarTablero();  // Mostrar el tablero después de colocar el barco
+                tableroPropio.mostrarTablero();  // Mostrar el tablero despues de colocar el barco
                 colocado = true;
             } else {
-                std::cout << "No se puede colocar el barco aquí, intente de nuevo.\n";
+                std::cout << "No se puede colocar el barco aqui, intente de nuevo.\n";
             }
         }
     }

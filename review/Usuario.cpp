@@ -7,7 +7,7 @@ Usuario::Usuario(std::string nombre, int sizeTablero) : Jugador(nombre, sizeTabl
 
 
 
-// Sobreescribir métodos para interactuar con el tablero
+// Sobreescribir metodos para interactuar con el tablero
 bool Usuario::colocarBarco(int x, int y, Barco& barco) {
     bool colocado = false;
     while (!colocado) {
@@ -21,29 +21,30 @@ bool Usuario::colocarBarco(int x, int y, Barco& barco) {
         if (parsearEntrada(entrada, x, y)) {
             if (orientacion == 'H' || orientacion == 'h') {
                 barco = Barco(barco.getLongitud(), true);
+                if (x + barco.getLongitud() > getTablero().getSize()) {
+                    std::cout << "El barco no cabe horizontalmente en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
+                    continue;
+                }
             } else if (orientacion == 'V' || orientacion == 'v') {
                 barco = Barco(barco.getLongitud(), false);
+                if (y + barco.getLongitud() > getTablero().getSize()) {
+                    std::cout << "El barco no cabe verticalmente en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
+                    continue;
+                }
             } else {
-                std::cout << "Orientación no válida. Intenta de nuevo." << std::endl;
+                std::cout << "Orientacion no valida. Intenta de nuevo." << std::endl;
                 continue;
             }
 
             if (Jugador::colocarBarco(x, y, barco)) {
                 colocado = true;
-                getTablero().mostrarTablero(); // Mostrar el estado del tablero después de colocar el barco
+                getTablero().mostrarTablero(); // Mostrar el estado del tablero despues de colocar el barco
             } else {
                 std::cout << "No se pudo colocar el barco en las coordenadas proporcionadas. Intenta de nuevo." << std::endl;
             }
         } else {
-            std::cout << "Formato de entrada no válido. Intenta de nuevo." << std::endl;
+            std::cout << "Formato de entrada no valido. Intenta de nuevo." << std::endl;
         }
     }
     return true;
-}
-
-bool Usuario::atacar(Tablero& tableroOponente) {
-    int x, y;
-    std::cout << getNombre() << ", ingresa las coordenadas para atacar (x y): ";
-    std::cin >> x >> y;
-    return Jugador::atacar(tableroOponente, x, y);
 }

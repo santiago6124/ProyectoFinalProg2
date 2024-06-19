@@ -5,7 +5,7 @@ Coordenada::Coordenada() : letra(""), numero(0) {}
 
 Coordenada::Coordenada(std::string letra, int numero) : letra(letra), numero(numero) {}
 
-// Métodos de acceso
+// Metodos de acceso
 std::string Coordenada::getLetra() const {
     return letra;
 }
@@ -22,7 +22,7 @@ Barco* Coordenada::getBarco() const {
     return barco;
 }
 
-// Métodos de modificación
+// Metodos de modificacion
 void Coordenada::setBarco(Barco* barco) {
     this->barco = barco;
 }

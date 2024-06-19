@@ -11,5 +11,5 @@ bool parsearEntrada(const std::string& entrada, int& x, int& y) {
     y = std::toupper(letra) - 'A';
     x = std::stoi(numero) - 1;
 
-    return x >= 0 && y >= 0; // Verifica que los índices no sean negativos
+    return x >= 0 && y >= 0; // Verifica que los indices no sean negativos
 }

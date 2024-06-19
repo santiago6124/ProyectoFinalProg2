@@ -19,13 +19,13 @@ public:
     Coordenada();
     Coordenada(string letra, int numero);
 
-    // Métodos de acceso
+    // Metodos de acceso
     string getLetra() const;
     int getNumero() const;
     bool isTocado() const;
     Barco* getBarco() const;
 
-    // Métodos de modificación
+    // Metodos de modificacion
     void setBarco(Barco* barco);
     void setTocado(bool tocado);
 };

@@ -113,4 +113,29 @@ class Juego {
 
 Juego "1" *-- "2" Jugador
 
+class Ranking {
+    - jugadores : vector Jugador
+    + agregarJugador(Jugador jugador) : void
+    + mostrarRanking() : void
+}
+
+Juego "1" *-- "1" Ranking
+
+class Archivo {
+    - nombreArchivo : string
+    - Jugador1 : Jugador
+    - Jugador2 : Jugador
+    - Tablero1 : Tablero
+    - Tablero2 : Tablero
+    + leerArchivo(string nombreArchivo) : string
+    + escribirArchivo(string nombreArchivo,
+     Jugador Jugador1,
+     Jugador Jugador2,
+     Tablero Tablero1,
+     Tablero Tablero2) : void
+}
+
+Archivo "1" *-- "1" Jugador
+Archivo "1" *-- "1" Tablero
+
 @enduml

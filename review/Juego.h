@@ -6,6 +6,7 @@
 #include <string>
 #include "Jugador.h"
 #include "Ranking.h"
+#include "Archivo.h"
 
 class Juego {
 public:
@@ -17,6 +18,7 @@ private:
     std::unique_ptr<Jugador> jugador1;
     std::unique_ptr<Jugador> jugador2;
     Ranking ranking;
+    Archivo archivo;
 
     int ataquesJugador1;
     int ataquesJugador2;

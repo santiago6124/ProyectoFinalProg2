@@ -11,12 +11,12 @@
 class Juego {
 public:
     Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size);
-
+    ~Juego();  // Destructor para liberar memoria
     void jugar();
 
 private:
-    std::unique_ptr<Jugador> jugador1;
-    std::unique_ptr<Jugador> jugador2;
+    Jugador* jugador1;  // Punteros crudos en lugar de std::unique_ptr
+    Jugador* jugador2;
     Ranking ranking;
     Archivo archivo;
 

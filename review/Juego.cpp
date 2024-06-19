@@ -31,15 +31,21 @@ Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador
         std::cin >> nombre1;
         std::cout << "Ingresa el nombre del Jugador 2: ";
         std::cin >> nombre2;
-        jugador1 = std::make_unique<Usuario>(nombre1, size);
-        jugador2 = std::make_unique<Usuario>(nombre2, size);
+        jugador1 = new Usuario(nombre1, size);
+        jugador2 = new Usuario(nombre2, size);
     } else if (modo == 2) {
         std::cout << "Ingresa el nombre del Jugador 1: ";
         std::cin >> nombre1;
         nombre2 = "Maquina";
-        jugador1 = std::make_unique<Usuario>(nombre1, size);
-        jugador2 = std::make_unique<Maquina>(nombre2, size);
+        jugador1 = new Usuario(nombre1, size);
+        jugador2 = new Maquina(nombre2, size);
     }
+}
+
+// Destructor para liberar la memoria asignada dinámicamente
+Juego::~Juego() {
+    delete jugador1;
+    delete jugador2;
 }
 
 void Juego::jugar() {
@@ -80,7 +86,7 @@ void Juego::jugar() {
                 ataqueValido = jugador1->atacar(jugador2->getTablero(), x, y);
                 if (ataqueValido) {
                     ataquesJugador1++;
-                    std::vector<std::string> estadoJuego = {"Estado del juego tras ataque del Jugador 1:\n",
+                    std::vector<std::string> estadoJuego = {
                                                            jugador1->getNombre() + ":\n" + jugador1->getTablero().toString(),
                                                            jugador2->getNombre() + ":\n" + jugador2->getTablero().toString()};
                     archivo.guardar(estadoJuego); // Guardar estado del juego
@@ -109,7 +115,7 @@ void Juego::jugar() {
         // Turno del jugador 2
         ataqueValido = false;
         while (!ataqueValido) {
-            if (dynamic_cast<Usuario*>(jugador2.get())) {
+             if (dynamic_cast<Usuario*>(jugador2)) {
                 std::cout << jugador2->getNombre() << ", ingresa las coordenadas para atacar (Ej. A1, B3): ";
                 std::cin >> entrada;
                 if (parsearEntrada(entrada, x, y)) {
@@ -127,8 +133,8 @@ void Juego::jugar() {
                 } else {
                     std::cout << "Formato de entrada no valido. Intenta de nuevo." << std::endl;
                 }
-            } else if (dynamic_cast<Maquina*>(jugador2.get())) {
-                ataqueValido = dynamic_cast<Maquina*>(jugador2.get())->atacar(jugador1->getTablero(), x, y);
+            } else if (dynamic_cast<Maquina*>(jugador2)) {
+                ataqueValido = dynamic_cast<Maquina*>(jugador2)->atacar(jugador1->getTablero(), x, y);
                 if (ataqueValido) {
                     ataquesJugador2++;
                     std::vector<std::string> estadoJuego = {

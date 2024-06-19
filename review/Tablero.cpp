@@ -37,7 +37,7 @@ void Tablero::mostrarTablero() {
             } else if (coord.getBarco() != nullptr) {
                 std::cout << 'B' << "  ";
             } else if (coord.isTocado()) {
-                std::cout << 'O' << "  ";
+                std::cout << '~' << "  ";
             } else {
                 std::cout << '.' << "  ";
             }
@@ -78,9 +78,15 @@ bool Tablero::atacar(int x, int y) {
         if (coord.getBarco() != nullptr) {
             coord.setTocado(true);
             coord.getBarco()->recibirGolpe();
+            if (coord.getBarco()->verificarHundido()) {
+                std::cout << "Hundido!" << std::endl;
+            } else {
+                std::cout << "Tocado!" << std::endl;
+            }
             return true;
         } else {
             coord.setTocado(true);
+            std::cout << "Agua!" << std::endl;
         }
         return true;
     }

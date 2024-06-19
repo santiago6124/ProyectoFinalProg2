@@ -21,6 +21,8 @@ class Tablero {
         '   -> Coordenas.setBarco, coord.setTocado(true), coord.getBarco()->recibirGolpe()
     + todosBarcosHundidos() : bool
         '   -> return all barco.isHundido()
+    + toString() : string
+        '   -> return "Tablero"
 }
 
 class Coordenada {
@@ -104,6 +106,7 @@ class Juego {
     - jugador1 : Jugador
     - jugador2 : Jugador
     - ranking : Ranking
+    - archivo : Archivo
     - ataquesJugador1 : int
     - ataquesJugador2 : int
     + Juego(string nombreJugador1
@@ -123,19 +126,12 @@ Juego "1" *-- "1" Ranking
 
 class Archivo {
     - nombreArchivo : string
-    - Jugador1 : Jugador
-    - Jugador2 : Jugador
-    - Tablero1 : Tablero
-    - Tablero2 : Tablero
+    - Archivo(string nombreArchivo) : constructor
     + leerArchivo(string nombreArchivo) : string
-    + escribirArchivo(string nombreArchivo,
-     Jugador Jugador1,
-     Jugador Jugador2,
-     Tablero Tablero1,
-     Tablero Tablero2) : void
+    + guardar(vector string datos) : void
+    + cargar() : string
 }
 
-Archivo "1" *-- "1" Jugador
-Archivo "1" *-- "1" Tablero
+Juego "1" *-- "1" Archivo
 
 @enduml

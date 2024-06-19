@@ -1,23 +1,25 @@
-#pragma once
+// Juego.h
+#ifndef JUEGO_H
+#define JUEGO_H
 
+#include <memory>
 #include <string>
 #include "Jugador.h"
-using namespace std;
-
-#ifndef Juego_H
-#define Juego_H
+#include "Ranking.h"
 
 class Juego {
-private:
-    Jugador jugador1;
-    Jugador jugador2;
-
 public:
-    // Constructor
-    Juego(const string& nombreJugador1, const string& nombreJugador2, int size)
-        : jugador1(nombreJugador1, size), jugador2(nombreJugador2, size) {}
+    Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size);
 
     void jugar();
+
+private:
+    std::unique_ptr<Jugador> jugador1;
+    std::unique_ptr<Jugador> jugador2;
+    Ranking ranking;
+
+    int ataquesJugador1;
+    int ataquesJugador2;
 };
 
-#endif
+#endif // JUEGO_H

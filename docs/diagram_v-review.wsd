@@ -1,18 +1,25 @@
 @startuml
 
+' -			private
+' #			protected
+' ~			package private
+' +			public
+
 class Tablero {
     - [][] coordenadas: Coordenada
-    - n : int // tamaño del tablero
-    - Tablero(int size) : constructor
+    - size : int // tamaño del tablero
+    + Tablero(int size) : constructor
         '   -> inicializa objetos Coordenada en coordenadas
-    - mostrarTablero() : void
+    + mostrarTablero() : void
         '   -> mostrarTablero: imprime el tablero, validando: coord.getBarco(), coord.isTocado()
-    - colocarBarco(int x, int y, Barco) : void
+    + colocarBarco(int x, int y, Barco) : void
         '   -> Coordenas.setBarco, ¿¿¿ barco.agregarCoordenada ???
-    - atacar(int x, int y) : bool
+    + atacar(int x, int y) : bool
         '   -> Coordenas.setBarco, coord.setTocado(true), coord.getBarco()->recibirGolpe()
-    - todosBarcosHundidos() : bool
+    + todosBarcosHundidos() : bool
         '   -> return all barco.isHundido()
+    + getSize(): int
+        '   -> return size
 }
 
 class Coordenada {
@@ -20,21 +27,21 @@ class Coordenada {
     - numero : int
     - Barco: Barco, default=null
     - tocado : bool, default=false
-    - Coordenada() : constructor
+    + Coordenada() : constructor
         '   
-    - Coordenada(str letra, int numero) : constructor
+    + Coordenada(str letra, int numero) : constructor
         '   -> letra_, numero_
-    - getLetra() : str
+    + getLetra() : str
         '   -> return letra
-    - getNumero() : int
+    + getNumero() : int
         '   -> return numero
-    - isTocado() : bool
+    + isTocado() : bool
         '   -> return tocado
-    - getBarco() : Barco
+    + getBarco() : Barco
         '   -> return barco
-    - setBarco(Barco) : void
+    + setBarco(Barco) : void
         '   -> this->barco = barco
-    - setTocado() : void
+    + setTocado() : void
         '   -> this->tocado = tocado
 }
 
@@ -45,17 +52,17 @@ class Barco {
     - horizontal : bool // orientacion
     - hundido : bool, default=false
     - contGolpes : int, default=0
-    - Barco(int longitud, bool horizontal) : constructor
+    + Barco(int longitud, bool horizontal) : constructor
         '   -> longitud_, horizontal_
-    - verificarHundido() : bool
+    + verificarHundido() : bool
         '   -> return contGolpes == longitud
-    - recibirGolpe() : void
+    + recibirGolpe() : void
         '   -> contGolpes++, validar si hundido asignar = true
-    - getLongitud() : int
+    + getLongitud() : int
         '   -> return longitud
-    - isHorizontal() : bool
+    + isHorizontal() : bool
         '   -> return horizontal
-    - isHundido() : bool
+    + isHundido() : bool
         '   -> return hundido
 
 }
@@ -63,21 +70,29 @@ class Barco {
 Coordenada "1" o-- "0..*" Barco
 
 class Jugador {
-    - nombre : str
-    - tablero : Tablero
+    # nombre : str
+    # tablero : Tablero
     ' - [] barcos : Barco
     ' - [] disparos : Coordenada
-    - getNombre() : str
-    - getTablero() : Tablero
-    - colocarBarco(int x, int y, Barco) : void
-    - atacar(int x, int y) : bool
-    - todosBarcosHundidos() : bool
+    + Jugador(str nombre, int sizeTablero) : constructor
+        '   -> nombre_, sizeTablero_
+    + getNombre() : str
+    + getTablero() : Tablero
+    + colocarBarco(int x, int y, Barco& barco) : bool
+    + atacar(Tablero& tableroOponente, int x, int y) : virtual bool
+    + todosBarcosHundidos() : bool
 }
 
 class Usuario {
+    + Usuario(string nombre, int sizeTablero) : constructor
+    + colocarBarco(int x, int y, Barco& barco) : bool
+    + atacar(int x, int y) : bool
 }
 
 class Maquina {
+    + Maquina(string nombre, int sizeTablero) : constructor
+    + colocarBarco(int x, int y, Barco& barco) : bool
+    + atacar(int x, int y) : bool
 }
 
 Usuario --|> Jugador
@@ -88,6 +103,8 @@ Jugador "1" o-- "1" Tablero
 class Juego {
     - jugador1: Jugador
     - jugador2: Jugador
+    + Juego(const string& nombreJugador1, const string& nombreJugador2, int size)
+        : jugador1(nombreJugador1, size), jugador2(nombreJugador2, size) {}
     + jugar()
 }
 

@@ -1,30 +1,27 @@
-#pragma once
+#ifndef JUGADOR_H
+#define JUGADOR_H
 
 #include <string>
 #include "Tablero.h"
-using namespace std;
-#ifndef Jugador_H
-#define Jugador_H
 
 class Jugador {
-private:
-    string nombre;
-    Tablero tablero;
-
 public:
-    // Constructor
-    Jugador(string nombre, int sizeTablero);
+    Jugador(std::string nombre, int sizeTablero);
 
-    // Métodos de acceso
-    string getNombre() const;
+    std::string getNombre() const;
     Tablero& getTablero();
 
-    // Métodos para interactuar con el tablero
-    virtual bool colocarBarco(int x, int y, Barco& barco);
-    virtual bool atacar(int x, int y);
+    virtual bool colocarBarco(int x, int y, Barco& barco) = 0;
 
-    // Verificar si todos los barcos están hundidos
+    
+    // New method to attack opponent's board
+    virtual bool atacar(Tablero& tableroOponente, int x, int y);
+
     bool todosBarcosHundidos() const;
+
+protected:
+    std::string nombre;
+    Tablero tablero;
 };
 
-#endif
+#endif // JUGADOR_H

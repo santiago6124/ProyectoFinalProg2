@@ -1,31 +1,33 @@
-// Ranking.h
 #ifndef RANKING_H
 #define RANKING_H
 
-#include <string>
 #include <vector>
+#include <string>
 
-struct JugadorRanking {
+struct JugadorRanking
+{
     std::string nombre;
     int ataques;
-
-    JugadorRanking(const std::string& nombre, int ataques) : nombre(nombre), ataques(ataques) {}
+    
+    JugadorRanking() : nombre(""), ataques(0) {}
+    JugadorRanking(const std::string &nombre, int ataques) : nombre(nombre), ataques(ataques) {}
 };
 
-class Ranking {
+class Ranking
+{
 public:
-    Ranking(const std::string& archivo);
+    Ranking(const std::string &archivo);
 
-    void agregarJugador(const std::string& nombre, int ataques);
+    void agregarJugador(const std::string &nombre, int ataques);
     void guardar() const;
     void cargar();
     void mostrar() const;
 
 private:
-    std::string archivo;
-    std::vector<JugadorRanking> jugadores;
+    static bool comparar(const JugadorRanking &a, const JugadorRanking &b);
 
-    static bool comparar(const JugadorRanking& a, const JugadorRanking& b);
+    std::vector<JugadorRanking> jugadores;
+    std::string archivo;
 };
 
-#endif // RANKING_H
+#endif

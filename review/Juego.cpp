@@ -8,9 +8,18 @@
 #include "util.h"
 Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador2, int size)
     : ranking("ranking.txt"), ataquesJugador1(0), ataquesJugador2(0) {
-    int modo;
-    std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
-    std::cin >> modo;
+    
+    int modo = 0;
+
+    // Repetir el input hasta que se ingrese un modo de juego válido
+    while (modo != 1 && modo != 2) {
+        std::cout << "Selecciona el modo de juego: (1) Usuario vs Usuario (2) Usuario vs Maquina: ";
+        std::cin >> modo;
+
+        if (modo != 1 && modo != 2) {
+            std::cout << "Modo de juego no valido. Por favor, ingresa 1 o 2." << std::endl;
+        }
+    }
 
     std::string nombre1 = nombreJugador1;
     std::string nombre2 = nombreJugador2;
@@ -28,9 +37,6 @@ Juego::Juego(const std::string& nombreJugador1, const std::string& nombreJugador
         nombre2 = "Maquina";
         jugador1 = std::make_unique<Usuario>(nombre1, size);
         jugador2 = std::make_unique<Maquina>(nombre2, size);
-    } else {
-        std::cout << "Modo de juego no valido." << std::endl;
-        exit(1);
     }
 }
 
